@@ -1,13 +1,11 @@
 import 'dart:convert';
 import 'package:attendance/backend.api/login.dart';
+import 'package:attendance/firebase.api/number.login.dart';
 import 'package:attendance/widgets/phone.signup.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
-
 import 'package:provider/provider.dart';
-
-
 
 class PhoneLoginPage extends StatefulWidget {
   const PhoneLoginPage({super.key});
@@ -23,19 +21,11 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
   bool loading = false;
   bool passwordvisible = false;
 
-
-
-
-
-
-
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      
-      backgroundColor:Colors.white,
+      backgroundColor: Colors.white,
       body: loading
           ? Center(
               child: Column(
@@ -43,7 +33,7 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                 children: [
                   CircularProgressIndicator(
                     backgroundColor: Colors.grey,
-                    color:Colors.green,
+                    color: Colors.green,
                   ),
                   SizedBox(
                     height: 10,
@@ -56,7 +46,7 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
               child: Center(
                 child: Padding(
                   padding: const EdgeInsets.only(
-                      top: 150, left: 30, right: 30, bottom: 20),
+                      top: 250, left: 30, right: 30, bottom: 20),
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -82,8 +72,7 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                               Padding(
                                 padding: const EdgeInsets.all(20.0),
                                 child: TextField(
-                                  style: const TextStyle(
-                                      color: Colors.black),
+                                  style: const TextStyle(color: Colors.black),
                                   controller: _emailField,
                                   decoration: InputDecoration(
                                       errorText:
@@ -144,6 +133,9 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                                             jsonDecode(answer as String);
                                         var contact = responseData['data']
                                             ['mobile_number'];
+
+
+                                            await phoneLogin(contact, context);
                                       } else {
                                         setState(() {
                                           errorText = 'Submit failed';
