@@ -291,26 +291,111 @@ class _DoneCheckinState extends State<DoneCheckin> {
                 ),
               ),
               Card(
-                color: Colors.green,
                 child: SizedBox(
                   height: 100,
                   width: 100,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            CircleAvatar(
+                              radius: 15,
+                              child: Image.asset(
+                                'assets/images/check-out.png',
+                                height: 22,
+                                width: 22,
+                              ),
+                              backgroundColor: Color.fromARGB(255, 234, 246, 255),
+                            ),
+                            SizedBox(width: 10,),
+                            Text('Check out',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 15),)
+                          ],
+                        ),
+                        SizedBox(height: 15,),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8),
+                          child: Text('09:34 am',style: TextStyle(fontWeight: FontWeight.w700,fontSize: 20),),
+                        ),SizedBox(height:14),
+                        Text('Overtime',style: TextStyle(fontSize: 13,color: Colors.grey),)
+                      ],
+                    ),
+                  ),
                 ),
               ),
               Card(
-                color: Colors.green,
                 child: SizedBox(
                   height: 100,
                   width: 100,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            CircleAvatar(
+                              radius: 15,
+                              child: Image.asset(
+                                'assets/images/worktime.png',
+                                height: 17,
+                                width: 17,
+                              ),
+                              backgroundColor: Color.fromARGB(255, 234, 246, 255),
+                            ),
+                            SizedBox(width: 10,),
+                            Text('Work time',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 15),)
+                          ],
+                        ),
+                        SizedBox(height: 15,),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8),
+                          child: Text('13h 00m',style: TextStyle(fontWeight: FontWeight.w700,fontSize: 20),),
+                        ),SizedBox(height:14),
+                        Text('Overtime',style: TextStyle(fontSize: 13,color: Colors.grey),)
+                      ],
+                    ),
+                  ),
                 ),
               ),
               Card(
-                color: Colors.green,
                 child: SizedBox(
                   height: 100,
                   width: 100,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            CircleAvatar(
+                              backgroundColor: Color.fromARGB(255, 234, 246, 255),
+                              radius: 15,
+                              child: Image.asset(
+                                'assets/images/overtime.png',
+                                height: 17,
+                                width: 17,
+                              ),
+                            ),
+                            SizedBox(width: 10,),
+                            Text('Overtime',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 15),)
+                          ],
+                        ),
+                        SizedBox(height: 15,),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8),
+                          child: Text('5h 34m',style: TextStyle(fontWeight: FontWeight.w700,fontSize: 20),),
+                        ),SizedBox(height:14),
+                        Text('_ _',style: TextStyle(fontSize: 13,color: Colors.grey),)
+                      ],
+                    ),
+                  ),
                 ),
-              )
+              ),
+              
             ],
           ),
         ),
