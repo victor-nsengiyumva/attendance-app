@@ -46,12 +46,17 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
               child: Center(
                 child: Padding(
                   padding: const EdgeInsets.only(
-                      top: 150, left: 30, right: 30, bottom: 20),
+                      top: 50, left: 30, right: 30, bottom: 20),
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        Image.asset('assets/images/logo.png'),
+                        SizedBox(
+                          height:20
+
+                        ),
                         Container(
                           decoration: BoxDecoration(
                               boxShadow: [

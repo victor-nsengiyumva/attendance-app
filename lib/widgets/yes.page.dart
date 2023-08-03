@@ -26,11 +26,41 @@ class _YesState extends State<Yes> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+         bottomNavigationBar: Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10, bottom: 30),
+          child: SizedBox(
+            width: double.maxFinite,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromARGB(
+                      255, 0, 173, 238), // Change the text color here
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                        10.0), // Optional: Customize the button's shape
+                  ),
+                ),
+                onPressed: () {
+                   _signOut();
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PhoneLoginPage()),
+                        ((route) => false));
+                },
+                child: Padding(
+                  padding: EdgeInsets.all(12),
+                  child: Text(
+                    'Done',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                  ),
+                )),
+          ),
+        ),
           body: Stack(children: [
         Column(
           children: [
             Container(
-              height: 90,
+              height: 110,
               width: double.maxFinite,
               color: Color.fromARGB(255, 0, 173, 238),
             ),
@@ -43,7 +73,7 @@ class _YesState extends State<Yes> {
         ),
         Padding(
           padding:
-              const EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 50),
+              const EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 60),
           child: Column(
             children: [
               Card(
@@ -171,32 +201,10 @@ class _YesState extends State<Yes> {
                     )),
               ),
               SizedBox(
-                height: 60,
+                height: 80,
               ),
               Expanded(child: DoneCheckin()),
-              SizedBox(
-                height: 70,
-              ),
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green, // Change the text color here
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                          10.0), // Optional: Customize the button's shape
-                    ),
-                  ),
-                  onPressed: () {
-                    _signOut();
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => PhoneLoginPage()),
-                        ((route) => false));
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Text('Done'),
-                  )),
+             
             ],
           ),
         ),
@@ -239,12 +247,10 @@ class _DoneCheckinState extends State<DoneCheckin> {
                 crossAxisCount: 2,
                 crossAxisSpacing: 4,
                 mainAxisSpacing: 4,
-                childAspectRatio: (220 / 150)),
+                childAspectRatio: (220/150)),
             children: [
               Card(
                 child: SizedBox(
-                  height: 100,
-                  width: 100,
                   child: Padding(
                     padding: const EdgeInsets.all(10),
                     child: Column(
@@ -278,8 +284,6 @@ class _DoneCheckinState extends State<DoneCheckin> {
               ),
               Card(
                 child: SizedBox(
-                  height: 100,
-                  width: 100,
                   child: Padding(
                     padding: const EdgeInsets.all(10),
                     child: Column(
@@ -313,8 +317,6 @@ class _DoneCheckinState extends State<DoneCheckin> {
               ),
               Card(
                 child: SizedBox(
-                  height: 100,
-                  width: 100,
                   child: Padding(
                     padding: const EdgeInsets.all(10),
                     child: Column(
@@ -348,8 +350,6 @@ class _DoneCheckinState extends State<DoneCheckin> {
               ),
               Card(
                 child: SizedBox(
-                  height: 100,
-                  width: 100,
                   child: Padding(
                     padding: const EdgeInsets.all(10),
                     child: Column(
