@@ -94,7 +94,7 @@ class _ClockinState extends State<Clockin> {
                           Text(
                             'PF 3434',
                             style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.w700),
+                                fontSize: 20, fontWeight: FontWeight.w500),
                           ),
                         ],
                       ),

@@ -1,6 +1,7 @@
 import 'package:attendance/providers/location.provider.dart';
 import 'package:attendance/widgets/clocking.page.dart';
 import 'package:attendance/widgets/location.dart';
+import 'package:attendance/widgets/phone.login.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
         
         primarySwatch: Colors.blue,
       ),
-      home: Clockin(),
+      home: PhoneLoginPage(),
     );
   }
 }

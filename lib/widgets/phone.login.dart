@@ -46,7 +46,7 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
               child: Center(
                 child: Padding(
                   padding: const EdgeInsets.only(
-                      top: 250, left: 30, right: 30, bottom: 20),
+                      top: 150, left: 30, right: 30, bottom: 20),
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -62,13 +62,42 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                                   // changes position of shadow
                                 ),
                               ],
-                              color: Color(0xFFF3FAF3),
+                              color: Color.fromARGB(255, 234, 246, 255),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(20))),
                           // color: Colors.white,
 
                           child: Column(
                             children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 60,right: 20,left: 20,bottom: 30),
+                                child: Text(
+                                  "APP-NAME",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      fontSize: 24),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                    child: Text(
+                                  'Welcome back.',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500, fontSize: 22),
+                                )),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                    child: Text(
+                                  'Enter personal PF or email. Ensure to use the same device you registered with.',
+                                  style: TextStyle(
+                                       fontSize: 15,color: Colors.grey),
+                                )),
+                              ),
                               Padding(
                                 padding: const EdgeInsets.all(20.0),
                                 child: TextField(
@@ -80,14 +109,15 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                                       floatingLabelStyle:
                                           const TextStyle(color: Colors.black),
                                       focusedBorder: OutlineInputBorder(
-                                          borderSide:
-                                              BorderSide(color: Colors.green)),
+                                          borderSide: BorderSide(
+                                              color: Color.fromARGB(
+                                                  255, 0, 173, 238))),
                                       border: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(6),
                                           borderSide:
                                               BorderSide(color: Colors.green)),
-                                      label: const Text('Input PF'),
+                                      label: const Text('Input PF or Email'),
                                       labelStyle:
                                           const TextStyle(color: Colors.black)
                                       // icon: Icon(Icons.lock),
@@ -95,58 +125,65 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                                   keyboardType: TextInputType.emailAddress,
                                 ),
                               ),
-                              Container(
-                                padding: const EdgeInsets.only(top: 20),
-                                child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors
-                                          .green, // Change the text color here
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(
-                                            10.0), // Optional: Customize the button's shape
+                              Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: SizedBox(
+                                  width: double.maxFinite,
+                                  child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Color.fromARGB(
+                                            255,
+                                            0,
+                                            173,
+                                            238), // Change the text color here
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                              10.0), // Optional: Customize the button's shape
+                                        ),
                                       ),
-                                    ),
-                                    onPressed: () async {
-                                      setState(() {
-                                        loading = true;
-                                      });
-
-                                      var answer =
-                                          await loginPF(_emailField.text);
-
-                                      if (answer == false) {
+                                      onPressed: () async {
                                         setState(() {
-                                          errorText = answer;
-                                          loading = false;
+                                          loading = true;
                                         });
-                                      } else if (answer ==
-                                              'User with that PF doesnt exist' ||
-                                          answer ==
-                                              'Some error occurred during login' ||
-                                          answer == "Provide PF or email") {
-                                        setState(() {
-                                          errorText = answer;
-                                          loading = false;
-                                        });
-                                      } else if (answer is Object) {
-                                        var responseData =
-                                            jsonDecode(answer as String);
-                                        var contact = responseData['data']
-                                            ['mobile_number'];
-
-
-                                            await phoneLogin(contact, context);
-                                      } else {
-                                        setState(() {
-                                          errorText = 'Submit failed';
-                                          loading = false;
-                                        });
-                                      }
-                                    },
-                                    child: const Padding(
-                                      padding: EdgeInsets.all(12),
-                                      child: Text('Submit'),
-                                    )),
+                                                              
+                                        var answer =
+                                            await loginPF(_emailField.text);
+                                                              
+                                        if (answer == false) {
+                                          setState(() {
+                                            errorText = answer;
+                                            loading = false;
+                                          });
+                                        } else if (answer ==
+                                                'User with that PF doesnt exist' ||
+                                            answer ==
+                                                'Some error occurred during login' ||
+                                            answer == "Provide PF or email") {
+                                          setState(() {
+                                            errorText = answer;
+                                            loading = false;
+                                          });
+                                        } else if (answer is Object) {
+                                          var responseData =
+                                              jsonDecode(answer as String);
+                                          var contact = responseData['data']
+                                              ['mobile_number'];
+                                                              
+                                          await phoneLogin(contact, context);
+                                        } else {
+                                          setState(() {
+                                            errorText = 'Submit failed';
+                                            loading = false;
+                                          });
+                                        }
+                                      },
+                                      child:  Padding(
+                                        padding: EdgeInsets.all(12),
+                                        child: Text('Submit',style: TextStyle(
+                                          fontWeight: FontWeight.bold,fontSize: 17
+                                        ),),
+                                      )),
+                                ),
                               ),
                               const Padding(
                                 padding: EdgeInsets.all(15.0),
@@ -174,7 +211,7 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                                 },
                                 child: const Text("Register",
                                     style: TextStyle(
-                                        color: Color.fromARGB(255, 63, 158, 66),
+                                        color: Color.fromARGB(255, 0, 173, 238),
                                         fontSize: 15))),
                           ],
                         )
