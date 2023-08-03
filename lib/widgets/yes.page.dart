@@ -27,14 +27,23 @@ class _YesState extends State<Yes> {
     return SafeArea(
       child: Scaffold(
           body: Stack(children: [
-        Container(
-          height: 120,
-          width: double.maxFinite,
-          color: Colors.blue,
+        Column(
+          children: [
+            Container(
+              height: 90,
+              width: double.maxFinite,
+              color: Color.fromARGB(255, 0, 173, 238),
+            ),
+            Container(
+              height: 10,
+              width: double.maxFinite,
+              color: Color(0xFFD7DF23),
+            ),
+          ],
         ),
         Padding(
           padding:
-              const EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 70),
+              const EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 50),
           child: Column(
             children: [
               Card(
@@ -196,33 +205,10 @@ class _YesState extends State<Yes> {
   }
 }
 
-class Checkin extends StatefulWidget {
-  const Checkin({super.key});
 
-  @override
-  State<Checkin> createState() => _CheckinState();
-}
 
-class _CheckinState extends State<Checkin> {
-  @override
-  Widget build(BuildContext context) {
-    return Placeholder();
-  }
-}
 
-class Checkout extends StatefulWidget {
-  const Checkout({super.key});
 
-  @override
-  State<Checkin> createState() => _CheckoutState();
-}
-
-class _CheckoutState extends State<Checkin> {
-  @override
-  Widget build(BuildContext context) {
-    return Placeholder();
-  }
-}
 
 class DoneCheckin extends StatefulWidget {
   const DoneCheckin({super.key});
