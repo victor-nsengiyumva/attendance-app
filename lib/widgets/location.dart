@@ -5,7 +5,6 @@ import 'package:geolocator/geolocator.dart';
 
 import 'package:provider/provider.dart';
 
-
 class Location extends StatefulWidget {
   const Location({super.key});
 
@@ -25,26 +24,31 @@ class _LocationState extends State<Location> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            backgroundColor: const Color(0xFFF3FAF3),
+            backgroundColor: Color.fromARGB(255, 234, 246, 255),
             iconColor: Colors.red,
             icon: const Icon(
               Icons.warning,
               size: 39,
             ),
             content: const Padding(
-              padding: EdgeInsets.only(left: 14),
-              child: Text('Enable Location on device', style: TextStyle(color: Colors.black),)
-            ),
+                padding: EdgeInsets.only(left: 14),
+                child: Text(
+                  'Enable Location on device',
+                  style: TextStyle(color: Colors.black),
+                )),
             actions: [
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
+                    backgroundColor: Color.fromARGB(255, 0, 173, 238),
                   ),
                   onPressed: () {
                     Navigator.of(context).pop();
                     _determinePosition();
                   },
-                  child: const Text('Accept',style: TextStyle(color: Colors.white),))
+                  child: const Text(
+                    'Accept',
+                    style: TextStyle(color: Colors.white),
+                  ))
             ],
           );
         });
@@ -55,27 +59,31 @@ class _LocationState extends State<Location> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            backgroundColor: const Color(0xFFF3FAF3),
+            backgroundColor: const Color.fromARGB(255, 234, 246, 255),
             iconColor: Colors.red,
             icon: const Icon(
               Icons.warning,
               size: 39,
             ),
             content: const Padding(
-              padding: EdgeInsets.only(left: 14),
-              child: Text('Enable Location on device', style: TextStyle(color: Colors.black),
-            )),
+                padding: EdgeInsets.only(left: 14),
+                child: Text(
+                  'Enable Location on device',
+                  style: TextStyle(color: Colors.black),
+                )),
             actions: [
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
+                    backgroundColor: Color.fromARGB(255, 0, 173, 238),
                   ),
                   onPressed: () {
                     Navigator.of(context).pop();
-                                        _determinePosition();
-
+                    _determinePosition();
                   },
-                  child: const Text('Accept',style: TextStyle(color: Colors.white),))
+                  child: const Text(
+                    'Accept',
+                    style: TextStyle(color: Colors.white),
+                  ))
             ],
           );
         });
@@ -125,13 +133,14 @@ class _LocationState extends State<Location> {
 
       // When we reach here, permissions are granted and we can
       // continue accessing the position of the device.
-      var trueLocation = await Geolocator.getCurrentPosition();
+      var trueLocation = await Geolocator.getCurrentPosition(
+          desiredAccuracy:
+              LocationAccuracy.high); // the accuracy is set to high
       Provider.of<LocationProvider>(context, listen: false)
           .updatePosition(trueLocation);
 
       setState(() {});
-      print(
-          "$trueLocation wooork");
+    print("${trueLocation.accuracy} ${trueLocation.altitude} ${trueLocation.latitude} ${trueLocation.longitude} ${trueLocation.speed} ${trueLocation.timestamp} ${trueLocation.heading} wooork");
       // return trueLocation;
     } catch (error) {
       print(error);
@@ -143,20 +152,20 @@ class _LocationState extends State<Location> {
     return Scaffold(
       body: Provider.of<LocationProvider>(context, listen: false).isEmpty
           ? Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Column(mainAxisSize: MainAxisSize.min, children: const [
-                CircularProgressIndicator(
-                  backgroundColor: Colors.grey,
-                  color: Colors.green,
-                )
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Column(mainAxisSize: MainAxisSize.min, children: const [
+                    CircularProgressIndicator(
+                      backgroundColor: Color.fromARGB(255, 228, 227, 227),
+                      color: Color.fromARGB(255, 0, 173, 238),
+                    )
                   ]),
-                  const SizedBox(height:20),
+                  const SizedBox(height: 20),
                   const Text('Getting current location')
-              ],
-            ),
-          )
+                ],
+              ),
+            )
           : const PhoneLoginPage(),
     );
   }

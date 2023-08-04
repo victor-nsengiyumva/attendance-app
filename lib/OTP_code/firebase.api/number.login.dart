@@ -1,4 +1,4 @@
-import 'package:attendance/widgets/OTP.input.dart';
+import 'package:attendance/OTP_code/OTP.input.dart';
 import 'package:attendance/widgets/phone.login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

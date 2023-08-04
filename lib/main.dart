@@ -1,5 +1,6 @@
 import 'package:attendance/providers/location.provider.dart';
 import 'package:attendance/widgets/clocking.page.dart';
+import 'package:attendance/widgets/location.dart';
 import 'package:attendance/widgets/phone.login.dart';
 import 'package:attendance/widgets/phone.signup.dart';
 import 'package:attendance/widgets/yes.page.dart';
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
         
         primarySwatch: Colors.blue,
       ),
-      home: const Clockin(),
+      home: const Location(),
     );
   }
 }

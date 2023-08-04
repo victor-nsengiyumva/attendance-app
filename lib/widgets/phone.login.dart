@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:attendance/backend.api/login.dart';
-import 'package:attendance/firebase.api/number.login.dart';
+import 'package:attendance/OTP_code/firebase.api/number.login.dart';
 import 'package:attendance/widgets/phone.signup.dart';
 import 'package:flutter/material.dart';
 
@@ -123,7 +123,8 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                                           borderRadius:
                                               BorderRadius.circular(6),
                                           borderSide:
-                                              const BorderSide(color: Colors.green)),
+                                              const BorderSide(color: Color.fromARGB(
+                                                  255, 0, 173, 238))),
                                       label: const Text('Input PF or Email'),
                                       labelStyle:
                                           const TextStyle(color: Colors.black)

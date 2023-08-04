@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:attendance/widgets/clocking.page.dart';
 import 'package:attendance/widgets/yes.page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -117,7 +118,7 @@ class _OTPInputAutoState extends State<OTPInputAuto> {
         print('there was an error');
       } else {
         print('yessssssssssssssssssssssssssssssssssssssss');
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const Yes()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const Clockin()));
       }
     });
   }
