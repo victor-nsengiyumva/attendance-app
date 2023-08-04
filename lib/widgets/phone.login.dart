@@ -3,9 +3,7 @@ import 'package:attendance/backend.api/login.dart';
 import 'package:attendance/firebase.api/number.login.dart';
 import 'package:attendance/widgets/phone.signup.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 
-import 'package:provider/provider.dart';
 
 class PhoneLoginPage extends StatefulWidget {
   const PhoneLoginPage({super.key});
@@ -30,7 +28,7 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
           ? Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: [
+                children: const [
                   CircularProgressIndicator(
                     backgroundColor: Colors.grey,
                     color: Colors.green,
@@ -53,7 +51,7 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Image.asset('assets/images/logo.png'),
-                        SizedBox(
+                        const SizedBox(
                           height:20
 
                         ),
@@ -67,15 +65,15 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                                   // changes position of shadow
                                 ),
                               ],
-                              color: Color.fromARGB(255, 234, 246, 255),
+                              color: const Color.fromARGB(255, 234, 246, 255),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(20))),
                           // color: Colors.white,
 
                           child: Column(
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.only(top: 60,right: 20,left: 20,bottom: 30),
+                              const Padding(
+                                padding: EdgeInsets.only(top: 60,right: 20,left: 20,bottom: 30),
                                 child: Text(
                                   "APP-NAME",
                                   style: TextStyle(
@@ -83,8 +81,8 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                                       fontSize: 24),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(20),
+                              const Padding(
+                                padding: EdgeInsets.all(20),
                                 child: Align(
                                   alignment: Alignment.centerLeft,
                                     child: Text(
@@ -93,8 +91,8 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                                       fontWeight: FontWeight.w500, fontSize: 22),
                                 )),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(20),
+                              const Padding(
+                                padding: EdgeInsets.all(20),
                                 child: Align(
                                   alignment: Alignment.centerLeft,
                                     child: Text(
@@ -113,7 +111,7 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                                           errorText.isEmpty ? null : errorText,
                                       floatingLabelStyle:
                                           const TextStyle(color: Colors.black),
-                                      focusedBorder: OutlineInputBorder(
+                                      focusedBorder: const OutlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Color.fromARGB(
                                                   255, 0, 173, 238))),
@@ -121,7 +119,7 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                                           borderRadius:
                                               BorderRadius.circular(6),
                                           borderSide:
-                                              BorderSide(color: Colors.green)),
+                                              const BorderSide(color: Colors.green)),
                                       label: const Text('Input PF or Email'),
                                       labelStyle:
                                           const TextStyle(color: Colors.black)
@@ -136,7 +134,7 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                                   width: double.maxFinite,
                                   child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                        backgroundColor: Color.fromARGB(
+                                        backgroundColor: const Color.fromARGB(
                                             255,
                                             0,
                                             173,
@@ -182,7 +180,7 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                                           });
                                         }
                                       },
-                                      child:  Padding(
+                                      child:  const Padding(
                                         padding: EdgeInsets.all(12),
                                         child: Text('Submit',style: TextStyle(
                                           fontWeight: FontWeight.bold,fontSize: 17

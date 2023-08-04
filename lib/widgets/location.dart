@@ -1,8 +1,6 @@
 import 'package:attendance/providers/location.provider.dart';
 import 'package:attendance/widgets/phone.login.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:geolocator/geolocator.dart';
 
 import 'package:provider/provider.dart';
@@ -27,14 +25,14 @@ class _LocationState extends State<Location> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            backgroundColor: Color(0xFFF3FAF3),
+            backgroundColor: const Color(0xFFF3FAF3),
             iconColor: Colors.red,
             icon: const Icon(
               Icons.warning,
               size: 39,
             ),
-            content: Padding(
-              padding: const EdgeInsets.only(left: 14),
+            content: const Padding(
+              padding: EdgeInsets.only(left: 14),
               child: Text('Enable Location on device', style: TextStyle(color: Colors.black),)
             ),
             actions: [
@@ -46,7 +44,7 @@ class _LocationState extends State<Location> {
                     Navigator.of(context).pop();
                     _determinePosition();
                   },
-                  child: Text('Accept',style: TextStyle(color: Colors.white),))
+                  child: const Text('Accept',style: TextStyle(color: Colors.white),))
             ],
           );
         });
@@ -57,14 +55,14 @@ class _LocationState extends State<Location> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            backgroundColor: Color(0xFFF3FAF3),
+            backgroundColor: const Color(0xFFF3FAF3),
             iconColor: Colors.red,
             icon: const Icon(
               Icons.warning,
               size: 39,
             ),
-            content: Padding(
-              padding: const EdgeInsets.only(left: 14),
+            content: const Padding(
+              padding: EdgeInsets.only(left: 14),
               child: Text('Enable Location on device', style: TextStyle(color: Colors.black),
             )),
             actions: [
@@ -77,7 +75,7 @@ class _LocationState extends State<Location> {
                                         _determinePosition();
 
                   },
-                  child: Text('Accept',style: TextStyle(color: Colors.white),))
+                  child: const Text('Accept',style: TextStyle(color: Colors.white),))
             ],
           );
         });
@@ -133,7 +131,7 @@ class _LocationState extends State<Location> {
 
       setState(() {});
       print(
-          "${trueLocation} wooork");
+          "$trueLocation wooork");
       // return trueLocation;
     } catch (error) {
       print(error);
@@ -148,18 +146,18 @@ class _LocationState extends State<Location> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Column(mainAxisSize: MainAxisSize.min, children: [
+                Column(mainAxisSize: MainAxisSize.min, children: const [
                 CircularProgressIndicator(
                   backgroundColor: Colors.grey,
                   color: Colors.green,
                 )
                   ]),
-                  SizedBox(height:20),
-                  Text('Getting current location')
+                  const SizedBox(height:20),
+                  const Text('Getting current location')
               ],
             ),
           )
-          : PhoneLoginPage(),
+          : const PhoneLoginPage(),
     );
   }
 }

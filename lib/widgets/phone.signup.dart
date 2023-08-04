@@ -25,7 +25,7 @@ class _PhoneSignupPageState extends State<PhoneSignupPage> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
-        title:Text('Register'),
+        title:const Text('Register'),
         leading: IconButton(
             color:Colors.black,
             onPressed: () => Navigator.pop(context),
@@ -59,7 +59,7 @@ class _PhoneSignupPageState extends State<PhoneSignupPage> {
                                 // changes position of shadow
                               ),
                             ],
-                            color: Color(0xFFF3FAF3),
+                            color: const Color(0xFFF3FAF3),
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(20))),
                         // color: Colorshite,
@@ -74,13 +74,13 @@ class _PhoneSignupPageState extends State<PhoneSignupPage> {
                                   style: const TextStyle(color: Colors.black),
                                   controller: _firstname,
                                   decoration: InputDecoration(
-                                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.green)),
-                                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(6),borderSide: BorderSide(color: Colors.green)),
+                                    focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.green)),
+                                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(6),borderSide: const BorderSide(color: Colors.green)),
                                       // border: OutlineInputBorder(
                                       //   //borderRadius: BorderRadius.circular(60)
                                       // ),
-                                      label: Text('PF'),
-                                        labelStyle: TextStyle(color: Colors.black)
+                                      label: const Text('PF'),
+                                        labelStyle: const TextStyle(color: Colors.black)
                                       //hintText: 'username',
                         
                                       ),
@@ -93,13 +93,13 @@ class _PhoneSignupPageState extends State<PhoneSignupPage> {
                                   style: const TextStyle(color: Colors.black),
                                   controller: _lastname,
                                   decoration: InputDecoration(
-                                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.green)),
-                                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(6),borderSide: BorderSide(color: Colors.green)),
+                                    focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.green)),
+                                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(6),borderSide: const BorderSide(color: Colors.green)),
                                       // border: OutlineInputBorder(
                                       //   //borderRadius: BorderRadius.circular(60)
                                       // ),
-                                      label: Text('Email'),
-                                        labelStyle: TextStyle(color: Colors.black)
+                                      label: const Text('Email'),
+                                        labelStyle: const TextStyle(color: Colors.black)
                                       //hintText: 'Email',
                         
                                       ),
@@ -112,14 +112,14 @@ class _PhoneSignupPageState extends State<PhoneSignupPage> {
                                   style: const TextStyle(color: Colors.black),
                                   controller: _email,
                                   decoration: InputDecoration(
-                                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.green)),
-                                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(6),borderSide: BorderSide(color: Colors.green)),
+                                    focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.green)),
+                                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(6),borderSide: const BorderSide(color: Colors.green)),
                                       // border: OutlineInputBorder(
                                       //   //borderRadius: BorderRadius.circular(60)
                                       // ),
-                                      label: Text('Phone Number'),
+                                      label: const Text('Phone Number'),
                                       hintText: 'eg. +25698765432',
-                                        labelStyle: TextStyle(color: Colors.black)),
+                                        labelStyle: const TextStyle(color: Colors.black)),
                                   keyboardType: TextInputType.emailAddress,
                                 ),
                               ),
@@ -129,13 +129,13 @@ class _PhoneSignupPageState extends State<PhoneSignupPage> {
                                   style: const TextStyle(color: Colors.black),
                                   controller: _password,
                                   decoration: InputDecoration(
-                                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.green)),
-                                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(6),borderSide: BorderSide(color: Colors.green)),
+                                    focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.green)),
+                                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(6),borderSide: const BorderSide(color: Colors.green)),
                                       // border: OutlineInputBorder(
                                       //   //borderRadius: BorderRadius.circular(60)
                                       // ),
-                                      label: Text('Branch'),
-                                        labelStyle: TextStyle(color: Colors.black),
+                                      label: const Text('Branch'),
+                                        labelStyle: const TextStyle(color: Colors.black),
                                       ),
                                   keyboardType: TextInputType.emailAddress,
                                 ),
@@ -160,8 +160,8 @@ class _PhoneSignupPageState extends State<PhoneSignupPage> {
                                         //   loading = true;
                                         // });
                                       },
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(12),
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(12),
                                         child: Text('Submit'),
                                       )),
                               ),

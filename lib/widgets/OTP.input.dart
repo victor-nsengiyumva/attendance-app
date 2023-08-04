@@ -3,8 +3,6 @@ import 'dart:async';
 import 'package:attendance/widgets/yes.page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:sms_otp_auto_verify/sms_otp_auto_verify.dart';
 
 class OTPInputAuto extends StatefulWidget {
@@ -16,7 +14,7 @@ class OTPInputAuto extends StatefulWidget {
 }
 
 class _OTPInputAutoState extends State<OTPInputAuto> {
-  int _otpCodeLength = 6;
+  final int _otpCodeLength = 6;
   bool _isLoadingButton = false;
   bool _enableButton = false;
   String _otpCode = '';
@@ -101,8 +99,8 @@ class _OTPInputAutoState extends State<OTPInputAuto> {
   _verifyOtpCode(code) {
     FirebaseAuth auth = FirebaseAuth.instance;
 
-    FocusScope.of(context).requestFocus(new FocusNode());
-    Timer(Duration(milliseconds: 4000), () async {
+    FocusScope.of(context).requestFocus(FocusNode());
+    Timer(const Duration(milliseconds: 4000), () async {
       setState(() {
         _isLoadingButton = false;
         _enableButton = false;
@@ -119,7 +117,7 @@ class _OTPInputAutoState extends State<OTPInputAuto> {
         print('there was an error');
       } else {
         print('yessssssssssssssssssssssssssssssssssssssss');
-        Navigator.push(context, MaterialPageRoute(builder: (context) => Yes()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const Yes()));
       }
     });
   }
@@ -146,7 +144,7 @@ class _OTPInputAutoState extends State<OTPInputAuto> {
                   defaultBoxSize: 46.0,
                   margin: 10,
                   selectedBoxSize: 46.0,
-                  textStyle: TextStyle(fontSize: 16),
+                  textStyle: const TextStyle(fontSize: 16),
                   defaultDecoration: _pinPutDecoration.copyWith(
                       border: Border.all(
                           color:
@@ -155,26 +153,26 @@ class _OTPInputAutoState extends State<OTPInputAuto> {
                   onChange: (code) {
                     _onOtpCallBack(code, false);
                   }),
-              SizedBox(
+              const SizedBox(
                 height: 32,
               ),
-              Container(
+              SizedBox(
                 width: double.maxFinite,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 20, right: 20),
                   child: MaterialButton(
                     onPressed: _enableButton ? _onSubmitOtp : null,
-                    child: _setUpButtonChild(),
                     color: Colors.green,
-                    disabledColor: Color.fromARGB(255, 192, 230, 193),
+                    disabledColor: const Color.fromARGB(255, 192, 230, 193),
+                    child: _setUpButtonChild(),
                   ),
                 ),
               ),
-              Container(
+              SizedBox(
                 width: double.maxFinite,
                 child: TextButton(
                   onPressed: _onClickRetry,
-                  child: Text(
+                  child: const Text(
                     "Retry",
                     style: TextStyle(color: Colors.orange),
                   ),
@@ -189,7 +187,7 @@ class _OTPInputAutoState extends State<OTPInputAuto> {
 
   Widget _setUpButtonChild() {
     if (_isLoadingButton) {
-      return Container(
+      return const SizedBox(
         width: 19,
         height: 19,
         child: CircularProgressIndicator(
@@ -197,7 +195,7 @@ class _OTPInputAutoState extends State<OTPInputAuto> {
         ),
       );
     } else {
-      return Text(
+      return const Text(
         "Verify",
         style: TextStyle(color: Colors.white),
       );

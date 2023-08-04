@@ -1,13 +1,11 @@
 import 'package:attendance/providers/location.provider.dart';
 import 'package:attendance/widgets/clocking.page.dart';
-import 'package:attendance/widgets/location.dart';
-import 'package:attendance/widgets/phone.login.dart';
+import 'package:attendance/widgets/yes.page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
-import 'widgets/yes.page.dart';
 
 void main() async  {
 WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +15,7 @@ WidgetsFlutterBinding.ensureInitialized();
       ChangeNotifierProvider(create: (context) => LocationProvider()),
 
     ],
-    child: MyApp(),
+    child: const MyApp(),
   ));
 }
 
@@ -34,7 +32,7 @@ class MyApp extends StatelessWidget {
         
         primarySwatch: Colors.blue,
       ),
-      home: Clockin(),
+      home: const Yes(),
     );
   }
 }

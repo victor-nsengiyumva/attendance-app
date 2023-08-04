@@ -3,7 +3,6 @@ import 'package:attendance/widgets/phone.login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'package:provider/provider.dart';
 
 
 phoneLogin(String number, BuildContext context) async {
@@ -20,7 +19,7 @@ phoneLogin(String number, BuildContext context) async {
       if (e.code == 'invalid-phone-number') {
         print('The provided phone number is not valid.');
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => PhoneLoginPage()));
+            context, MaterialPageRoute(builder: (context) => const PhoneLoginPage()));
       }
     },
     codeSent: (String verificationId, int? resendToken) async {

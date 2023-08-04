@@ -7,7 +7,7 @@ class CustomLine extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomPaint(
       painter: _CustomLinePainter(),
-      size: Size(10, 20), // Adjust the size as needed
+      size: const Size(10, 20), // Adjust the size as needed
     );
   }
 }

@@ -1,7 +1,5 @@
 import 'package:attendance/widgets/yes.page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class Clockin extends StatefulWidget {
   const Clockin({super.key});
@@ -22,7 +20,7 @@ class _ClockinState extends State<Clockin> {
             width: double.maxFinite,
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromARGB(
+                  backgroundColor: const Color.fromARGB(
                       255, 0, 173, 238), // Change the text color here
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(
@@ -31,9 +29,9 @@ class _ClockinState extends State<Clockin> {
                 ),
                 onPressed: () {
                   Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => Yes()));
+                      context, MaterialPageRoute(builder: (context) => const Yes()));
                 },
-                child: Padding(
+                child: const Padding(
                   padding: EdgeInsets.all(12),
                   child: Text(
                     'Continue',
@@ -45,14 +43,14 @@ class _ClockinState extends State<Clockin> {
         body: Column(
           children: [
             Container(
-              color: Color.fromARGB(255, 0, 173, 238),
+              color: const Color.fromARGB(255, 0, 173, 238),
               child: Padding(
                 padding: const EdgeInsets.only(left: 5, top: 5),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 15),
                       child: Text(
                         'APP-NAME',
                         style: TextStyle(
@@ -76,9 +74,9 @@ class _ClockinState extends State<Clockin> {
             Container(
               height: 10,
               width: double.maxFinite,
-              color: Color(0xFFD7DF23),
+              color: const Color(0xFFD7DF23),
             ),
-            SizedBox(
+            const SizedBox(
               height: 17,
             ),
             Expanded(
@@ -92,19 +90,19 @@ class _ClockinState extends State<Clockin> {
                         children: [
                           CircleAvatar(
                             radius: 24,
+                            backgroundColor: const Color.fromARGB(255, 234, 246, 255),
                             child: Image.asset(
                               'assets/images/office-worker.png',
                               height: 29,
                               width: 29,
                             ),
-                            backgroundColor: Color.fromARGB(255, 234, 246, 255),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 4,
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+                            children: const [
                               Text(
                                 'Good morning,',
                                 style:
@@ -122,29 +120,29 @@ class _ClockinState extends State<Clockin> {
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 50,
                       ),
-                      Text(
+                      const Text(
                         '08:23',
                         style:
                             TextStyle(fontSize: 35, fontWeight: FontWeight.w700),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
-                      Text(
+                      const Text(
                         'Wednesday, 23 August',
                         style: TextStyle(fontSize: 17, color: Colors.grey),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 40,
                       ),
                       InkWell(
                         onTap: () {
                           if (_buttonColor == Colors.green) {
                             setState(() {
-                              _buttonColor = Color.fromARGB(255, 252, 107, 97);
+                              _buttonColor = const Color.fromARGB(255, 252, 107, 97);
                             });
                           } else {
                             setState(() {
@@ -173,10 +171,10 @@ class _ClockinState extends State<Clockin> {
                                     width: 50,
                                     color: Colors.white,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 15,
                                   ),
-                                  Text(
+                                  const Text(
                                     'Clock in',
                                     style: TextStyle(
                                       color: Colors.white,
@@ -189,7 +187,7 @@ class _ClockinState extends State<Clockin> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       Padding(
@@ -197,7 +195,7 @@ class _ClockinState extends State<Clockin> {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
+                          children: const [
                             Icon(
                               Icons.location_pin,
                               size: 18,
@@ -217,18 +215,18 @@ class _ClockinState extends State<Clockin> {
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 40,
                       ),
                       _buttonColor == Colors.green
-                          ? SizedBox(
+                          ? const SizedBox(
                               height: 60,
                             )
                           : Padding(
                               padding: const EdgeInsets.only(left: 20, right: 20),
                               child: Container(
                                 decoration: BoxDecoration(
-                                    color: Color.fromARGB(255, 234, 246, 255),
+                                    color: const Color.fromARGB(255, 234, 246, 255),
                                     border: Border.all(
                                       color: Colors.blue,
                                     )),
@@ -252,10 +250,10 @@ class _ClockinState extends State<Clockin> {
                                           ),
                                         ],
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 10,
                                       ),
-                                      Expanded(
+                                      const Expanded(
                                           child: Text(
                                         'datajofghnjlsnfgjlsnfddfjbkdfkbkdfdfk',
                                       )),
