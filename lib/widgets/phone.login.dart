@@ -31,7 +31,8 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                 children: const [
                   CircularProgressIndicator(
                     backgroundColor: Colors.grey,
-                    color: Colors.green,
+                    color: Color.fromARGB(
+                                                  255, 0, 173, 238),
                   ),
                   SizedBox(
                     height: 10,
@@ -50,9 +51,12 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Image.asset('assets/images/logo.png'),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 14),
+                          child: Image.asset('assets/images/logo.png'),
+                        ),
                         const SizedBox(
-                          height:20
+                          height:30
 
                         ),
                         Container(
