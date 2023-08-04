@@ -1,5 +1,6 @@
 import 'package:attendance/painter/billboard.dart';
 import 'package:attendance/widgets/phone.login.dart';
+import 'package:attendance/widgets/profile.dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -111,10 +112,31 @@ class _YesState extends State<Yes> {
                               ),
                             ],
                           ),
-                          const CircleAvatar(
-                            backgroundImage:
-                                AssetImage('assets/images/placeholder.png'),
-                            radius: 23,
+                          InkWell(
+                            onTap: () {
+                              showDialog(
+                                
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+                                      contentPadding: EdgeInsets.only(top: 20,bottom: 20),
+                                      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+                                      title: Center(child: Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: Text('Profile Settings'),
+                                      )),
+                                      content: SizedBox(height:450,child: ProfileDialog()),
+                                    );
+                                  });
+                            },
+                            child: CircleAvatar(
+                              backgroundImage:
+                                  AssetImage('assets/images/placeholder.png'),
+                              radius: 23,
+                            ),
                           )
                         ],
                       ),
@@ -207,7 +229,8 @@ class _YesState extends State<Yes> {
                   const SizedBox(
                     height: 80,
                   ),
-                  const Expanded(child: SingleChildScrollView(child: DoneCheckin())),
+                  const Expanded(
+                      child: SingleChildScrollView(child: DoneCheckin())),
                 ],
               ),
             ),
@@ -295,9 +318,11 @@ class _DoneCheckinState extends State<DoneCheckin> {
               ),
             ),
           ),
-          SizedBox(width: 4,),
+          SizedBox(
+            width: 4,
+          ),
           Expanded(
-            flex:1,
+            flex: 1,
             child: Card(
               child: SizedBox(
                 child: Padding(
@@ -351,8 +376,9 @@ class _DoneCheckinState extends State<DoneCheckin> {
           ),
         ],
       ),
-                SizedBox(width: 4,),
-
+      SizedBox(
+        width: 4,
+      ),
       Row(
         children: [
           Expanded(
@@ -408,8 +434,9 @@ class _DoneCheckinState extends State<DoneCheckin> {
               ),
             ),
           ),
-                    SizedBox(width: 4,),
-
+          SizedBox(
+            width: 4,
+          ),
           Expanded(
             flex: 1,
             child: Card(
