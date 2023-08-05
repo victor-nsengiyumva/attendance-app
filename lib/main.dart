@@ -1,4 +1,5 @@
 import 'package:attendance/providers/location.provider.dart';
+import 'package:attendance/providers/user.provider.dart';
 import 'package:attendance/widgets/clocking.page.dart';
 import 'package:attendance/widgets/location.dart';
 import 'package:attendance/widgets/phone.login.dart';
@@ -20,6 +21,7 @@ SystemChrome.setPreferredOrientations(
   runApp(MultiProvider(
     providers :[
       ChangeNotifierProvider(create: (context) => LocationProvider()),
+      ChangeNotifierProvider(create: (context) => UserProvider()),
 
     ],
     child: const MyApp(),

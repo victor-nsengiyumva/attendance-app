@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'package:attendance/backend.api/login.dart';
-import 'package:attendance/OTP_code/firebase.api/number.login.dart';
+import 'package:attendance/models/user.model.dart';
+import 'package:attendance/providers/user.provider.dart';
+import 'package:attendance/widgets/clocking.page.dart';
 import 'package:attendance/widgets/phone.signup.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 
 class PhoneLoginPage extends StatefulWidget {
   const PhoneLoginPage({super.key});
@@ -30,9 +32,8 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                 mainAxisSize: MainAxisSize.min,
                 children: const [
                   CircularProgressIndicator(
-                    backgroundColor: Colors.grey,
-                    color: Color.fromARGB(
-                                                  255, 0, 173, 238),
+                    backgroundColor: Color.fromARGB(255, 221, 219, 219),
+                    color: Color.fromARGB(255, 0, 173, 238),
                   ),
                   SizedBox(
                     height: 10,
@@ -55,10 +56,7 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                           padding: const EdgeInsets.only(right: 14),
                           child: Image.asset('assets/images/logo.png'),
                         ),
-                        const SizedBox(
-                          height:30
-
-                        ),
+                        const SizedBox(height: 30),
                         Container(
                           decoration: BoxDecoration(
                               boxShadow: [
@@ -77,7 +75,8 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                           child: Column(
                             children: [
                               const Padding(
-                                padding: EdgeInsets.only(top: 60,right: 20,left: 20,bottom: 30),
+                                padding: EdgeInsets.only(
+                                    top: 60, right: 20, left: 20, bottom: 30),
                                 child: Text(
                                   "APP-NAME",
                                   style: TextStyle(
@@ -88,22 +87,23 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                               const Padding(
                                 padding: EdgeInsets.all(20),
                                 child: Align(
-                                  alignment: Alignment.centerLeft,
+                                    alignment: Alignment.centerLeft,
                                     child: Text(
-                                  'Welcome back.',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500, fontSize: 22),
-                                )),
+                                      'Welcome back.',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 22),
+                                    )),
                               ),
                               const Padding(
                                 padding: EdgeInsets.all(20),
                                 child: Align(
-                                  alignment: Alignment.centerLeft,
+                                    alignment: Alignment.centerLeft,
                                     child: Text(
-                                  'Enter personal PF or email. Ensure to use the same device you registered with.',
-                                  style: TextStyle(
-                                       fontSize: 15,color: Colors.grey),
-                                )),
+                                      'Enter personal PF or email. Ensure to use the same device you registered with.',
+                                      style: TextStyle(
+                                          fontSize: 15, color: Colors.grey),
+                                    )),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(20.0),
@@ -122,8 +122,8 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                                       border: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(6),
-                                          borderSide:
-                                              const BorderSide(color: Color.fromARGB(
+                                          borderSide: const BorderSide(
+                                              color: Color.fromARGB(
                                                   255, 0, 173, 238))),
                                       label: const Text('Input PF or Email'),
                                       labelStyle:
@@ -153,10 +153,10 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                                         setState(() {
                                           loading = true;
                                         });
-                                                              
+
                                         var answer =
                                             await loginPF(_emailField.text);
-                                                              
+
                                         if (answer == false) {
                                           setState(() {
                                             errorText = answer;
@@ -174,11 +174,20 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                                         } else if (answer is Object) {
                                           var responseData =
                                               jsonDecode(answer as String);
-                                          var contact = responseData['data']
-                                              ['mobile_number'];
-                                                              
-                                                              
-                                          await phoneLogin(contact, context);
+                                          var trueUserData =
+                                              responseData['data'];
+
+                                          User userCredential =
+                                              User.fromMap(trueUserData);
+                                          Provider.of<UserProvider>(context,
+                                                  listen: false)
+                                              .addUser(userCredential);
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Clockin()));
+                                          // await phoneLogin(contact, context);
                                         } else {
                                           setState(() {
                                             errorText = 'Submit failed';
@@ -186,11 +195,14 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                                           });
                                         }
                                       },
-                                      child:  const Padding(
+                                      child: const Padding(
                                         padding: EdgeInsets.all(12),
-                                        child: Text('Submit',style: TextStyle(
-                                          fontWeight: FontWeight.bold,fontSize: 17
-                                        ),),
+                                        child: Text(
+                                          'Submit',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 17),
+                                        ),
                                       )),
                                 ),
                               ),

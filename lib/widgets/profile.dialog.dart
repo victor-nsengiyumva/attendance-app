@@ -71,8 +71,8 @@ class _ProfileDialogState extends State<ProfileDialog> {
                           decoration: BoxDecoration(
                             color: Color.fromARGB(255, 234, 246, 255),
                             borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(16),
-                                topRight: Radius.circular(16)),
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10)),
                             border: Border.all(color: Color.fromARGB(255, 221, 221, 221)),
                           ),
                           height: 55,
@@ -99,8 +99,8 @@ class _ProfileDialogState extends State<ProfileDialog> {
                           decoration: BoxDecoration(
                             color: Color.fromARGB(255, 234, 246, 255),
                             borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(16),
-                                bottomRight: Radius.circular(16)),
+                                bottomLeft: Radius.circular(10),
+                                bottomRight: Radius.circular(10)),
                             border: Border(
                                 bottom: BorderSide(color: Color.fromARGB(255, 221, 221, 221)),
                                 right: BorderSide(color: Color.fromARGB(255, 221, 221, 221)),

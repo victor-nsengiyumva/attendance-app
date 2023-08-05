@@ -1,5 +1,9 @@
 import 'package:attendance/widgets/yes.page.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/location.provider.dart';
 
 class Clockin extends StatefulWidget {
   const Clockin({super.key});
@@ -12,6 +16,7 @@ class _ClockinState extends State<Clockin> {
   Color _buttonColor = Colors.green;
   @override
   Widget build(BuildContext context) {
+    var location = Provider.of<LocationProvider>(context,listen: true).position;
     return SafeArea(
       child: Scaffold(
         bottomNavigationBar: Padding(
@@ -28,8 +33,8 @@ class _ClockinState extends State<Clockin> {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => const Yes()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const Yes()));
                 },
                 child: const Padding(
                   padding: EdgeInsets.all(12),
@@ -90,7 +95,8 @@ class _ClockinState extends State<Clockin> {
                         children: [
                           CircleAvatar(
                             radius: 24,
-                            backgroundColor: const Color.fromARGB(255, 234, 246, 255),
+                            backgroundColor:
+                                const Color.fromARGB(255, 234, 246, 255),
                             child: Image.asset(
                               'assets/images/office-worker.png',
                               height: 29,
@@ -125,8 +131,8 @@ class _ClockinState extends State<Clockin> {
                       ),
                       const Text(
                         '08:23',
-                        style:
-                            TextStyle(fontSize: 35, fontWeight: FontWeight.w700),
+                        style: TextStyle(
+                            fontSize: 35, fontWeight: FontWeight.w700),
                       ),
                       const SizedBox(
                         height: 10,
@@ -142,7 +148,8 @@ class _ClockinState extends State<Clockin> {
                         onTap: () {
                           if (_buttonColor == Colors.green) {
                             setState(() {
-                              _buttonColor = const Color.fromARGB(255, 252, 107, 97);
+                              _buttonColor =
+                                  const Color.fromARGB(255, 252, 107, 97);
                             });
                           } else {
                             setState(() {
@@ -195,7 +202,7 @@ class _ClockinState extends State<Clockin> {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
+                          children:  [
                             Icon(
                               Icons.location_pin,
                               size: 18,
@@ -207,7 +214,7 @@ class _ClockinState extends State<Clockin> {
                             SizedBox(
                                 width: 230,
                                 child: Text(
-                                  'Location : Bweyogerere Branch',
+                                  'Location : ${location!.latitude} , ${location.longitude}',
                                   style: TextStyle(
                                       color: Colors.grey,
                                       overflow: TextOverflow.ellipsis),
@@ -223,10 +230,12 @@ class _ClockinState extends State<Clockin> {
                               height: 60,
                             )
                           : Padding(
-                              padding: const EdgeInsets.only(left: 20, right: 20),
+                              padding:
+                                  const EdgeInsets.only(left: 20, right: 20),
                               child: Container(
                                 decoration: BoxDecoration(
-                                    color: const Color.fromARGB(255, 234, 246, 255),
+                                    color: const Color.fromARGB(
+                                        255, 234, 246, 255),
                                     border: Border.all(
                                       color: Colors.blue,
                                     )),
@@ -234,7 +243,8 @@ class _ClockinState extends State<Clockin> {
                                   padding: const EdgeInsets.all(17),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         mainAxisAlignment:
