@@ -5,6 +5,7 @@ import 'package:attendance/widgets/clocking.page.dart';
 import 'package:attendance/widgets/location.dart';
 import 'package:attendance/widgets/phone.login.dart';
 import 'package:attendance/widgets/phone.signup.dart';
+import 'package:attendance/widgets/test.deviceinfo.dart';
 import 'package:attendance/widgets/yes.page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

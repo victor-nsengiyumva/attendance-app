@@ -1,29 +1,29 @@
 class User {
   final int id;
-  final String firstname;
-  final String lastname;
   final String PF;
-  final String mobile_number;
   final String email;
+  final String mobile_number;
+  final String location;
+  final String deviceID;
 
   const User({
     required this.id,
-    required this.lastname,
     required this.PF,
-    required this.mobile_number,
     required this.email,
-    required this.firstname,
+    required this.mobile_number,
+    required this.location,
+    required this.deviceID
   });
 
   /// Converts the supplied [Map] to an instance of the [User] class.
   static User fromMap(Map<dynamic, dynamic> data) {
     return User(
       id: data['id'],
-      firstname: data['firstname'],
-      lastname: data['lastname'],
       PF: data['PF'],
-      mobile_number: data['mobile_number'],
       email: data['email'],
+      mobile_number: data['mobile_number'],
+      location:  data['location'],
+      deviceID: data['deviceID']
     );
   }
 
