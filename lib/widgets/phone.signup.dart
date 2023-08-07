@@ -89,7 +89,7 @@ class _PhoneSignupPageState extends State<PhoneSignupPage> {
                                 child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
-                                      'Your account is linked to this device once you registar. You wont be able to sign in on another device.',
+                                      'Your account is linked to this device once you registar. You wont be able to clock in on another device.',
                                       style: TextStyle(
                                           fontSize: 15, color: Colors.red),
                                     )),

@@ -1,9 +1,14 @@
+import 'package:attendance/providers/error.clockpageProvider.dart';
 import 'package:attendance/widgets/yes.page.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 
+import '../backend.api/checkRegisted.dart';
+import '../models/user.model.dart';
 import '../providers/location.provider.dart';
+import '../providers/user.provider.dart';
+import 'function.checkDevice.dart';
 
 class Clockin extends StatefulWidget {
   const Clockin({super.key});
@@ -13,10 +18,66 @@ class Clockin extends StatefulWidget {
 }
 
 class _ClockinState extends State<Clockin> {
+  @override
+  void initState() {
+    super.initState();
+    checkLocation();
+  }
+
+  /// parameters for the Geolocator.distanceBetween are startLatitude, startLongitude, endLatitude, endLongitude
+  checkLocation() async {
+    var position =
+        Provider.of<LocationProvider>(context, listen: false).position;
+    double distance = Geolocator.distanceBetween(position!.latitude,
+        position.longitude, 0.3508671638063489, 32.648231751906586);
+
+    var trueDevice = checkDevice();
+
+    if (trueDevice == false) {
+      setState(() {
+        error = true;
+        Provider.of<ErrorProvider>(
+          context,
+          listen: false,
+        ).upDate(
+            ' This device is not recognised as your registered device. Please use the device you used for creating an account.');
+      });
+    } else {
+      if (distance > 150) {
+        setState(() {
+          error = true;
+          Provider.of<ErrorProvider>(
+            context,
+            listen: false,
+          ).upDate(
+              'Your current location is beyond persmissible distance from your designated branch. Please be within allowable range to Clock in or out.');
+        });
+      } else {
+        var userId =
+            Provider.of<UserProvider>(context, listen: false).getUser!.id;
+
+        /// This [checkRegistered()] helper method checks the database in the table with todays date using the [ userId ] to see whether you registered for the day
+        var status = checkRegistered();
+        if (status == true) {
+          setState(() {
+            error = true;
+            Provider.of<ErrorProvider>(
+              context,
+              listen: false,
+            ).upDate('You are done with clocking in for today');
+          });
+        }
+      }
+    }
+    print(distance);
+  }
+
+  var error = false;
   Color _buttonColor = Colors.green;
   @override
   Widget build(BuildContext context) {
-    var location = Provider.of<LocationProvider>(context,listen: true).position;
+    var location =
+        Provider.of<LocationProvider>(context, listen: true).position;
     return SafeArea(
       child: Scaffold(
         bottomNavigationBar: Padding(
@@ -202,11 +263,11 @@ class _ClockinState extends State<Clockin> {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children:  [
+                          children: [
                             Icon(
                               Icons.location_pin,
                               size: 18,
-                              color: Colors.blue,
+                              color: Color.fromARGB(255, 0, 173, 238),
                             ),
                             SizedBox(
                               width: 5,
@@ -223,9 +284,9 @@ class _ClockinState extends State<Clockin> {
                         ),
                       ),
                       const SizedBox(
-                        height: 40,
+                        height: 20,
                       ),
-                      _buttonColor == Colors.green
+                      error == false
                           ? const SizedBox(
                               height: 60,
                             )
@@ -237,14 +298,14 @@ class _ClockinState extends State<Clockin> {
                                     color: const Color.fromARGB(
                                         255, 234, 246, 255),
                                     border: Border.all(
-                                      color: Colors.blue,
+                                      color: Color.fromARGB(255, 0, 173, 238),
                                     )),
                                 child: Padding(
                                   padding: const EdgeInsets.all(17),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Row(
                                         mainAxisAlignment:
@@ -263,9 +324,12 @@ class _ClockinState extends State<Clockin> {
                                       const SizedBox(
                                         width: 10,
                                       ),
-                                      const Expanded(
+                                      Expanded(
                                           child: Text(
-                                        'datajofghnjlsnfgjlsnfddfjbkdfkbkdfdfk',
+                                        '${Provider.of<ErrorProvider>(
+                                          context,
+                                          listen: true,
+                                        ).error}',
                                       )),
                                     ],
                                   ),
