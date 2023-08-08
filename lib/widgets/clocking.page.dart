@@ -1,5 +1,6 @@
 import 'package:attendance/backend.api/checkIn.dart';
 import 'package:attendance/providers/error.clockpageProvider.dart';
+import 'package:attendance/providers/timeNow.provider.dart';
 import 'package:attendance/widgets/yes.page.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -24,10 +25,18 @@ class _ClockinState extends State<Clockin> {
   void initState() {
     super.initState();
     checkLocation();
+    getTime();
+  }
+
+  String buttonLabel = 'Clock inn';
+  String greeting = 'Good morning';
+  getTime() {
+    TimeOfDay timeNow = TimeOfDay.now();
+    Provider.of<TimeProvider>(context, listen: false).upDate(timeNow);
   }
 
   /// parameters for the Geolocator.distanceBetween are startLatitude, startLongitude, endLatitude, endLongitude
-  checkLocation() async {
+  checkLocation() {
     var position =
         Provider.of<LocationProvider>(context, listen: false).position;
     double distance = Geolocator.distanceBetween(position!.latitude,
@@ -78,6 +87,52 @@ class _ClockinState extends State<Clockin> {
   Color _buttonColor = Colors.green;
   @override
   Widget build(BuildContext context) {
+    final timeNow = TimeOfDay.now();
+
+    // Convert the times to minutes past on the 24 hour clock
+    final timeNowInMinutes = timeNow.hour * 60 + timeNow.minute;
+    final startTimeInMinutes = 17 * 60; // 5 PM
+    final endTimeInMinutes = 3 * 60; // 3 AM
+
+    if (startTimeInMinutes <= endTimeInMinutes) {
+      // If start and end times are in the same day
+      if (timeNowInMinutes >= startTimeInMinutes &&
+          timeNowInMinutes <= endTimeInMinutes) {
+        setState(() {
+          buttonLabel = 'Clock out';
+        });
+      }
+    } else {
+      // If start and end times are in different days, like 5PM to 3AM
+      if (timeNowInMinutes >= startTimeInMinutes ||
+          timeNowInMinutes <= endTimeInMinutes) {
+        setState(() {
+          buttonLabel = 'Clock out';
+        });
+      }
+    }
+
+    var timeNowInMinutesGreetings = timeNow.hour * 60 + timeNow.minute;
+    var startTimeInMinutesGreetings = 12 * 60; // 5 PM
+    var endTimeInMinutesGrettings = 0 * 60; // 3 AM
+
+    if (startTimeInMinutes <= endTimeInMinutes) {
+      // If start and end times are in the same day
+      if (timeNowInMinutesGreetings >= startTimeInMinutesGreetings &&
+          timeNowInMinutesGreetings <= endTimeInMinutesGrettings) {
+        setState(() {
+          greeting = 'Good afternoon';
+        });
+      }
+    } else {
+      // If start and end times are in different days, like 5PM to 3AM
+      if (timeNowInMinutes >= startTimeInMinutes ||
+          timeNowInMinutes <= endTimeInMinutes) {
+        setState(() {
+          greeting = 'Good afternoon';
+        });
+      }
+    }
     var userCredential =
         Provider.of<UserProvider>(context, listen: false).getUser!;
     var location =
@@ -175,7 +230,7 @@ class _ClockinState extends State<Clockin> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Good morning,',
+                                greeting,
                                 style:
                                     TextStyle(fontSize: 14, color: Colors.grey),
                               ),
@@ -189,21 +244,36 @@ class _ClockinState extends State<Clockin> {
                               ),
                             ],
                           ),
+                          Expanded(child: SizedBox()),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 10),
+                            child: InkWell(
+                                onTap: () {
+                                  TimeOfDay timeNow = TimeOfDay.now();
+                                  Provider.of<TimeProvider>(context,
+                                          listen: false)
+                                      .upDate2(timeNow);
+                                  setState(() {});
+                                },
+                                child: Icon(Icons.refresh)),
+                          )
                         ],
                       ),
                       const SizedBox(
                         height: 50,
                       ),
                       Text(
-                        TimeOfDay.now().format(context),
+                        Provider.of<TimeProvider>(context, listen: true)
+                            .time!
+                            .format(context),
                         style: TextStyle(
                             fontSize: 35, fontWeight: FontWeight.w700),
                       ),
                       const SizedBox(
                         height: 10,
                       ),
-                       Text(
-                       DateFormat('EEEE, d MMMM').format( DateTime.now()) ,
+                      Text(
+                        DateFormat('EEEE, d MMMM').format(DateTime.now()),
                         style: TextStyle(fontSize: 17, color: Colors.grey),
                       ),
                       const SizedBox(
@@ -213,7 +283,8 @@ class _ClockinState extends State<Clockin> {
                         onTap: () async {
                           DateTime currentDate = DateTime.now();
                           TimeOfDay currentTime = TimeOfDay.now();
-                          String formattedDate = DateFormat('d-MM-yyyy').format(currentDate);
+                          String formattedDate =
+                              DateFormat('d-MM-yyyy').format(currentDate);
 
                           await checkIn(
                               userCredential.id,
@@ -244,12 +315,12 @@ class _ClockinState extends State<Clockin> {
                                   const SizedBox(
                                     height: 15,
                                   ),
-                                  const Text(
-                                    'Clock in',
+                                  Text(
+                                    buttonLabel,
                                     style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                    ),
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),

@@ -1,5 +1,6 @@
 import 'package:attendance/providers/error.clockpageProvider.dart';
 import 'package:attendance/providers/location.provider.dart';
+import 'package:attendance/providers/timeNow.provider.dart';
 import 'package:attendance/providers/user.provider.dart';
 import 'package:attendance/widgets/clocking.page.dart';
 import 'package:attendance/widgets/location.dart';
@@ -25,6 +26,7 @@ SystemChrome.setPreferredOrientations(
       ChangeNotifierProvider(create: (context) => LocationProvider()),
       ChangeNotifierProvider(create: (context) => UserProvider()),
       ChangeNotifierProvider(create: (context) => ErrorProvider()),
+      ChangeNotifierProvider(create: (context) => TimeProvider()),
 
     ],
     child: const MyApp(),
