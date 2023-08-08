@@ -35,10 +35,7 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                     backgroundColor: Color.fromARGB(255, 221, 219, 219),
                     color: Color.fromARGB(255, 0, 173, 238),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text('Verifying Phone Number')
+                  
                 ],
               ),
             )

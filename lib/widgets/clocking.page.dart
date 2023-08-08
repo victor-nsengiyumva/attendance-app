@@ -1,3 +1,4 @@
+import 'package:attendance/backend.api/checkIn.dart';
 import 'package:attendance/providers/error.clockpageProvider.dart';
 import 'package:attendance/widgets/yes.page.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import '../models/user.model.dart';
 import '../providers/location.provider.dart';
 import '../providers/user.provider.dart';
 import 'function.checkDevice.dart';
+import 'package:intl/intl.dart';
 
 class Clockin extends StatefulWidget {
   const Clockin({super.key});
@@ -76,6 +78,8 @@ class _ClockinState extends State<Clockin> {
   Color _buttonColor = Colors.green;
   @override
   Widget build(BuildContext context) {
+    var userCredential =
+        Provider.of<UserProvider>(context, listen: false).getUser!;
     var location =
         Provider.of<LocationProvider>(context, listen: true).position;
     return SafeArea(
@@ -169,7 +173,7 @@ class _ClockinState extends State<Clockin> {
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
+                            children: [
                               Text(
                                 'Good morning,',
                                 style:
@@ -179,7 +183,7 @@ class _ClockinState extends State<Clockin> {
                                 height: 2,
                               ),
                               Text(
-                                'PF 3434',
+                                userCredential.PF,
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.w500),
                               ),
@@ -190,33 +194,31 @@ class _ClockinState extends State<Clockin> {
                       const SizedBox(
                         height: 50,
                       ),
-                      const Text(
-                        '08:23',
+                      Text(
+                        TimeOfDay.now().format(context),
                         style: TextStyle(
                             fontSize: 35, fontWeight: FontWeight.w700),
                       ),
                       const SizedBox(
                         height: 10,
                       ),
-                      const Text(
-                        'Wednesday, 23 August',
+                       Text(
+                       DateFormat('EEEE, d MMMM').format( DateTime.now()) ,
                         style: TextStyle(fontSize: 17, color: Colors.grey),
                       ),
                       const SizedBox(
                         height: 40,
                       ),
                       InkWell(
-                        onTap: () {
-                          if (_buttonColor == Colors.green) {
-                            setState(() {
-                              _buttonColor =
-                                  const Color.fromARGB(255, 252, 107, 97);
-                            });
-                          } else {
-                            setState(() {
-                              _buttonColor = Colors.green;
-                            });
-                          }
+                        onTap: () async {
+                          DateTime currentDate = DateTime.now();
+                          TimeOfDay currentTime = TimeOfDay.now();
+                          String formattedDate = DateFormat('d-MM-yyyy').format(currentDate);
+
+                          await checkIn(
+                              userCredential.id,
+                              currentTime.format(context),
+                              formattedDate.toString());
                         },
                         child: Card(
                           elevation: 6,
@@ -272,14 +274,17 @@ class _ClockinState extends State<Clockin> {
                             SizedBox(
                               width: 5,
                             ),
-                            SizedBox(
-                                width: 230,
-                                child: Text(
-                                  'Location : ${location!.latitude} , ${location.longitude}',
-                                  style: TextStyle(
-                                      color: Colors.grey,
-                                      overflow: TextOverflow.ellipsis),
-                                ))
+                            Padding(
+                              padding: const EdgeInsets.only(right: 25),
+                              child: SizedBox(
+                                  width: 230,
+                                  child: Text(
+                                    'Location : ${location!.latitude} , ${location.longitude}',
+                                    style: TextStyle(
+                                        color: Colors.grey,
+                                        overflow: TextOverflow.ellipsis),
+                                  )),
+                            )
                           ],
                         ),
                       ),

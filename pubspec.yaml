@@ -42,6 +42,7 @@ dependencies:
   firebase_auth: ^4.6.3
   http: ^0.13.6
   device_info_plus: ^9.0.3
+  intl: ^0.18.1
 
 
 
