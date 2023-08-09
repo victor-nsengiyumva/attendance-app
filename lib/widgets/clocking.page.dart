@@ -1,3 +1,4 @@
+import 'package:attendance/backend.api/checkDevice.dart';
 import 'package:attendance/backend.api/checkIn.dart';
 import 'package:attendance/providers/error.clockpageProvider.dart';
 import 'package:attendance/providers/timeNow.provider.dart';
@@ -5,10 +6,10 @@ import 'package:attendance/widgets/yes.page.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
-import '../backend.api/checkRegisted.dart';
+import '../backend.api/checkOut.dart';
+import '../backend.api/checkRegistered.dart';
 import '../providers/location.provider.dart';
 import '../providers/user.provider.dart';
-import 'function.checkDevice.dart';
 import 'package:intl/intl.dart';
 
 class Clockin extends StatefulWidget {
@@ -45,9 +46,9 @@ class _ClockinState extends State<Clockin> {
   }
 
   /// This function gets the device location from the locationProvider and compares your current location with the designated branch and 
-  /// returns the error widget according to the validity of your location.
+  /// updates the error provider with the error message which is sent to the error widget according to the status of your location.
   /// parameters for the Geolocator.distanceBetween are startLatitude, startLongitude, endLatitude, endLongitude
-  checkLocation() {
+  checkLocation() async {
     var position =
         Provider.of<LocationProvider>(context, listen: false).position;
     double distance = Geolocator.distanceBetween(position!.latitude,
@@ -56,7 +57,8 @@ class _ClockinState extends State<Clockin> {
 
     /// The checkdevice function checks the database whether you are using the same device that you used to register with
     /// and grants clockin/out if you are using the device you used for registration.
-    var trueDevice = checkDevice();
+    /// the function returns 
+    var trueDevice = await checkDevice();
 
     if (trueDevice == false) {
       setState(() {
@@ -82,7 +84,7 @@ class _ClockinState extends State<Clockin> {
             Provider.of<UserProvider>(context, listen: false).getUser!.id;
 
         /// This [checkRegistered()] helper method checks the database in the table with todays date using the [ userId ] to see whether you registered for the day
-        var status = checkRegistered();
+        var status = await checkRegistered();
         if (status == true) {
           setState(() {
             error = true;
@@ -312,10 +314,17 @@ class _ClockinState extends State<Clockin> {
                           String formattedDate =
                               DateFormat('d-MM-yyyy').format(currentDate);
 
-                          await checkIn(
+                          if(buttonLabel == 'Clock in'){
+                            await checkIn(
                               userCredential.id,
                               currentTime.format(context),
                               formattedDate.toString());
+                          }else{
+                            await checkOut(
+                              userCredential.id,
+                              currentTime.format(context),
+                              formattedDate.toString());
+                          }
                         },
                         child: Card(
                           elevation: 6,
