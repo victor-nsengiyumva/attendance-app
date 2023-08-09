@@ -11,12 +11,26 @@ class PhoneSignupPage extends StatefulWidget {
 }
 
 class _PhoneSignupPageState extends State<PhoneSignupPage> {
+  /// these are the variables for this widget
+  String _selectedVal = '';
+  String _deviceID = '';
+  bool loading = false;
+  bool passwordvisible = false;
+
+  /// this constructor of the _PhoneSignupPageState sets the initial value of the _selectedVal
+  _PhoneSignupPageState() {
+    _selectedVal = '';
+  }
+
+  /// this iniistate of this widget gets the device information which will later be stored in the database
+  /// together with your profile such that you can only login with this device.
   @override
   void initState() {
     super.initState();
     _checkDevice();
   }
 
+  /// this is the function that gets the deviceID which is stored in the database together with your profile
   _checkDevice() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
@@ -26,31 +40,27 @@ class _PhoneSignupPageState extends State<PhoneSignupPage> {
     });
   }
 
-  String _selectedVal = '';
-  _PhoneSignupPageState() {
-    _selectedVal = '';
-  }
-
-  String _deviceID = '';
-
+  /// this is the list of the items in the dropdown menu for the branches field
+  /// where you select the branch that you beling to.
   final _branchList = [
     '',
     'Wandegeya Branch',
     'Head Office',
     'Busega Branch',
   ];
+
+  /// these are the controllers for the fields in the signup form
   final TextEditingController _PF = TextEditingController();
   final TextEditingController _phone_number = TextEditingController();
   final TextEditingController _email = TextEditingController();
 
+  /// these variables are used to check whether the fields in this widget are empty and an error is returned if
+  /// they are empty
   String _pfExist = '';
   String _emailEmpty = '';
   String _phoneEmpty = '';
   String _selectedValEmpty = '';
 
-  bool loading = false;
-
-  bool passwordvisible = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -232,20 +242,24 @@ class _PhoneSignupPageState extends State<PhoneSignupPage> {
                                     ),
                                     dropdownColor:
                                         Color.fromARGB(255, 234, 246, 255),
-                                    decoration:
-                                        InputDecoration(
-                                          errorText: _selectedValEmpty.isEmpty?null:_selectedValEmpty,
-                                          focusedBorder: const OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Color.fromARGB(
-                                                  255, 0, 173, 238))),
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(6),
-                                          borderSide: const BorderSide(
-                                              color: Color.fromARGB(
-                                                  255, 0, 173, 238))),
-                                          label: Text('Branch',style: TextStyle(fontSize: 19),)),
+                                    decoration: InputDecoration(
+                                        errorText: _selectedValEmpty.isEmpty
+                                            ? null
+                                            : _selectedValEmpty,
+                                        focusedBorder: const OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Color.fromARGB(
+                                                    255, 0, 173, 238))),
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(6),
+                                            borderSide: const BorderSide(
+                                                color: Color.fromARGB(
+                                                    255, 0, 173, 238))),
+                                        label: Text(
+                                          'Branch',
+                                          style: TextStyle(fontSize: 19),
+                                        )),
                                   )),
                               Padding(
                                 padding: const EdgeInsets.all(20),
@@ -264,7 +278,6 @@ class _PhoneSignupPageState extends State<PhoneSignupPage> {
                                         ),
                                       ),
                                       onPressed: () async {
-
                                         setState(() {
                                           loading = true;
                                         });
@@ -288,7 +301,8 @@ class _PhoneSignupPageState extends State<PhoneSignupPage> {
                                           });
                                         } else if (_selectedVal.isEmpty) {
                                           setState(() {
-                                            _selectedValEmpty = 'Please select a branch';
+                                            _selectedValEmpty =
+                                                'Please select a branch';
                                             loading = false;
                                           });
                                         } else {

@@ -1,4 +1,4 @@
-import 'package:attendance/backend.api/checkDevice.dart';
+import 'package:attendance/coreFunctions/checkDevice.dart';
 import 'package:attendance/backend.api/checkIn.dart';
 import 'package:attendance/providers/error.clockpageProvider.dart';
 import 'package:attendance/providers/timeNow.provider.dart';
@@ -20,8 +20,7 @@ class Clockin extends StatefulWidget {
 }
 
 class _ClockinState extends State<Clockin> {
-
-  /// This init function checks the location and gets the current time as soon as this widget is 
+  /// This init function checks the location and gets the current time as soon as this widget is
   /// added onto the widget tree so that the location and time are displayed immideiately
   @override
   void initState() {
@@ -30,22 +29,19 @@ class _ClockinState extends State<Clockin> {
     getTime();
   }
 
-
-
   String buttonLabel = 'Clock in';
   String greeting = 'Good morning';
   bool error = false;
   Color _buttonColor = Colors.green;
 
-
-  /// The getTime function gets the current time and updates the provider that feeds the UI of the 
+  /// The getTime function gets the current time and updates the provider that feeds the UI of the
   /// clockin page
   getTime() {
     TimeOfDay timeNow = TimeOfDay.now();
     Provider.of<TimeProvider>(context, listen: false).upDate(timeNow);
   }
 
-  /// This function gets the device location from the locationProvider and compares your current location with the designated branch and 
+  /// This function gets the device location from the locationProvider and compares your current location with the designated branch and
   /// updates the error provider with the error message which is sent to the error widget according to the status of your location.
   /// parameters for the Geolocator.distanceBetween are startLatitude, startLongitude, endLatitude, endLongitude
   checkLocation() async {
@@ -54,13 +50,14 @@ class _ClockinState extends State<Clockin> {
     double distance = Geolocator.distanceBetween(position!.latitude,
         position.longitude, 0.3508671638063489, 32.648231751906586);
 
-
     /// The checkdevice function checks the database whether you are using the same device that you used to register with
     /// and grants clockin/out if you are using the device you used for registration.
-    /// the function returns 
-    var trueDevice = await checkDevice();
+    /// the function returns
+    String currentUserDeviceID =
+        Provider.of<UserProvider>(context, listen: false).getUser!.deviceID;
+    bool trueDevice = await checkDevice(currentUserDeviceID);
 
-    if (trueDevice == false) {
+    if (!trueDevice) {
       setState(() {
         error = true;
         Provider.of<ErrorProvider>(
@@ -79,31 +76,15 @@ class _ClockinState extends State<Clockin> {
           ).upDate(
               'Your current location is beyond persmissible distance from your designated branch. Please be within allowable range to Clock in or out.');
         });
-      } else {
-        var userId =
-            Provider.of<UserProvider>(context, listen: false).getUser!.id;
-
-        /// This [checkRegistered()] helper method checks the database in the table with todays date using the [ userId ] to see whether you registered for the day
-        var status = await checkRegistered();
-        if (status == true) {
-          setState(() {
-            error = true;
-            Provider.of<ErrorProvider>(
-              context,
-              listen: false,
-            ).upDate('You are done with clocking in for today');
-          });
-        }
       }
     }
     print(distance);
   }
 
-
-  /// this function calculates the period of the day ie. whether its morning or afternoon and updates the greeting variable 
+  /// this function calculates the period of the day ie. whether its morning or afternoon and updates the greeting variable
   /// accordingly plus updating the clockin clock out trade off of the clocking button widget depending on whether its clockin time
   /// or clockout time.
-  /// It is then called as the widget begins to build in the build function also in the refresh button incase the app is left dormant 
+  /// It is then called as the widget begins to build in the build function also in the refresh button incase the app is left dormant
   /// for a while.
   greetingandClockButtonTextUpdate() {
     final timeNow = TimeOfDay.now();
@@ -135,7 +116,7 @@ class _ClockinState extends State<Clockin> {
     var startTimeInMinutesGreetings = 12 * 60; // 5 PM
     var endTimeInMinutesGrettings = 0 * 60; // 3 AM
 
-    if (startTimeInMinutes <= endTimeInMinutes) {
+    if (startTimeInMinutesGreetings <= endTimeInMinutesGrettings) {
       // If start and end times are in the same day
       if (timeNowInMinutesGreetings >= startTimeInMinutesGreetings &&
           timeNowInMinutesGreetings <= endTimeInMinutesGrettings) {
@@ -145,8 +126,8 @@ class _ClockinState extends State<Clockin> {
       }
     } else {
       // If start and end times are in different days, like 5PM to 3AM
-      if (timeNowInMinutes >= startTimeInMinutes ||
-          timeNowInMinutes <= endTimeInMinutes) {
+      if (timeNowInMinutesGreetings >= startTimeInMinutesGreetings ||
+          timeNowInMinutesGreetings <= endTimeInMinutesGrettings) {
         setState(() {
           greeting = 'Good afternoon';
         });
@@ -154,7 +135,6 @@ class _ClockinState extends State<Clockin> {
     }
   }
 
-  
   @override
   Widget build(BuildContext context) {
     greetingandClockButtonTextUpdate();
@@ -279,9 +259,7 @@ class _ClockinState extends State<Clockin> {
                                           listen: false)
                                       .upDate2(timeNow);
                                   greetingandClockButtonTextUpdate();
-                                  setState(() {
-                                    
-                                  });
+                                  setState(() {});
                                 },
                                 icon: Icon(Icons.refresh)),
                           )
@@ -314,16 +292,44 @@ class _ClockinState extends State<Clockin> {
                           String formattedDate =
                               DateFormat('d-MM-yyyy').format(currentDate);
 
-                          if(buttonLabel == 'Clock in'){
-                            await checkIn(
-                              userCredential.id,
-                              currentTime.format(context),
-                              formattedDate.toString());
-                          }else{
-                            await checkOut(
-                              userCredential.id,
-                              currentTime.format(context),
-                              formattedDate.toString());
+                          if (buttonLabel == 'Clock in') {
+                            bool result = await checkRegisteredIn(
+                                userCredential.id, formattedDate);
+
+                            if (result == true) {
+                              setState(() {
+                                error = true;
+                                Provider.of<ErrorProvider>(
+                                  context,
+                                  listen: false,
+                                ).upDate(
+                                    'You are done clocking in for today. Come again tomorrow.');
+                              });
+                            } else {
+                              await checkIn(
+                                  userCredential.id,
+                                  currentTime.format(context),
+                                  formattedDate.toString());
+                            }
+                          } else {
+                            bool result = await checkRegisteredOut(
+                                userCredential.id, formattedDate);
+
+                            if (result == true) {
+                              setState(() {
+                                error = true;
+                                Provider.of<ErrorProvider>(
+                                  context,
+                                  listen: false,
+                                ).upDate(
+                                    'You are done clocking out for today. Come again tomorrow.');
+                              });
+                            } else {
+                              await checkOut(
+                                  userCredential.id,
+                                  currentTime.format(context),
+                                  formattedDate.toString());
+                            }
                           }
                         },
                         child: Card(
