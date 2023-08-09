@@ -5,9 +5,7 @@ import 'package:attendance/widgets/yes.page.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
-
 import '../backend.api/checkRegisted.dart';
-import '../models/user.model.dart';
 import '../providers/location.provider.dart';
 import '../providers/user.provider.dart';
 import 'function.checkDevice.dart';
@@ -21,6 +19,9 @@ class Clockin extends StatefulWidget {
 }
 
 class _ClockinState extends State<Clockin> {
+
+  /// This init function checks the location and gets the current time as soon as this widget is 
+  /// added onto the widget tree so that the location and time are displayed immideiately
   @override
   void initState() {
     super.initState();
@@ -28,13 +29,23 @@ class _ClockinState extends State<Clockin> {
     getTime();
   }
 
-  String buttonLabel = 'Clock inn';
+
+
+  String buttonLabel = 'Clock in';
   String greeting = 'Good morning';
+  bool error = false;
+  Color _buttonColor = Colors.green;
+
+
+  /// The getTime function gets the current time and updates the provider that feeds the UI of the 
+  /// clockin page
   getTime() {
     TimeOfDay timeNow = TimeOfDay.now();
     Provider.of<TimeProvider>(context, listen: false).upDate(timeNow);
   }
 
+  /// This function gets the device location from the locationProvider and compares your current location with the designated branch and 
+  /// returns the error widget according to the validity of your location.
   /// parameters for the Geolocator.distanceBetween are startLatitude, startLongitude, endLatitude, endLongitude
   checkLocation() {
     var position =
@@ -42,6 +53,9 @@ class _ClockinState extends State<Clockin> {
     double distance = Geolocator.distanceBetween(position!.latitude,
         position.longitude, 0.3508671638063489, 32.648231751906586);
 
+
+    /// The checkdevice function checks the database whether you are using the same device that you used to register with
+    /// and grants clockin/out if you are using the device you used for registration.
     var trueDevice = checkDevice();
 
     if (trueDevice == false) {
@@ -83,10 +97,13 @@ class _ClockinState extends State<Clockin> {
     print(distance);
   }
 
-  var error = false;
-  Color _buttonColor = Colors.green;
-  @override
-  Widget build(BuildContext context) {
+
+  /// this function calculates the period of the day ie. whether its morning or afternoon and updates the greeting variable 
+  /// accordingly plus updating the clockin clock out trade off of the clocking button widget depending on whether its clockin time
+  /// or clockout time.
+  /// It is then called as the widget begins to build in the build function also in the refresh button incase the app is left dormant 
+  /// for a while.
+  greetingandClockButtonTextUpdate() {
     final timeNow = TimeOfDay.now();
 
     // Convert the times to minutes past on the 24 hour clock
@@ -133,6 +150,12 @@ class _ClockinState extends State<Clockin> {
         });
       }
     }
+  }
+
+  
+  @override
+  Widget build(BuildContext context) {
+    greetingandClockButtonTextUpdate();
     var userCredential =
         Provider.of<UserProvider>(context, listen: false).getUser!;
     var location =
@@ -246,16 +269,19 @@ class _ClockinState extends State<Clockin> {
                           ),
                           Expanded(child: SizedBox()),
                           Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: InkWell(
-                                onTap: () {
+                            padding: const EdgeInsets.only(right: 5),
+                            child: IconButton(
+                                onPressed: () {
                                   TimeOfDay timeNow = TimeOfDay.now();
                                   Provider.of<TimeProvider>(context,
                                           listen: false)
                                       .upDate2(timeNow);
-                                  setState(() {});
+                                  greetingandClockButtonTextUpdate();
+                                  setState(() {
+                                    
+                                  });
                                 },
-                                child: Icon(Icons.refresh)),
+                                icon: Icon(Icons.refresh)),
                           )
                         ],
                       ),
