@@ -4,6 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/user.provider.dart';
 
 class ProfileDialog extends StatefulWidget {
   const ProfileDialog({super.key});
@@ -24,6 +27,8 @@ class _ProfileDialogState extends State<ProfileDialog> {
 
   @override
   Widget build(BuildContext context) {
+     var userCredential =
+        Provider.of<UserProvider>(context, listen: false).getUser!;
     return Center(
         child: Padding(
             padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
@@ -44,7 +49,7 @@ class _ProfileDialogState extends State<ProfileDialog> {
                       height: 30,
                       width: 300,
                       child: Text(
-                        'PF 3455',
+                        userCredential.PF,
                         style: TextStyle(
                             fontSize: 23, fontWeight: FontWeight.bold),
                       )),
@@ -54,7 +59,7 @@ class _ProfileDialogState extends State<ProfileDialog> {
                       height: 30,
                       width: 300,
                       child: Text(
-                        'Head Office',
+                        userCredential.location,
                       )),
                 ],
               ),

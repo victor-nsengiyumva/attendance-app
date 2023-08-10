@@ -22,7 +22,7 @@ Future<bool> checkRegisteredIn(userID, dateToday) async {
   if (response.statusCode == 200) {
     print('yeah this is working');
     print(response.body);
-    if (response.body == 'true') {
+    if (response.body != 'false') {
       return true;
     } else {
       return false;
@@ -54,7 +54,8 @@ Future<bool> checkRegisteredOut(userID, dateToday) async {
   if (response.statusCode == 200) {
     print('yeah this is working');
     print(response.body);
-    if (response.body == 'true') {
+
+    if (response.body != 'false') {
       return true;
     } else {
       return false;

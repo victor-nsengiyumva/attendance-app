@@ -3,6 +3,9 @@ import 'package:attendance/widgets/phone.login.dart';
 import 'package:attendance/widgets/profile.dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/user.provider.dart';
 
 class Yes extends StatefulWidget {
   const Yes({super.key});
@@ -23,6 +26,8 @@ class _YesState extends State<Yes> {
 
   @override
   Widget build(BuildContext context) {
+    var userCredential =
+        Provider.of<UserProvider>(context, listen: false).getUser!;
     return SafeArea(
       child: Scaffold(
           bottomNavigationBar: Padding(
@@ -88,9 +93,9 @@ class _YesState extends State<Yes> {
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
+                            children: [
                               Text(
-                                'PF 3434',
+                                userCredential.PF,
                                 style: TextStyle(
                                     fontSize: 24, fontWeight: FontWeight.w700),
                               ),
@@ -98,7 +103,7 @@ class _YesState extends State<Yes> {
                                 height: 3,
                               ),
                               Text(
-                                'Head Office',
+                                userCredential.location,
                                 style: TextStyle(
                                     fontSize: 13, fontWeight: FontWeight.w300),
                               ),
@@ -114,21 +119,26 @@ class _YesState extends State<Yes> {
                           ),
                           InkWell(
                             onTap: () {
+                              
                               showDialog(
-                                
                                   context: context,
                                   builder: (context) {
                                     return AlertDialog(
                                       shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-                                      contentPadding: EdgeInsets.only(top: 20,bottom: 20),
-                                      backgroundColor: Color.fromARGB(255, 255, 255, 255),
-                                      title: Center(child: Padding(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      contentPadding:
+                                          EdgeInsets.only(top: 20, bottom: 20),
+                                      backgroundColor:
+                                          Color.fromARGB(255, 255, 255, 255),
+                                      title: Center(
+                                          child: Padding(
                                         padding: const EdgeInsets.only(top: 10),
                                         child: Text('Profile Settings'),
                                       )),
-                                      content: SizedBox(height:450,child: ProfileDialog()),
+                                      content: SizedBox(
+                                          height: 450, child: ProfileDialog()),
                                     );
                                   });
                             },
