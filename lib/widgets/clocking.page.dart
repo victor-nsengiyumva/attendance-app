@@ -1,6 +1,7 @@
 import 'package:attendance/coreFunctions/checkDevice.dart';
 import 'package:attendance/backend.api/checkIn.dart';
 import 'package:attendance/providers/error.clockpageProvider.dart';
+import 'package:attendance/providers/timeInAndOut.provider.dart';
 import 'package:attendance/providers/timeNow.provider.dart';
 import 'package:attendance/widgets/yes.page.dart';
 import 'package:flutter/material.dart';
@@ -27,12 +28,17 @@ class _ClockinState extends State<Clockin> {
     super.initState();
     checkLocation();
     getTime();
+    greetingandClockButtonTextUpdate();
+    didcheckin();
   }
 
+  /// these are the several variables within the build function that change
+  /// with given conditions to update the UI
   String buttonLabel = 'Clock in';
   String greeting = 'Good morning';
   bool error = false;
   Color _buttonColor = Colors.green;
+  bool isDisabled = false;
 
   /// The getTime function gets the current time and updates the provider that feeds the UI of the
   /// clockin page
@@ -135,9 +141,36 @@ class _ClockinState extends State<Clockin> {
     }
   }
 
+/// this function checks the database whether the person is done checking in and if so it 
+/// deactivates the check in button and   changes its color to red on top of logging the error 
+/// message into the error widget.
+/// when the checkRegistered function is called, it also stores the time of checkin in a provider so that
+/// it can be displayed to the user.
+  didcheckin() async {
+    var userCredential =
+        Provider.of<UserProvider>(context, listen: false).getUser!;
+    DateTime currentDate = DateTime.now();
+    String formattedDate = DateFormat('d-MM-yyyy').format(currentDate);
+    var timeinandoutprovider = Provider.of<TimeInAndOutProvider>(context, listen: false);
+
+    bool result = await checkRegisteredIn(userCredential.id, formattedDate,timeinandoutprovider);
+    if (result == true) {
+      setState(() {
+        error = true;
+        isDisabled = true;
+        _buttonColor = Colors.red;
+        Provider.of<ErrorProvider>(
+          context,
+          listen: false,
+        ).upDate('You are done clocking in for today. Come again tomorrow.');
+      });
+    }
+  }
+
+  
+
   @override
   Widget build(BuildContext context) {
-    greetingandClockButtonTextUpdate();
     var userCredential =
         Provider.of<UserProvider>(context, listen: false).getUser!;
     var location =
@@ -286,52 +319,33 @@ class _ClockinState extends State<Clockin> {
                         height: 40,
                       ),
                       InkWell(
-                        onTap: () async {
-                          DateTime currentDate = DateTime.now();
-                          TimeOfDay currentTime = TimeOfDay.now();
-                          String formattedDate =
-                              DateFormat('d-MM-yyyy').format(currentDate);
+                        onTap: isDisabled
+                            ? null
+                            : () async {
+                                DateTime currentDate = DateTime.now();
+                                TimeOfDay currentTime = TimeOfDay.now();
+                                String formattedDate =
+                                    DateFormat('d-MM-yyyy').format(currentDate);
 
-                          if (buttonLabel == 'Clock in') {
-                            bool result = await checkRegisteredIn(
-                                userCredential.id, formattedDate);
+                                if (buttonLabel == 'Clock in') {
+                                  await checkIn(
+                                      userCredential.id,
+                                      currentTime.format(context),
+                                      formattedDate.toString());
+                                } else {
+                                  await checkOut(
+                                      userCredential.id,
+                                      currentTime.format(context),
+                                      formattedDate.toString());
 
-                            if (result == true) {
-                              setState(() {
-                                error = true;
-                                Provider.of<ErrorProvider>(
-                                  context,
-                                  listen: false,
-                                ).upDate(
-                                    'You are done clocking in for today. Come again tomorrow.');
-                              });
-                            } else {
-                              await checkIn(
-                                  userCredential.id,
-                                  currentTime.format(context),
-                                  formattedDate.toString());
-                            }
-                          } else {
-                            bool result = await checkRegisteredOut(
-                                userCredential.id, formattedDate);
-
-                            if (result == true) {
-                              setState(() {
-                                error = true;
-                                Provider.of<ErrorProvider>(
-                                  context,
-                                  listen: false,
-                                ).upDate(
-                                    'You are done clocking out for today. Come again tomorrow.');
-                              });
-                            } else {
-                              await checkOut(
-                                  userCredential.id,
-                                  currentTime.format(context),
-                                  formattedDate.toString());
-                            }
-                          }
-                        },
+                                  Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Yes()),
+                                    (route) => false,
+                                  );
+                                }
+                              },
                         child: Card(
                           elevation: 6,
                           shape: RoundedRectangleBorder(

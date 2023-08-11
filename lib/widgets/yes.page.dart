@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../providers/timeInAndOut.provider.dart';
 import '../providers/user.provider.dart';
 
 class Yes extends StatefulWidget {
@@ -15,6 +16,8 @@ class Yes extends StatefulWidget {
 }
 
 class _YesState extends State<Yes> {
+  
+
   Future<void> _signOut() async {
     try {
       await FirebaseAuth.instance.signOut();
@@ -259,6 +262,8 @@ class DoneCheckin extends StatefulWidget {
 class _DoneCheckinState extends State<DoneCheckin> {
   @override
   Widget build(BuildContext context) {
+    var timeinandout = Provider.of<TimeInAndOutProvider>(context,listen:false);
+
     return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
       const Padding(
         padding: EdgeInsets.only(left: 6),
@@ -309,10 +314,10 @@ class _DoneCheckinState extends State<DoneCheckin> {
                       const SizedBox(
                         height: 15,
                       ),
-                      const Padding(
+                       Padding(
                         padding: EdgeInsets.only(left: 8),
                         child: Text(
-                          '08:34 am',
+                          timeinandout.timeIn,
                           style: TextStyle(
                               fontWeight: FontWeight.w700, fontSize: 20),
                         ),

@@ -1,10 +1,13 @@
 import 'dart:convert';
+import 'package:attendance/backend.api/checkRegistered.dart';
 import 'package:attendance/backend.api/login.dart';
 import 'package:attendance/models/user.model.dart';
 import 'package:attendance/providers/user.provider.dart';
 import 'package:attendance/widgets/clocking.page.dart';
 import 'package:attendance/widgets/phone.signup.dart';
+import 'package:attendance/widgets/yes.page.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class PhoneLoginPage extends StatefulWidget {
@@ -35,7 +38,6 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                     backgroundColor: Color.fromARGB(255, 221, 219, 219),
                     color: Color.fromARGB(255, 0, 173, 238),
                   ),
-                  
                 ],
               ),
             )
@@ -169,6 +171,9 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                                             loading = false;
                                           });
                                         } else if (answer is Object) {
+
+                                          /// get the data of the answer which is the response with the user data
+                                          /// and then add it to the user provider
                                           var responseData =
                                               jsonDecode(answer as String);
                                           var trueUserData =
@@ -179,12 +184,38 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                                           Provider.of<UserProvider>(context,
                                                   listen: false)
                                               .addUser(userCredential);
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      Clockin()));
-                                          // await phoneLogin(contact, context);
+
+
+                                          /// get the current userId and date so that you can check the date and 
+                                          /// check whether the user has already clocked out.
+                                          var userID =
+                                              Provider.of<UserProvider>(context,
+                                                      listen: false)
+                                                  .getUser!;
+                                          DateTime currentDate = DateTime.now();
+                                          String formattedDate =
+                                              DateFormat('d-MM-yyyy')
+                                                  .format(currentDate);
+                                          bool result =
+                                              await checkRegisteredOut(
+                                                userID.id, formattedDate);
+
+
+                                          /// if the user has already clocked out then take them to the home/yes page 
+                                          /// otherwise take them to the clockin page so that they can clock out.
+                                          if (result == true) {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        Yes()));
+                                          } else {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        Clockin()));
+                                          }
                                         } else {
                                           setState(() {
                                             errorText = 'Submit failed';
