@@ -19,14 +19,7 @@ class Yes extends StatefulWidget {
 class _YesState extends State<Yes> {
   
 
-  Future<void> _signOut() async {
-    try {
-      await FirebaseAuth.instance.signOut();
-      // You can perform any additional actions after sign-out here.
-    } catch (e) {
-      print('Error occurred while signing out: $e');
-    }
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +41,7 @@ class _YesState extends State<Yes> {
                     ),
                   ),
                   onPressed: () {
-                    _signOut();
+                    // _signOut();
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
@@ -487,10 +480,10 @@ class _DoneCheckinState extends State<DoneCheckin> {
                       const SizedBox(
                         height: 15,
                       ),
-                      const Padding(
+                       Padding(
                         padding: EdgeInsets.only(left: 8),
                         child: Text(
-                          '5h 34m',
+                          timeinandout.overtime,
                           style: TextStyle(
                               fontWeight: FontWeight.w700, fontSize: 20),
                         ),

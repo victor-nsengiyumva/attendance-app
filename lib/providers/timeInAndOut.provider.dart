@@ -35,8 +35,8 @@ class TimeInAndOutProvider extends ChangeNotifier {
 
       _finalduration = duration;
 
-      String finalTime = duration.inHours.toString() +
-          duration.inMinutes.remainder(60).toString();
+      String finalTime =
+          '${duration.inHours}h ${duration.inMinutes.remainder(60)}m';
 
       return finalTime;
     }
@@ -44,11 +44,11 @@ class TimeInAndOutProvider extends ChangeNotifier {
 
   _computeovertime() {
     if (_timeIn.isEmpty || _timeOut.isEmpty) {
-      return 'O hrs';
-    } else if (_finalduration!.inHours < 9) {
-      return '0 hrs';
+      return 'Oh 00m';
+    } else if (_finalduration! < const Duration(hours: 9,minutes: 01)) {
+      return '0h 00m';
     } else {
-      return 'some';
+      return '${ _finalduration!.inHours - 9}h ${_finalduration!.inMinutes.remainder(60)}m';
     }
   }
 }

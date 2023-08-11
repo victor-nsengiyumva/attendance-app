@@ -16,14 +16,7 @@ class ProfileDialog extends StatefulWidget {
 }
 
 class _ProfileDialogState extends State<ProfileDialog> {
-  Future<void> _signOut() async {
-    try {
-      await FirebaseAuth.instance.signOut();
-      // You can perform any additional actions after sign-out here.
-    } catch (e) {
-      print('Error occurred while signing out: $e');
-    }
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +136,7 @@ class _ProfileDialogState extends State<ProfileDialog> {
                               ),
                             ),
                             onPressed: () {
-                              _signOut();
+                              // _signOut();
                               Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(

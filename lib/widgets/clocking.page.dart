@@ -165,7 +165,7 @@ class _ClockinState extends State<Clockin> {
         Provider.of<ErrorProvider>(
           context,
           listen: false,
-        ).upDate('You are done clocking in for today. Come again tomorrow.');
+        ).upDate('You are done clocking in for today. You will clock out at the end of the day.');
       });
     }
   }
