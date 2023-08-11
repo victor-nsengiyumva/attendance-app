@@ -38,7 +38,7 @@ Future<bool> checkRegisteredIn(
   }
 }
 
-Future<bool> checkRegisteredOut(userID, dateToday) async {
+Future<bool> checkRegisteredOut(userID, dateToday,TimeInAndOutProvider timeinandoutprovider) async {
   String url = 'http://192.168.43.145:3000/attendance/checkClockOut';
 
   // you can listen to this server remotely by using this IPv4 address of the device and the port to listen on
@@ -59,6 +59,9 @@ Future<bool> checkRegisteredOut(userID, dateToday) async {
     print(response.body);
 
     if (response.body != 'false') {
+      data = jsonDecode(response.body);
+      var time = data['checkOutTime'];
+      timeinandoutprovider.storeTimeOut(time);
       return true;
     } else {
       return false;

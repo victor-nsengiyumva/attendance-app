@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:attendance/backend.api/checkRegistered.dart';
 import 'package:attendance/backend.api/login.dart';
 import 'package:attendance/models/user.model.dart';
+import 'package:attendance/providers/timeInAndOut.provider.dart';
 import 'package:attendance/providers/user.provider.dart';
 import 'package:attendance/widgets/clocking.page.dart';
 import 'package:attendance/widgets/phone.signup.dart';
@@ -18,11 +19,28 @@ class PhoneLoginPage extends StatefulWidget {
 }
 
 class _PhoneLoginPageState extends State<PhoneLoginPage> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   final TextEditingController _emailField = TextEditingController();
   final TextEditingController _passwordField = TextEditingController();
   String errorText = '';
   bool loading = false;
   bool passwordvisible = false;
+
+  didcheckin() async {
+    var userCredential =
+        Provider.of<UserProvider>(context, listen: false).getUser!;
+    DateTime currentDate = DateTime.now();
+    String formattedDate = DateFormat('d-MM-yyyy').format(currentDate);
+    var timeinandoutprovider =
+        Provider.of<TimeInAndOutProvider>(context, listen: false);
+
+    await checkRegisteredIn(
+        userCredential.id, formattedDate, timeinandoutprovider);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -171,7 +189,6 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                                             loading = false;
                                           });
                                         } else if (answer is Object) {
-
                                           /// get the data of the answer which is the response with the user data
                                           /// and then add it to the user provider
                                           var responseData =
@@ -185,30 +202,41 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                                                   listen: false)
                                               .addUser(userCredential);
 
-
-                                          /// get the current userId and date so that you can check the date and 
+                                          /// get the current userId and date so that you can check the date and
                                           /// check whether the user has already clocked out.
                                           var userID =
                                               Provider.of<UserProvider>(context,
                                                       listen: false)
                                                   .getUser!;
+                                          var timeinandout =
+                                              Provider.of<TimeInAndOutProvider>(
+                                                  context,
+                                                  listen: false);
                                           DateTime currentDate = DateTime.now();
                                           String formattedDate =
                                               DateFormat('d-MM-yyyy')
                                                   .format(currentDate);
+
+                                          /// here we are checking whether the user checked in and out 
+                                          /// where the time of in and out are then stored to show the user on the
+                                          /// yes/home page
                                           bool result =
                                               await checkRegisteredOut(
-                                                userID.id, formattedDate);
+                                                  userID.id,
+                                                  formattedDate,
+                                                  timeinandout);
+                                              await checkRegisteredIn(userID.id,
+                                              formattedDate, timeinandout);
 
-
-                                          /// if the user has already clocked out then take them to the home/yes page 
+                                          /// if the user has already clocked out then take them to the home/yes page
                                           /// otherwise take them to the clockin page so that they can clock out.
                                           if (result == true) {
-                                            Navigator.push(
+                                            Navigator.pushAndRemoveUntil(
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        Yes()));
+                                                        Yes()),
+                                                ((route) => false));
                                           } else {
                                             Navigator.push(
                                                 context,

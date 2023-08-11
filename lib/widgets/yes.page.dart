@@ -3,6 +3,7 @@ import 'package:attendance/widgets/phone.login.dart';
 import 'package:attendance/widgets/profile.dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/timeInAndOut.provider.dart';
@@ -265,12 +266,12 @@ class _DoneCheckinState extends State<DoneCheckin> {
     var timeinandout = Provider.of<TimeInAndOutProvider>(context,listen:false);
 
     return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-      const Padding(
+       Padding(
         padding: EdgeInsets.only(left: 6),
         child: Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            'Wed. 23 August, 23',
+            DateFormat('EEEE, d MMMM').format(DateTime.now()),
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
@@ -317,7 +318,7 @@ class _DoneCheckinState extends State<DoneCheckin> {
                        Padding(
                         padding: EdgeInsets.only(left: 8),
                         child: Text(
-                          timeinandout.timeIn,
+                          timeinandout.timeIn.isEmpty?'- -':timeinandout.timeIn,
                           style: TextStyle(
                               fontWeight: FontWeight.w700, fontSize: 20),
                         ),
@@ -370,10 +371,10 @@ class _DoneCheckinState extends State<DoneCheckin> {
                       const SizedBox(
                         height: 15,
                       ),
-                      const Padding(
+                       Padding(
                         padding: EdgeInsets.only(left: 8),
                         child: Text(
-                          '09:34 am',
+                          timeinandout.timeOut.isEmpty?'- -':timeinandout.timeOut,
                           style: TextStyle(
                               fontWeight: FontWeight.w700, fontSize: 20),
                         ),
@@ -430,10 +431,10 @@ class _DoneCheckinState extends State<DoneCheckin> {
                       const SizedBox(
                         height: 15,
                       ),
-                      const Padding(
+                       Padding(
                         padding: EdgeInsets.only(left: 8),
                         child: Text(
-                          '13h 00m',
+                          timeinandout.workTime,
                           style: TextStyle(
                               fontWeight: FontWeight.w700, fontSize: 20),
                         ),

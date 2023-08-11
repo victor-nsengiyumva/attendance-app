@@ -30,6 +30,7 @@ class _ClockinState extends State<Clockin> {
     getTime();
     greetingandClockButtonTextUpdate();
     didcheckin();
+    didcheckout();
   }
 
   /// these are the several variables within the build function that change
@@ -141,19 +142,21 @@ class _ClockinState extends State<Clockin> {
     }
   }
 
-/// this function checks the database whether the person is done checking in and if so it 
-/// deactivates the check in button and   changes its color to red on top of logging the error 
-/// message into the error widget.
-/// when the checkRegistered function is called, it also stores the time of checkin in a provider so that
-/// it can be displayed to the user.
+  /// this function checks the database whether the person is done checking in and if so it
+  /// deactivates the check in button and   changes its color to red on top of logging the error
+  /// message into the error widget.
+  /// when the checkRegistered function is called, it also stores the time of checkin in a provider so that
+  /// it can be displayed to the user.
   didcheckin() async {
     var userCredential =
         Provider.of<UserProvider>(context, listen: false).getUser!;
     DateTime currentDate = DateTime.now();
     String formattedDate = DateFormat('d-MM-yyyy').format(currentDate);
-    var timeinandoutprovider = Provider.of<TimeInAndOutProvider>(context, listen: false);
+    var timeinandoutprovider =
+        Provider.of<TimeInAndOutProvider>(context, listen: false);
 
-    bool result = await checkRegisteredIn(userCredential.id, formattedDate,timeinandoutprovider);
+    bool result = await checkRegisteredIn(
+        userCredential.id, formattedDate, timeinandoutprovider);
     if (result == true) {
       setState(() {
         error = true;
@@ -167,7 +170,18 @@ class _ClockinState extends State<Clockin> {
     }
   }
 
-  
+  /// this function does what the didcheckin function does but for the checkout process instead.
+  didcheckout() async {
+    var userCredential =
+        Provider.of<UserProvider>(context, listen: false).getUser!;
+    DateTime currentDate = DateTime.now();
+    String formattedDate = DateFormat('d-MM-yyyy').format(currentDate);
+    var timeinandoutprovider =
+        Provider.of<TimeInAndOutProvider>(context, listen: false);
+
+    await checkRegisteredOut(
+        userCredential.id, formattedDate, timeinandoutprovider);
+  }
 
   @override
   Widget build(BuildContext context) {
