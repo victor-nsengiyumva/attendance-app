@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
 
+import '../main.dart';
 import '../providers/user.provider.dart';
 
 class ProfileDialog extends StatefulWidget {
@@ -16,11 +17,9 @@ class ProfileDialog extends StatefulWidget {
 }
 
 class _ProfileDialogState extends State<ProfileDialog> {
-  
-
   @override
   Widget build(BuildContext context) {
-     var userCredential =
+    var userCredential =
         Provider.of<UserProvider>(context, listen: false).getUser!;
     return Center(
         child: Padding(
@@ -71,7 +70,8 @@ class _ProfileDialogState extends State<ProfileDialog> {
                             borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(10),
                                 topRight: Radius.circular(10)),
-                            border: Border.all(color: Color.fromARGB(255, 221, 221, 221)),
+                            border: Border.all(
+                                color: Color.fromARGB(255, 221, 221, 221)),
                           ),
                           height: 55,
                           child: Padding(
@@ -95,16 +95,20 @@ class _ProfileDialogState extends State<ProfileDialog> {
                         onTap: () => {},
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 234, 246, 255),
-                            borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(10),
-                                bottomRight: Radius.circular(10)),
-                            border: Border(
-                                bottom: BorderSide(color: Color.fromARGB(255, 221, 221, 221)),
-                                right: BorderSide(color: Color.fromARGB(255, 221, 221, 221)),
-                                left: BorderSide(color: Color.fromARGB(255, 221, 221, 221)),
-                                top: BorderSide(color: Color.fromARGB(255, 221, 221, 221)),
-                          )),
+                              color: Color.fromARGB(255, 234, 246, 255),
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(10),
+                                  bottomRight: Radius.circular(10)),
+                              border: Border(
+                                bottom: BorderSide(
+                                    color: Color.fromARGB(255, 221, 221, 221)),
+                                right: BorderSide(
+                                    color: Color.fromARGB(255, 221, 221, 221)),
+                                left: BorderSide(
+                                    color: Color.fromARGB(255, 221, 221, 221)),
+                                top: BorderSide(
+                                    color: Color.fromARGB(255, 221, 221, 221)),
+                              )),
                           height: 55,
                           child: Padding(
                             padding: const EdgeInsets.only(left: 17, right: 10),
@@ -123,26 +127,27 @@ class _ProfileDialogState extends State<ProfileDialog> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 40,),
+                      SizedBox(
+                        height: 40,
+                      ),
                       SizedBox(
                         width: double.maxFinite,
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color.fromARGB(
-                                  255, 0, 173, 238), // Change the text color here
+                              backgroundColor: const Color.fromARGB(255, 0, 173,
+                                  238), // Change the text color here
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
                                     10.0), // Optional: Customize the button's shape
                               ),
                             ),
                             onPressed: () {
-                              // _signOut();
                               Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          const PhoneLoginPage()),
-                                  ((route) => false));
+                                      builder: (BuildContext context) =>
+                                          MyApp()),
+                                  (Route<dynamic> route) => false);
                             },
                             child: const Padding(
                               padding: EdgeInsets.all(12),

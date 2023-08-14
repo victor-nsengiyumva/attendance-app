@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../main.dart';
 import '../providers/timeInAndOut.provider.dart';
 import '../providers/user.provider.dart';
 
@@ -17,10 +18,6 @@ class Yes extends StatefulWidget {
 }
 
 class _YesState extends State<Yes> {
-  
-
-  
-
   @override
   Widget build(BuildContext context) {
     var userCredential =
@@ -45,8 +42,8 @@ class _YesState extends State<Yes> {
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const PhoneLoginPage()),
-                        ((route) => false));
+                            builder: (BuildContext context) => MyApp()),
+                        (Route<dynamic> route) => false);
                   },
                   child: const Padding(
                     padding: EdgeInsets.all(12),
@@ -116,7 +113,6 @@ class _YesState extends State<Yes> {
                           ),
                           InkWell(
                             onTap: () {
-                              
                               showDialog(
                                   context: context,
                                   builder: (context) {
@@ -256,10 +252,11 @@ class DoneCheckin extends StatefulWidget {
 class _DoneCheckinState extends State<DoneCheckin> {
   @override
   Widget build(BuildContext context) {
-    var timeinandout = Provider.of<TimeInAndOutProvider>(context,listen:false);
+    var timeinandout =
+        Provider.of<TimeInAndOutProvider>(context, listen: false);
 
     return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-       Padding(
+      Padding(
         padding: EdgeInsets.only(left: 6),
         child: Align(
           alignment: Alignment.centerLeft,
@@ -308,10 +305,12 @@ class _DoneCheckinState extends State<DoneCheckin> {
                       const SizedBox(
                         height: 15,
                       ),
-                       Padding(
+                      Padding(
                         padding: EdgeInsets.only(left: 8),
                         child: Text(
-                          timeinandout.timeIn.isEmpty?'- -':timeinandout.timeIn,
+                          timeinandout.timeIn.isEmpty
+                              ? '- -'
+                              : timeinandout.timeIn,
                           style: TextStyle(
                               fontWeight: FontWeight.w700, fontSize: 20),
                         ),
@@ -364,10 +363,12 @@ class _DoneCheckinState extends State<DoneCheckin> {
                       const SizedBox(
                         height: 15,
                       ),
-                       Padding(
+                      Padding(
                         padding: EdgeInsets.only(left: 8),
                         child: Text(
-                          timeinandout.timeOut.isEmpty?'- -':timeinandout.timeOut,
+                          timeinandout.timeOut.isEmpty
+                              ? '- -'
+                              : timeinandout.timeOut,
                           style: TextStyle(
                               fontWeight: FontWeight.w700, fontSize: 20),
                         ),
@@ -424,7 +425,7 @@ class _DoneCheckinState extends State<DoneCheckin> {
                       const SizedBox(
                         height: 15,
                       ),
-                       Padding(
+                      Padding(
                         padding: EdgeInsets.only(left: 8),
                         child: Text(
                           timeinandout.workTime,
@@ -480,7 +481,7 @@ class _DoneCheckinState extends State<DoneCheckin> {
                       const SizedBox(
                         height: 15,
                       ),
-                       Padding(
+                      Padding(
                         padding: EdgeInsets.only(left: 8),
                         child: Text(
                           timeinandout.overtime,
