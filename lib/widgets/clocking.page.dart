@@ -66,6 +66,8 @@ class _ClockinState extends State<Clockin> {
 
     if (!trueDevice) {
       setState(() {
+        isDisabled = true;
+        _buttonColor = Colors.red;
         error = true;
         Provider.of<ErrorProvider>(
           context,
@@ -76,6 +78,8 @@ class _ClockinState extends State<Clockin> {
     } else {
       if (distance > 150) {
         setState(() {
+          isDisabled = true;
+        _buttonColor = Colors.red;
           error = true;
           Provider.of<ErrorProvider>(
             context,
@@ -165,7 +169,8 @@ class _ClockinState extends State<Clockin> {
         Provider.of<ErrorProvider>(
           context,
           listen: false,
-        ).upDate('You are done clocking in for today. You will clock out at the end of the day.');
+        ).upDate(
+            'You are done clocking in for today. You will clock out at the end of the day.');
       });
     }
   }
