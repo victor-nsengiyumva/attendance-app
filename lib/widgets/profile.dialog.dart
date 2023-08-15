@@ -51,7 +51,7 @@ class _ProfileDialogState extends State<ProfileDialog> {
                       height: 30,
                       width: 300,
                       child: Text(
-                        userCredential.location,
+                        userCredential.location['name'],
                       )),
                 ],
               ),

@@ -97,7 +97,7 @@ class _YesState extends State<Yes> {
                                 height: 3,
                               ),
                               Text(
-                                userCredential.location,
+                                userCredential.location['name'],
                                 style: TextStyle(
                                     fontSize: 13, fontWeight: FontWeight.w300),
                               ),

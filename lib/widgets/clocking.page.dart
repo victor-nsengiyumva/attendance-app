@@ -52,17 +52,21 @@ class _ClockinState extends State<Clockin> {
   /// updates the error provider with the error message which is sent to the error widget according to the status of your location.
   /// parameters for the Geolocator.distanceBetween are startLatitude, startLongitude, endLatitude, endLongitude
   checkLocation() async {
+    var currentUser =
+        Provider.of<UserProvider>(context, listen: false).getUser!;
     var position =
         Provider.of<LocationProvider>(context, listen: false).position;
-    double distance = Geolocator.distanceBetween(position!.latitude,
-        position.longitude, 0.3508671638063489, 32.648231751906586);
+
+    var userLongitude = double.parse(currentUser.location['longitude']);
+    var userLatitude = double.parse(currentUser.location['latitude']);
+    double distance = Geolocator.distanceBetween(
+        position!.latitude, position.longitude, userLatitude, userLongitude);
 
     /// The checkdevice function checks the database whether you are using the same device that you used to register with
     /// and grants clockin/out if you are using the device you used for registration.
     /// the function returns
-    String currentUserDeviceID =
-        Provider.of<UserProvider>(context, listen: false).getUser!.deviceID;
-    bool trueDevice = await checkDevice(currentUserDeviceID);
+
+    bool trueDevice = await checkDevice(currentUser.deviceID);
 
     if (!trueDevice) {
       setState(() {
@@ -79,7 +83,7 @@ class _ClockinState extends State<Clockin> {
       if (distance > 150) {
         setState(() {
           isDisabled = true;
-        _buttonColor = Colors.red;
+          _buttonColor = Colors.red;
           error = true;
           Provider.of<ErrorProvider>(
             context,

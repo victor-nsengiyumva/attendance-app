@@ -3,7 +3,7 @@ class User {
   final String PF;
   final String email;
   final String mobile_number;
-  final String location;
+  final Map<dynamic,dynamic> location;
   final String deviceID;
 
   const User({

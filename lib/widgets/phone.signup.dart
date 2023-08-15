@@ -307,7 +307,7 @@ class _PhoneSignupPageState extends State<PhoneSignupPage> {
                                           });
                                         } else {
                                           var response = await signup(
-                                              _PF.text,
+                                              _PF.text.trim(), // this removes any leading or trailing white spaces to ease login with pf
                                               _email.text,
                                               _phone_number.text,
                                               _selectedVal,
