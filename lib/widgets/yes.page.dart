@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../backend.api/checkRegistered.dart';
 import '../main.dart';
 import '../providers/timeInAndOut.provider.dart';
 import '../providers/user.provider.dart';
@@ -42,7 +43,7 @@ class _YesState extends State<Yes> {
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                            builder: (BuildContext context) => MyApp()),
+                            builder: (BuildContext context) => const MyApp()),
                         (Route<dynamic> route) => false);
                   },
                   child: const Padding(

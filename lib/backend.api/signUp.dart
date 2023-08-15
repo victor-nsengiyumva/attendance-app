@@ -31,6 +31,8 @@ Future<dynamic> signup(String PF, String email, String mobile_number,
     print(response.body);
     return response.body;
   } else {
+    print('status error ----------');
+
     return false;
   }
 }

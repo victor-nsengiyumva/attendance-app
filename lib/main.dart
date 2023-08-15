@@ -23,7 +23,8 @@ WidgetsFlutterBinding.ensureInitialized();
 SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-  runApp(MultiProvider(
+  runApp(
+    MultiProvider(
     providers :[
       ChangeNotifierProvider(create: (context) => LocationProvider()),
       ChangeNotifierProvider(create: (context) => UserProvider()),
@@ -33,7 +34,8 @@ SystemChrome.setPreferredOrientations(
 
     ],
     child: const MyApp(),
-  ));
+  )
+  );
 }
 
 class MyApp extends StatelessWidget {
