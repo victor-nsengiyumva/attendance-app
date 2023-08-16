@@ -5,20 +5,20 @@ import 'package:attendance/models/user.model.dart';
 import 'package:attendance/providers/timeInAndOut.provider.dart';
 import 'package:attendance/providers/user.provider.dart';
 import 'package:attendance/widgets/clocking.page.dart';
-import 'package:attendance/widgets/phone.signup.dart';
+import 'package:attendance/widgets/signup.page.dart';
 import 'package:attendance/widgets/yes.page.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-class PhoneLoginPage extends StatefulWidget {
-  const PhoneLoginPage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<PhoneLoginPage> createState() => _PhoneLoginPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _PhoneLoginPageState extends State<PhoneLoginPage> {
+class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
@@ -284,7 +284,7 @@ class _PhoneLoginPageState extends State<PhoneLoginPage> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              const PhoneSignupPage()));
+                                              const SignupPage()));
                                 },
                                 child: const Text("Register",
                                     style: TextStyle(

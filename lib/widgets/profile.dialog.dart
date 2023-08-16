@@ -1,5 +1,5 @@
 import 'package:attendance/widgets/avatar.dart';
-import 'package:attendance/widgets/phone.login.dart';
+import 'package:attendance/widgets/login.page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -7,6 +7,8 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
 
 import '../main.dart';
+import '../providers/error.clockpageProvider.dart';
+import '../providers/timeInAndOut.provider.dart';
 import '../providers/user.provider.dart';
 
 class ProfileDialog extends StatefulWidget {
@@ -20,7 +22,7 @@ class _ProfileDialogState extends State<ProfileDialog> {
   @override
   Widget build(BuildContext context) {
     var userCredential =
-        Provider.of<UserProvider>(context, listen: false).getUser!;
+        Provider.of<UserProvider>(context, listen: true).getUser!;
     return Center(
         child: Padding(
             padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
@@ -142,6 +144,11 @@ class _ProfileDialogState extends State<ProfileDialog> {
                               ),
                             ),
                             onPressed: () {
+                              Provider.of<TimeInAndOutProvider>(context,
+                                      listen: false)
+                                  .clear();
+                              Provider.of<ErrorProvider>(context, listen: false)
+                                  .clear();
                               Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(

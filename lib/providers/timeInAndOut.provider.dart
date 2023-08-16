@@ -45,10 +45,16 @@ class TimeInAndOutProvider extends ChangeNotifier {
   _computeovertime() {
     if (_timeIn.isEmpty || _timeOut.isEmpty) {
       return 'Oh 00m';
-    } else if (_finalduration! < const Duration(hours: 9,minutes: 01)) {
+    } else if (_finalduration! < const Duration(hours: 9, minutes: 01)) {
       return '0h 00m';
     } else {
-      return '${ _finalduration!.inHours - 9}h ${_finalduration!.inMinutes.remainder(60)}m';
+      return '${_finalduration!.inHours - 9}h ${_finalduration!.inMinutes.remainder(60)}m';
     }
+  }
+
+  void clear() {
+    _timeIn = '';
+    _timeOut = '';
+    notifyListeners();
   }
 }

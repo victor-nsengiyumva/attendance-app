@@ -5,8 +5,12 @@ class ErrorProvider extends ChangeNotifier {
 
   String get error => _error;
 
-  upDate(String newError) {
+  void upDate(String newError) {
     _error = newError;
+  }
 
+  void clear() {
+    _error = '';
+    notifyListeners();
   }
 }

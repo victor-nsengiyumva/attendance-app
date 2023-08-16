@@ -1,5 +1,5 @@
 import 'package:attendance/OTP_code/OTP.input.dart';
-import 'package:attendance/widgets/phone.login.dart';
+import 'package:attendance/widgets/login.page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +19,7 @@ phoneLogin(String number, BuildContext context) async {
       if (e.code == 'invalid-phone-number') {
         print('The provided phone number is not valid.');
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const PhoneLoginPage()));
+            context, MaterialPageRoute(builder: (context) => const LoginPage()));
       }
     },
     codeSent: (String verificationId, int? resendToken) async {

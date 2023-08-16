@@ -1,5 +1,5 @@
 import 'package:attendance/painter/billboard.dart';
-import 'package:attendance/widgets/phone.login.dart';
+import 'package:attendance/widgets/login.page.dart';
 import 'package:attendance/widgets/profile.dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 import '../backend.api/checkRegistered.dart';
 import '../main.dart';
+import '../providers/error.clockpageProvider.dart';
 import '../providers/timeInAndOut.provider.dart';
 import '../providers/user.provider.dart';
 
@@ -22,7 +23,7 @@ class _YesState extends State<Yes> {
   @override
   Widget build(BuildContext context) {
     var userCredential =
-        Provider.of<UserProvider>(context, listen: false).getUser!;
+        Provider.of<UserProvider>(context, listen: true).getUser!;
     return SafeArea(
       child: Scaffold(
           bottomNavigationBar: Padding(
@@ -39,7 +40,10 @@ class _YesState extends State<Yes> {
                     ),
                   ),
                   onPressed: () {
-                    // _signOut();
+                    Provider.of<TimeInAndOutProvider>(context, listen: false)
+                        .clear();
+                    Provider.of<ErrorProvider>(context, listen: false)
+                        .clear();
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
@@ -254,7 +258,7 @@ class _DoneCheckinState extends State<DoneCheckin> {
   @override
   Widget build(BuildContext context) {
     var timeinandout =
-        Provider.of<TimeInAndOutProvider>(context, listen: false);
+        Provider.of<TimeInAndOutProvider>(context, listen: true);
 
     return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
       Padding(

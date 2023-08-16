@@ -1,16 +1,16 @@
 import 'package:attendance/backend.api/signUp.dart';
-import 'package:attendance/widgets/phone.login.dart';
+import 'package:attendance/widgets/login.page.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 
-class PhoneSignupPage extends StatefulWidget {
-  const PhoneSignupPage({super.key});
+class SignupPage extends StatefulWidget {
+  const SignupPage({super.key});
 
   @override
-  State<PhoneSignupPage> createState() => _PhoneSignupPageState();
+  State<SignupPage> createState() => _SignupPageState();
 }
 
-class _PhoneSignupPageState extends State<PhoneSignupPage> {
+class _SignupPageState extends State<SignupPage> {
   /// these are the variables for this widget
   String _selectedVal = '';
   String _deviceID = '';
@@ -18,7 +18,7 @@ class _PhoneSignupPageState extends State<PhoneSignupPage> {
   bool passwordvisible = false;
 
   /// this constructor of the _PhoneSignupPageState sets the initial value of the _selectedVal
-  _PhoneSignupPageState() {
+  _SignupPageState() {
     _selectedVal = '';
   }
 
@@ -47,6 +47,7 @@ class _PhoneSignupPageState extends State<PhoneSignupPage> {
     'Wandegeya Branch',
     'Head Office',
     'Busega Branch',
+    'Test'
   ];
 
   /// these are the controllers for the fields in the signup form
@@ -324,7 +325,7 @@ class _PhoneSignupPageState extends State<PhoneSignupPage> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        PhoneLoginPage()));
+                                                        LoginPage()));
                                           } else {
                                             setState(() {
                                               _pfExist = response;

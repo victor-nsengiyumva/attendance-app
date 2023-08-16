@@ -16,7 +16,8 @@ class LocationProvider extends ChangeNotifier {
 
   void updatePosition(Position newPosition) {
     _position = newPosition;
-
     notifyListeners();
   }
+
+  
 }

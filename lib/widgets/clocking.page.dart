@@ -35,10 +35,20 @@ class _ClockinState extends State<Clockin> {
 
   /// these are the several variables within the build function that change
   /// with given conditions to update the UI
+  
+  /// text on the big button
   String buttonLabel = 'Clock in';
+
+  /// the greeting text at the topleft
   String greeting = 'Good morning';
+
+  /// this holds the state of the error widget
   bool error = false;
+
+  /// this is the default color of the big button
   Color _buttonColor = Colors.green;
+
+  /// this holds the state of the ontap event of the big button
   bool isDisabled = false;
 
   /// The getTime function gets the current time and updates the provider that feeds the UI of the
@@ -195,7 +205,7 @@ class _ClockinState extends State<Clockin> {
   @override
   Widget build(BuildContext context) {
     var userCredential =
-        Provider.of<UserProvider>(context, listen: false).getUser!;
+        Provider.of<UserProvider>(context, listen: true).getUser!;
     var location =
         Provider.of<LocationProvider>(context, listen: true).position;
     return SafeArea(

@@ -8,7 +8,6 @@ class UserProvider extends ChangeNotifier {
 
   addUser(User newUser) {
     _user = newUser;
-
     notifyListeners();
   }
 }

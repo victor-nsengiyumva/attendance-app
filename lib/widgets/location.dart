@@ -1,5 +1,5 @@
 import 'package:attendance/providers/location.provider.dart';
-import 'package:attendance/widgets/phone.login.dart';
+import 'package:attendance/widgets/login.page.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -166,7 +166,7 @@ class _LocationState extends State<Location> {
                 ],
               ),
             )
-          : const PhoneLoginPage(),
+          : const LoginPage(),
     );
   }
 }
