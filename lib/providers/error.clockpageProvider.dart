@@ -9,6 +9,11 @@ class ErrorProvider extends ChangeNotifier {
     _error = newError;
   }
 
+  void upDate2(String newError) {
+    _error = newError;
+    notifyListeners();
+  }
+
   void clear() {
     _error = '';
     notifyListeners();

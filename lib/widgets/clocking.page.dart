@@ -28,14 +28,13 @@ class _ClockinState extends State<Clockin> {
     super.initState();
     checkLocation();
     getTime();
-    greetingandClockButtonTextUpdate();
     didcheckin();
     didcheckout();
   }
 
   /// these are the several variables within the build function that change
   /// with given conditions to update the UI
-  
+
   /// text on the big button
   String buttonLabel = 'Clock in';
 
@@ -50,6 +49,9 @@ class _ClockinState extends State<Clockin> {
 
   /// this holds the state of the ontap event of the big button
   bool isDisabled = false;
+
+  /// this variable activates the circular progress bar depending on the state of the page
+  bool isLoading = false;
 
   /// The getTime function gets the current time and updates the provider that feeds the UI of the
   /// clockin page
@@ -204,310 +206,351 @@ class _ClockinState extends State<Clockin> {
 
   @override
   Widget build(BuildContext context) {
+    greetingandClockButtonTextUpdate();
+
     var userCredential =
         Provider.of<UserProvider>(context, listen: true).getUser!;
     var location =
         Provider.of<LocationProvider>(context, listen: true).position;
-    return SafeArea(
-      child: Scaffold(
-        bottomNavigationBar: Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10, bottom: 30),
-          child: SizedBox(
-            width: double.maxFinite,
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(
-                      255, 0, 173, 238), // Change the text color here
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                        10.0), // Optional: Customize the button's shape
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Yes()));
-                },
-                child: const Padding(
-                  padding: EdgeInsets.all(12),
-                  child: Text(
-                    'Continue',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-                  ),
-                )),
-          ),
-        ),
-        body: Column(
-          children: [
-            Container(
-              color: const Color.fromARGB(255, 0, 173, 238),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 5, top: 5),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.only(left: 15),
-                      child: Text(
-                        'APP-NAME',
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
+    return isLoading
+        ? Center(
+            child: CircularProgressIndicator(
+              backgroundColor: Color.fromARGB(255, 228, 227, 227),
+              color: Color.fromARGB(255, 0, 173, 238),
+            ),
+          )
+        : SafeArea(
+            child: Scaffold(
+              bottomNavigationBar: Padding(
+                padding: const EdgeInsets.only(left: 10, right: 10, bottom: 30),
+                child: SizedBox(
+                  width: double.maxFinite,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(
+                            255, 0, 173, 238), // Change the text color here
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              10.0), // Optional: Customize the button's shape
+                        ),
                       ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Image.asset(
-                        'assets/images/logo_new.png',
-                        height: 80,
-                        width: 150,
-                      ),
-                    ),
-                  ],
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Yes()));
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.all(12),
+                        child: Text(
+                          'Continue',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 17),
+                        ),
+                      )),
                 ),
               ),
-            ),
-            Container(
-              height: 10,
-              width: double.maxFinite,
-              color: const Color(0xFFD7DF23),
-            ),
-            const SizedBox(
-              height: 17,
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Row(
+              body: Column(
+                children: [
+                  Container(
+                    color: const Color.fromARGB(255, 0, 173, 238),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 5, top: 5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CircleAvatar(
-                            radius: 24,
-                            backgroundColor:
-                                const Color.fromARGB(255, 234, 246, 255),
-                            child: Image.asset(
-                              'assets/images/office-worker.png',
-                              height: 29,
-                              width: 29,
+                          const Padding(
+                            padding: EdgeInsets.only(left: 15),
+                            child: Text(
+                              'APP-NAME',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
                             ),
                           ),
-                          const SizedBox(
-                            width: 4,
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Image.asset(
+                              'assets/images/logo_new.png',
+                              height: 80,
+                              width: 150,
+                            ),
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                greeting,
-                                style:
-                                    TextStyle(fontSize: 14, color: Colors.grey),
-                              ),
-                              SizedBox(
-                                height: 2,
-                              ),
-                              Text(
-                                userCredential.PF,
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                          Expanded(child: SizedBox()),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 5),
-                            child: IconButton(
-                                onPressed: () {
-                                  TimeOfDay timeNow = TimeOfDay.now();
-                                  Provider.of<TimeProvider>(context,
-                                          listen: false)
-                                      .upDate2(timeNow);
-                                  greetingandClockButtonTextUpdate();
-                                  setState(() {});
-                                },
-                                icon: Icon(Icons.refresh)),
-                          )
                         ],
                       ),
-                      const SizedBox(
-                        height: 50,
-                      ),
-                      Text(
-                        Provider.of<TimeProvider>(context, listen: true)
-                            .time!
-                            .format(context),
-                        style: TextStyle(
-                            fontSize: 35, fontWeight: FontWeight.w700),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        DateFormat('EEEE, d MMMM').format(DateTime.now()),
-                        style: TextStyle(fontSize: 17, color: Colors.grey),
-                      ),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      InkWell(
-                        onTap: isDisabled
-                            ? null
-                            : () async {
-                                DateTime currentDate = DateTime.now();
-                                TimeOfDay currentTime = TimeOfDay.now();
-                                String formattedDate =
-                                    DateFormat('d-MM-yyyy').format(currentDate);
-
-                                if (buttonLabel == 'Clock in') {
-                                  await checkIn(
-                                      userCredential.id,
-                                      currentTime.format(context),
-                                      formattedDate.toString());
-                                } else {
-                                  await checkOut(
-                                      userCredential.id,
-                                      currentTime.format(context),
-                                      formattedDate.toString());
-
-                                  Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Yes()),
-                                    (route) => false,
-                                  );
-                                }
-                              },
-                        child: Card(
-                          elevation: 6,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(95.0)),
-                          child: Container(
-                            width: 190,
-                            height: 190,
-                            decoration: BoxDecoration(
-                              color: _buttonColor,
-                              shape: BoxShape.circle,
-                            ),
-                            child: Center(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Image.asset(
-                                    'assets/images/tap.png',
-                                    height: 50,
-                                    width: 50,
-                                    color: Colors.white,
-                                  ),
-                                  const SizedBox(
-                                    height: 15,
-                                  ),
-                                  Text(
-                                    buttonLabel,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 30),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
+                    ),
+                  ),
+                  Container(
+                    height: 10,
+                    width: double.maxFinite,
+                    color: const Color(0xFFD7DF23),
+                  ),
+                  const SizedBox(
+                    height: 17,
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(left: 15, right: 15, top: 10),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Icon(
-                              Icons.location_pin,
-                              size: 18,
-                              color: Color.fromARGB(255, 0, 173, 238),
+                            Row(
+                              children: [
+                                CircleAvatar(
+                                  radius: 24,
+                                  backgroundColor:
+                                      const Color.fromARGB(255, 234, 246, 255),
+                                  child: Image.asset(
+                                    'assets/images/office-worker.png',
+                                    height: 29,
+                                    width: 29,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 4,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      greeting,
+                                      style: TextStyle(
+                                          fontSize: 14, color: Colors.grey),
+                                    ),
+                                    SizedBox(
+                                      height: 2,
+                                    ),
+                                    Text(
+                                      userCredential.PF,
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ],
+                                ),
+                                Expanded(child: SizedBox()),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 5),
+                                  child: IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          TimeOfDay timeNow = TimeOfDay.now();
+                                          Provider.of<TimeProvider>(context,
+                                                  listen: false)
+                                              .upDate2(timeNow);
+                                          greetingandClockButtonTextUpdate();
+                                        });
+                                      },
+                                      icon: Icon(Icons.refresh)),
+                                )
+                              ],
                             ),
-                            SizedBox(
-                              width: 5,
+                            const SizedBox(
+                              height: 50,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 25),
-                              child: SizedBox(
-                                  width: 230,
-                                  child: Text(
-                                    'Location : ${location!.latitude} , ${location.longitude}',
-                                    style: TextStyle(
-                                        color: Colors.grey,
-                                        overflow: TextOverflow.ellipsis),
-                                  )),
-                            )
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      error == false
-                          ? const SizedBox(
-                              height: 60,
-                            )
-                          : Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 20, right: 20),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: const Color.fromARGB(
-                                        255, 234, 246, 255),
-                                    border: Border.all(
-                                      color: Color.fromARGB(255, 0, 173, 238),
-                                    )),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(17),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Image.asset(
-                                            'assets/images/attention.png',
-                                            height: 20,
-                                            width: 20,
-                                            color: Colors.red,
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      Expanded(
-                                          child: Text(
-                                        '${Provider.of<ErrorProvider>(
+                            Text(
+                              Provider.of<TimeProvider>(context, listen: true)
+                                  .time!
+                                  .format(
+                                      context), // this turns the time into a string
+                              style: TextStyle(
+                                  fontSize: 35, fontWeight: FontWeight.w700),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              DateFormat('EEEE, d MMMM').format(DateTime.now()),
+                              style:
+                                  TextStyle(fontSize: 17, color: Colors.grey),
+                            ),
+                            const SizedBox(
+                              height: 40,
+                            ),
+                            InkWell(
+                              onTap: isDisabled
+                                  ? null
+                                  : () async {
+                                      DateTime currentDate = DateTime.now();
+                                      TimeOfDay currentTime = TimeOfDay.now();
+                                      String formattedDate =
+                                          DateFormat('d-MM-yyyy')
+                                              .format(currentDate);
+                                      setState(() {
+                                        greetingandClockButtonTextUpdate();
+                                      }); // this is incase the person hasnt hit the refresh so the big buttoon still says clock in instead of out
+                                      if (buttonLabel == 'Clock in') {
+                                        setState(() {
+                                          isLoading = true;
+                                        });
+
+                                        await checkIn(
+                                            userCredential.id,
+                                            currentTime.format(context),
+                                            formattedDate.toString());
+
+                                        setState(() {
+                                          error = true;
+                                          isDisabled = true;
+                                          _buttonColor = Colors.red;
+                                          Provider.of<ErrorProvider>(
+                                            context,
+                                            listen: false,
+                                          ).upDate(
+                                              'You are done clocking in for today. You will clock out at the end of the day.');
+                                          isLoading = false;
+                                        });
+                                      } else {
+                                        setState(() {
+                                          isLoading = true;
+                                        });
+                                        await checkOut(
+                                            userCredential.id,
+                                            currentTime.format(context),
+                                            formattedDate.toString());
+
+                                        Navigator.pushAndRemoveUntil(
                                           context,
-                                          listen: true,
-                                        ).error}',
-                                      )),
-                                    ],
+                                          MaterialPageRoute(
+                                              builder: (context) => Yes()),
+                                          (route) => false,
+                                        );
+                                      }
+                                    },
+                              child: Card(
+                                elevation: 6,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(95.0)),
+                                child: Container(
+                                  width: 190,
+                                  height: 190,
+                                  decoration: BoxDecoration(
+                                    color: _buttonColor,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Center(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Image.asset(
+                                          'assets/images/tap.png',
+                                          height: 50,
+                                          width: 50,
+                                          color: Colors.white,
+                                        ),
+                                        const SizedBox(
+                                          height: 15,
+                                        ),
+                                        Text(
+                                          buttonLabel,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                    ],
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 30),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.location_pin,
+                                    size: 18,
+                                    color: Color.fromARGB(255, 0, 173, 238),
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 25),
+                                    child: SizedBox(
+                                        width: 230,
+                                        child: Text(
+                                          'Location : ${location!.latitude} , ${location.longitude}',
+                                          style: TextStyle(
+                                              color: Colors.grey,
+                                              overflow: TextOverflow.ellipsis),
+                                        )),
+                                  )
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            error == false
+                                ? const SizedBox(
+                                    height: 60,
+                                  )
+                                : Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20, right: 20),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: const Color.fromARGB(
+                                              255, 234, 246, 255),
+                                          border: Border.all(
+                                            color: Color.fromARGB(
+                                                255, 0, 173, 238),
+                                          )),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(17),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Image.asset(
+                                                  'assets/images/attention.png',
+                                                  height: 20,
+                                                  width: 20,
+                                                  color: Colors.red,
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            Expanded(
+                                                child: Text(
+                                              '${Provider.of<ErrorProvider>(
+                                                context,
+                                                listen: true,
+                                              ).error}',
+                                            )),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
-          ],
-        ),
-      ),
-    );
+          );
   }
 }
