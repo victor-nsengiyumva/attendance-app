@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-Future<dynamic> checkIn(
-    int userID, String checkInTime, String dateToday) async {
+import '../providers/timeInAndOut.provider.dart';
+
+Future<dynamic> checkIn(int userID, String checkInTime, String dateToday,
+    TimeInAndOutProvider timeInAndOutProvider) async {
   String url = 'http://192.168.43.145:3000/attendance/checkIn';
 
   Map<String, dynamic> data = {
@@ -26,7 +28,10 @@ Future<dynamic> checkIn(
   if (response.statusCode == 200) {
     print(
         "the response has gone through and there is no problem at the server side");
-    print(response.body);
+    var data = jsonDecode(response.body);
+    String timeIn = data['checkInTime'];
+    timeInAndOutProvider.storeTimeIn(timeIn);
+    print(data);
     return response.body;
   } else {
     print("the checkin is fucked at the server side");

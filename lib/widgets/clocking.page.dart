@@ -73,6 +73,7 @@ class _ClockinState extends State<Clockin> {
     var userLatitude = double.parse(currentUser.location['latitude']);
     double distance = Geolocator.distanceBetween(
         position!.latitude, position.longitude, userLatitude, userLongitude);
+    print("$distance yessssssssssssssssssssssssssssssssssssss");
 
     /// The checkdevice function checks the database whether you are using the same device that you used to register with
     /// and grants clockin/out if you are using the device you used for registration.
@@ -92,7 +93,7 @@ class _ClockinState extends State<Clockin> {
             ' This device is not recognised as your registered device. Please use the device you used for creating an account.');
       });
     } else {
-      if (distance > 150) {
+      if (distance > 120) {
         setState(() {
           isDisabled = true;
           _buttonColor = Colors.red;
@@ -105,7 +106,6 @@ class _ClockinState extends State<Clockin> {
         });
       }
     }
-    print(distance);
   }
 
   /// this function calculates the period of the day ie. whether its morning or afternoon and updates the greeting variable
@@ -212,45 +212,43 @@ class _ClockinState extends State<Clockin> {
         Provider.of<UserProvider>(context, listen: true).getUser!;
     var location =
         Provider.of<LocationProvider>(context, listen: true).position;
-    return isLoading
-        ? Center(
-            child: CircularProgressIndicator(
-              backgroundColor: Color.fromARGB(255, 228, 227, 227),
-              color: Color.fromARGB(255, 0, 173, 238),
-            ),
-          )
-        : SafeArea(
-            child: Scaffold(
-              bottomNavigationBar: Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10, bottom: 30),
-                child: SizedBox(
-                  width: double.maxFinite,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(
-                            255, 0, 173, 238), // Change the text color here
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              10.0), // Optional: Customize the button's shape
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Yes()));
-                      },
-                      child: const Padding(
-                        padding: EdgeInsets.all(12),
-                        child: Text(
-                          'Continue',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 17),
-                        ),
-                      )),
+    var timeandout = Provider.of<TimeInAndOutProvider>(context, listen: true);
+    return SafeArea(
+      child: Scaffold(
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10, bottom: 30),
+          child: SizedBox(
+            width: double.maxFinite,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(
+                      255, 0, 173, 238), // Change the text color here
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                        10.0), // Optional: Customize the button's shape
+                  ),
                 ),
-              ),
-              body: Column(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const Yes()));
+                },
+                child: const Padding(
+                  padding: EdgeInsets.all(12),
+                  child: Text(
+                    'Continue',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                  ),
+                )),
+          ),
+        ),
+        body: isLoading
+            ? Center(
+                child: CircularProgressIndicator(
+                  backgroundColor: Color.fromARGB(255, 228, 227, 227),
+                  color: Color.fromARGB(255, 0, 173, 238),
+                ),
+              )
+            : Column(
                 children: [
                   Container(
                     color: const Color.fromARGB(255, 0, 173, 238),
@@ -390,7 +388,8 @@ class _ClockinState extends State<Clockin> {
                                         await checkIn(
                                             userCredential.id,
                                             currentTime.format(context),
-                                            formattedDate.toString());
+                                            formattedDate.toString(),
+                                            timeandout);
 
                                         setState(() {
                                           error = true;
@@ -410,7 +409,7 @@ class _ClockinState extends State<Clockin> {
                                         await checkOut(
                                             userCredential.id,
                                             currentTime.format(context),
-                                            formattedDate.toString());
+                                            formattedDate.toString(),timeandout);
 
                                         Navigator.pushAndRemoveUntil(
                                           context,
@@ -550,7 +549,7 @@ class _ClockinState extends State<Clockin> {
                   ),
                 ],
               ),
-            ),
-          );
+      ),
+    );
   }
 }
