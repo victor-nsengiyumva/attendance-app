@@ -3,8 +3,8 @@ import 'package:http/http.dart' as http;
 
 import '../providers/timeInAndOut.provider.dart';
 
-Future<dynamic> checkOut(
-    int userID, String checkOutTime, String dateToday,TimeInAndOutProvider timeInAndOutProvider) async {
+Future<dynamic> checkOut(int userID, String checkOutTime, String dateToday,
+    TimeInAndOutProvider timeInAndOutProvider) async {
   String url = 'http://192.168.43.145:3000/attendance/checkOut';
 
   Map<String, dynamic> data = {
@@ -15,26 +15,30 @@ Future<dynamic> checkOut(
 
   var jsonData = jsonEncode(data);
 
-  var response = await http.post(
-    Uri.parse(url),
-    body: jsonData,
-    headers: {
-      'Content-Type':
-          'application/json', // strictly Add the Content-Type header
-    },
-  );
+  try {
+    var response = await http.post(
+      Uri.parse(url),
+      body: jsonData,
+      headers: {
+        'Content-Type':
+            'application/json', // strictly Add the Content-Type header
+      },
+    ).timeout(Duration(seconds: 10));
 
-  // make sure the await tag is included incase the statusCode shows underline error
-  if (response.statusCode == 200) {
-    print(
-        "the response has gone through and there is no problem at the flutter side");
-        var data = jsonDecode(response.body);
-    String timeOut = data['checkOutTime'];
-    timeInAndOutProvider.storeTimeOut(timeOut);
-    print(response.body);
-    return response.body;
-  } else {
-    print("the checkin is fucked at the server side");
+    // make sure the await tag is included incase the statusCode shows underline error
+    if (response.statusCode == 200) {
+      print(
+          "the response has gone through and there is no problem at the flutter side");
+      var data = jsonDecode(response.body);
+      String timeOut = data['checkOutTime'];
+      timeInAndOutProvider.storeTimeOut(timeOut);
+      print(response.body);
+      return true;
+    } else {
+      print("the checkin is fucked at the server side");
+      return false;
+    }
+  } catch (e) {
     return false;
   }
 }

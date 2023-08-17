@@ -93,7 +93,7 @@ class _ClockinState extends State<Clockin> {
             ' This device is not recognised as your registered device. Please use the device you used for creating an account.');
       });
     } else {
-      if (distance > 120) {
+      if (distance > 180) {
         setState(() {
           isDisabled = true;
           _buttonColor = Colors.red;
@@ -385,38 +385,63 @@ class _ClockinState extends State<Clockin> {
                                           isLoading = true;
                                         });
 
-                                        await checkIn(
+                                        var result = await checkIn(
                                             userCredential.id,
                                             currentTime.format(context),
                                             formattedDate.toString(),
                                             timeandout);
 
-                                        setState(() {
-                                          error = true;
-                                          isDisabled = true;
-                                          _buttonColor = Colors.red;
-                                          Provider.of<ErrorProvider>(
-                                            context,
-                                            listen: false,
-                                          ).upDate(
-                                              'You are done clocking in for today. You will clock out at the end of the day.');
-                                          isLoading = false;
-                                        });
+                                        if (result == true) {
+                                          setState(() {
+                                            error = true;
+                                            isDisabled = true;
+                                            _buttonColor = Colors.red;
+                                            Provider.of<ErrorProvider>(
+                                              context,
+                                              listen: false,
+                                            ).upDate(
+                                                'You are done clocking in for today. You will clock out at the end of the day.');
+                                            isLoading = false;
+                                          });
+                                        } else {
+                                          setState(() {
+                                            error = true;
+                                            Provider.of<ErrorProvider>(
+                                              context,
+                                              listen: false,
+                                            ).upDate2(
+                                                'There has been an error and you are unable to clock in.Check your internet connection.');
+                                            isLoading = false;
+                                          });
+                                        }
                                       } else {
                                         setState(() {
                                           isLoading = true;
                                         });
-                                        await checkOut(
+                                        var result = await checkOut(
                                             userCredential.id,
                                             currentTime.format(context),
-                                            formattedDate.toString(),timeandout);
+                                            formattedDate.toString(),
+                                            timeandout);
 
-                                        Navigator.pushAndRemoveUntil(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => Yes()),
-                                          (route) => false,
-                                        );
+                                        if (result == true) {
+                                          Navigator.pushAndRemoveUntil(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => Yes()),
+                                            (route) => false,
+                                          );
+                                        } else {
+                                          setState(() {
+                                            error = true;
+                                            Provider.of<ErrorProvider>(
+                                              context,
+                                              listen: false,
+                                            ).upDate2(
+                                                'There has been an error and you are unable to clock in.Check your internet connection.');
+                                            isLoading = false;
+                                          });
+                                        }
                                       }
                                     },
                               child: Card(
