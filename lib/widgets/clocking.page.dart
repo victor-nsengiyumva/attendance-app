@@ -28,6 +28,7 @@ class _ClockinState extends State<Clockin> {
     super.initState();
     checkLocation();
     getTime();
+    greetingandClockButtonTextUpdate();
     didcheckin();
     didcheckout();
   }
@@ -93,7 +94,7 @@ class _ClockinState extends State<Clockin> {
             ' This device is not recognised as your registered device. Please use the device you used for creating an account.');
       });
     } else {
-      if (distance > 180) {
+      if (distance > 200) {
         setState(() {
           isDisabled = true;
           _buttonColor = Colors.red;
@@ -178,16 +179,20 @@ class _ClockinState extends State<Clockin> {
     bool result = await checkRegisteredIn(
         userCredential.id, formattedDate, timeinandoutprovider);
     if (result == true) {
-      setState(() {
-        error = true;
-        isDisabled = true;
-        _buttonColor = Colors.red;
-        Provider.of<ErrorProvider>(
-          context,
-          listen: false,
-        ).upDate(
-            'You are done clocking in for today. You will clock out at the end of the day.');
-      });
+      if (buttonLabel == "Clock out") {
+        return;
+      } else {
+        setState(() {
+          error = true;
+          isDisabled = true;
+          _buttonColor = Colors.red;
+          Provider.of<ErrorProvider>(
+            context,
+            listen: false,
+          ).upDate(
+              'You are done clocking in for today. You will clock out at the end of the day.');
+        });
+      }
     }
   }
 
@@ -206,8 +211,6 @@ class _ClockinState extends State<Clockin> {
 
   @override
   Widget build(BuildContext context) {
-    greetingandClockButtonTextUpdate();
-
     var userCredential =
         Provider.of<UserProvider>(context, listen: true).getUser!;
     var location =
@@ -340,6 +343,7 @@ class _ClockinState extends State<Clockin> {
                                                   listen: false)
                                               .upDate2(timeNow);
                                           greetingandClockButtonTextUpdate();
+                                          checkLocation();
                                         });
                                       },
                                       icon: Icon(Icons.refresh)),
