@@ -3,6 +3,7 @@ import 'package:attendance/providers/location.provider.dart';
 import 'package:attendance/providers/timeInAndOut.provider.dart';
 import 'package:attendance/providers/timeNow.provider.dart';
 import 'package:attendance/providers/user.provider.dart';
+import 'package:attendance/providers/userCheckinsandCheckouts.provider.dart';
 import 'package:attendance/widgets/clocking.page.dart';
 import 'package:attendance/widgets/location.dart';
 import 'package:attendance/widgets/login.page.dart';
@@ -31,6 +32,7 @@ SystemChrome.setPreferredOrientations(
       ChangeNotifierProvider(create: (context) => ErrorProvider()),
       ChangeNotifierProvider(create: (context) => TimeProvider()),
       ChangeNotifierProvider(create: (context) => TimeInAndOutProvider()),
+      ChangeNotifierProvider(create: (context) => CheckinsAndoutsProvider()),
 
     ],
     child: const MyApp(),
