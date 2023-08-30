@@ -10,6 +10,7 @@ import '../main.dart';
 import '../providers/error.clockpageProvider.dart';
 import '../providers/timeInAndOut.provider.dart';
 import '../providers/user.provider.dart';
+import '../test.dart';
 
 class ProfileDialog extends StatefulWidget {
   const ProfileDialog({super.key});
@@ -94,7 +95,9 @@ class _ProfileDialogState extends State<ProfileDialog> {
                         ),
                       ),
                       InkWell(
-                        onTap: () => {},
+                        onTap: () => {
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Test()))
+                        },
                         child: Container(
                           decoration: BoxDecoration(
                               color: Color.fromARGB(255, 234, 246, 255),
