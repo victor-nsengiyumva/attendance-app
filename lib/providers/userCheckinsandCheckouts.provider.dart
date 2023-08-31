@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CheckinsAndoutsProvider extends ChangeNotifier {
-   List<String> _checkins = [];
-   List<String> _checkouts = [];
+   List<dynamic> _checkins = [];
+   List<dynamic> _checkouts = [];
 
   List get getcheckins => _checkins;
   List get getcheckouts => _checkouts;

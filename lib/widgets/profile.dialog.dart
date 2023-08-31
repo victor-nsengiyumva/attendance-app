@@ -66,7 +66,10 @@ class _ProfileDialogState extends State<ProfileDialog> {
                   child: Column(
                     children: [
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => const Test()));
+                        },
                         child: Container(
                           decoration: BoxDecoration(
                             color: Color.fromARGB(255, 234, 246, 255),
@@ -95,9 +98,7 @@ class _ProfileDialogState extends State<ProfileDialog> {
                         ),
                       ),
                       InkWell(
-                        onTap: () => {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Test()))
-                        },
+                        onTap: () => {},
                         child: Container(
                           decoration: BoxDecoration(
                               color: Color.fromARGB(255, 234, 246, 255),

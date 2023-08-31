@@ -1,7 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-userCheckins(userID) async {
+import '../providers/timeInAndOut.provider.dart';
+import '../providers/userCheckinsandCheckouts.provider.dart';
+
+userCheckins(userID, CheckinsAndoutsProvider checkinsAndoutsProvider) async {
   String url = 'http://192.168.43.145:3000/attendance/userCheckins';
 
   // you can listen to this server remotely by using this IPv4 address of the device and the port to listen on
@@ -18,8 +21,10 @@ userCheckins(userID) async {
   );
 
   if (response.statusCode == 200) {
-    // data = jsonDecode(response.body);
-    print(response.body);
+    var data2 = jsonDecode(response.body);
+
+    print(data2);
+    checkinsAndoutsProvider.addCheckins(data2);
   } else {
     print("the request didnt go through");
   }

@@ -1,3 +1,4 @@
+import 'package:attendance/providers/dateLogsProvider.dart';
 import 'package:attendance/providers/error.clockpageProvider.dart';
 import 'package:attendance/providers/location.provider.dart';
 import 'package:attendance/providers/timeInAndOut.provider.dart';
@@ -33,6 +34,7 @@ SystemChrome.setPreferredOrientations(
       ChangeNotifierProvider(create: (context) => TimeProvider()),
       ChangeNotifierProvider(create: (context) => TimeInAndOutProvider()),
       ChangeNotifierProvider(create: (context) => CheckinsAndoutsProvider()),
+      ChangeNotifierProvider(create: (context) => DateLogsModelProvider()),
 
     ],
     child: const MyApp(),
