@@ -11,6 +11,7 @@ import '../main.dart';
 import '../providers/error.clockpageProvider.dart';
 import '../providers/timeInAndOut.provider.dart';
 import '../providers/user.provider.dart';
+import '../test.dart';
 
 class Yes extends StatefulWidget {
   const Yes({super.key});
@@ -27,7 +28,7 @@ class _YesState extends State<Yes> {
     return SafeArea(
       child: Scaffold(
           bottomNavigationBar: Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10, bottom: 30),
+            padding: const EdgeInsets.only(left: 25, right: 25, bottom: 30),
             child: SizedBox(
               width: double.maxFinite,
               child: ElevatedButton(
@@ -51,7 +52,7 @@ class _YesState extends State<Yes> {
                         (Route<dynamic> route) => false);
                   },
                   child: const Padding(
-                    padding: EdgeInsets.all(12),
+                    padding: EdgeInsets.all(17),
                     child: Text(
                       'Done',
                       style:
@@ -235,7 +236,7 @@ class _YesState extends State<Yes> {
                         )),
                   ),
                   const SizedBox(
-                    height: 80,
+                    height: 40,
                   ),
                   const Expanded(
                       child: SingleChildScrollView(child: DoneCheckin())),
@@ -263,12 +264,27 @@ class _DoneCheckinState extends State<DoneCheckin> {
     return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
       Padding(
         padding: EdgeInsets.only(left: 6),
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            DateFormat('EEEE, d MMMM').format(DateTime.now()),
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                DateFormat('EEEE, d MMMM').format(DateTime.now()),
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => const Test()));
+              },
+              child: Padding (
+                padding:EdgeInsets.only(right:7),
+                child: Text("Logs",style: TextStyle(color:const Color.fromARGB(
+                          255, 0, 173, 238), fontWeight: FontWeight.bold,fontSize: 15),),
+              )),
+          ],
         ),
       ),
       const SizedBox(

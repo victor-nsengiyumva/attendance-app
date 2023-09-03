@@ -219,7 +219,7 @@ class _ClockinState extends State<Clockin> {
     return SafeArea(
       child: Scaffold(
         bottomNavigationBar: Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10, bottom: 30),
+          padding: const EdgeInsets.only(left: 25, right: 25, bottom: 30),
           child: SizedBox(
             width: double.maxFinite,
             child: ElevatedButton(
@@ -236,7 +236,7 @@ class _ClockinState extends State<Clockin> {
                       MaterialPageRoute(builder: (context) => const Yes()));
                 },
                 child: const Padding(
-                  padding: EdgeInsets.all(12),
+                  padding: EdgeInsets.all(17),
                   child: Text(
                     'Continue',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),

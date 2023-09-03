@@ -26,7 +26,7 @@ class _ProfileDialogState extends State<ProfileDialog> {
         Provider.of<UserProvider>(context, listen: true).getUser!;
     return Center(
         child: Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 5),
             child: Column(mainAxisSize: MainAxisSize.min, children: [
               Column(
                 mainAxisSize: MainAxisSize.max,
@@ -134,7 +134,7 @@ class _ProfileDialogState extends State<ProfileDialog> {
                         ),
                       ),
                       SizedBox(
-                        height: 40,
+                        height: 80,
                       ),
                       SizedBox(
                         width: double.maxFinite,
@@ -161,7 +161,7 @@ class _ProfileDialogState extends State<ProfileDialog> {
                                   (Route<dynamic> route) => false);
                             },
                             child: const Padding(
-                              padding: EdgeInsets.all(12),
+                              padding: EdgeInsets.all(17),
                               child: Text(
                                 'SignOut',
                                 style: TextStyle(
