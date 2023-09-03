@@ -86,7 +86,7 @@ class _ProfileDialogState extends State<ProfileDialog> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Attendance Logs',
+                                  'Attendance History',
                                 ),
                                 Icon(
                                   Icons.arrow_forward_ios,

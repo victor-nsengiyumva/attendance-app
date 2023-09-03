@@ -252,7 +252,7 @@ class _LoginPageState extends State<LoginPage> {
                                         }
                                       },
                                       child: const Padding(
-                                        padding: EdgeInsets.all(12),
+                                        padding: EdgeInsets.all(17),
                                         child: Text(
                                           'Submit',
                                           style: TextStyle(

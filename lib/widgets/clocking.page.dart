@@ -218,6 +218,7 @@ class _ClockinState extends State<Clockin> {
     var timeandout = Provider.of<TimeInAndOutProvider>(context, listen: true);
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Color.fromARGB(255, 235, 235, 235),
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.only(left: 25, right: 25, bottom: 30),
           child: SizedBox(
@@ -351,7 +352,7 @@ class _ClockinState extends State<Clockin> {
                               ],
                             ),
                             const SizedBox(
-                              height: 50,
+                              height: 20,
                             ),
                             Text(
                               Provider.of<TimeProvider>(context, listen: true)
@@ -370,150 +371,184 @@ class _ClockinState extends State<Clockin> {
                                   TextStyle(fontSize: 17, color: Colors.grey),
                             ),
                             const SizedBox(
-                              height: 40,
-                            ),
-                            InkWell(
-                              onTap: isDisabled
-                                  ? null
-                                  : () async {
-                                      DateTime currentDate = DateTime.now();
-                                      TimeOfDay currentTime = TimeOfDay.now();
-                                      String formattedDate =
-                                          DateFormat('d-MM-yyyy')
-                                              .format(currentDate);
-                                      setState(() {
-                                        greetingandClockButtonTextUpdate();
-                                      }); // this is incase the person hasnt hit the refresh so the big buttoon still says clock in instead of out
-                                      if (buttonLabel == 'Clock in') {
-                                        setState(() {
-                                          isLoading = true;
-                                        });
-
-                                        var result = await checkIn(
-                                            userCredential.id,
-                                            currentTime.format(context),
-                                            formattedDate.toString(),
-                                            timeandout);
-
-                                        if (result == true) {
-                                          setState(() {
-                                            error = true;
-                                            isDisabled = true;
-                                            _buttonColor = Colors.red;
-                                            Provider.of<ErrorProvider>(
-                                              context,
-                                              listen: false,
-                                            ).upDate(
-                                                'You are done clocking in for today. You will clock out at the end of the day.');
-                                            isLoading = false;
-                                          });
-                                        } else {
-                                          setState(() {
-                                            error = true;
-                                            Provider.of<ErrorProvider>(
-                                              context,
-                                              listen: false,
-                                            ).upDate2(
-                                                'There has been an error and you are unable to clock in.Check your internet connection.');
-                                            isLoading = false;
-                                          });
-                                        }
-                                      } else {
-                                        setState(() {
-                                          isLoading = true;
-                                        });
-                                        var result = await checkOut(
-                                            userCredential.id,
-                                            currentTime.format(context),
-                                            formattedDate.toString(),
-                                            timeandout);
-
-                                        if (result == true) {
-                                          Navigator.pushAndRemoveUntil(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) => Yes()),
-                                            (route) => false,
-                                          );
-                                        } else {
-                                          setState(() {
-                                            error = true;
-                                            Provider.of<ErrorProvider>(
-                                              context,
-                                              listen: false,
-                                            ).upDate2(
-                                                'There has been an error and you are unable to clock in.Check your internet connection.');
-                                            isLoading = false;
-                                          });
-                                        }
-                                      }
-                                    },
-                              child: Card(
-                                elevation: 6,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(95.0)),
-                                child: Container(
-                                  width: 190,
-                                  height: 190,
-                                  decoration: BoxDecoration(
-                                    color: _buttonColor,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Center(
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Image.asset(
-                                          'assets/images/tap.png',
-                                          height: 50,
-                                          width: 50,
-                                          color: Colors.white,
-                                        ),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                        Text(
-                                          buttonLabel,
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 30,
+                              height: 20,
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 30),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.location_pin,
-                                    size: 18,
-                                    color: Color.fromARGB(255, 0, 173, 238),
+                              padding:
+                                  const EdgeInsets.only(right: 20, left: 20),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10)),
+                                height: 300,
+                                width: double.maxFinite,
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      InkWell(
+                                        onTap: isDisabled
+                                            ? null
+                                            : () async {
+                                                DateTime currentDate =
+                                                    DateTime.now();
+                                                TimeOfDay currentTime =
+                                                    TimeOfDay.now();
+                                                String formattedDate =
+                                                    DateFormat('d-MM-yyyy')
+                                                        .format(currentDate);
+                                                setState(() {
+                                                  greetingandClockButtonTextUpdate();
+                                                }); // this is incase the person hasnt hit the refresh so the big buttoon still says clock in instead of out
+                                                if (buttonLabel == 'Clock in') {
+                                                  setState(() {
+                                                    isLoading = true;
+                                                  });
+                                
+                                                  var result = await checkIn(
+                                                      userCredential.id,
+                                                      currentTime
+                                                          .format(context),
+                                                      formattedDate.toString(),
+                                                      timeandout);
+                                
+                                                  if (result == true) {
+                                                    setState(() {
+                                                      error = true;
+                                                      isDisabled = true;
+                                                      _buttonColor = Colors.red;
+                                                      Provider.of<
+                                                          ErrorProvider>(
+                                                        context,
+                                                        listen: false,
+                                                      ).upDate(
+                                                          'You are done clocking in for today. You will clock out at the end of the day.');
+                                                      isLoading = false;
+                                                    });
+                                                  } else {
+                                                    setState(() {
+                                                      error = true;
+                                                      Provider.of<
+                                                          ErrorProvider>(
+                                                        context,
+                                                        listen: false,
+                                                      ).upDate2(
+                                                          'There has been an error and you are unable to clock in.Check your internet connection.');
+                                                      isLoading = false;
+                                                    });
+                                                  }
+                                                } else {
+                                                  setState(() {
+                                                    isLoading = true;
+                                                  });
+                                                  var result = await checkOut(
+                                                      userCredential.id,
+                                                      currentTime
+                                                          .format(context),
+                                                      formattedDate.toString(),
+                                                      timeandout);
+                                
+                                                  if (result == true) {
+                                                    Navigator
+                                                        .pushAndRemoveUntil(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              Yes()),
+                                                      (route) => false,
+                                                    );
+                                                  } else {
+                                                    setState(() {
+                                                      error = true;
+                                                      Provider.of<
+                                                          ErrorProvider>(
+                                                        context,
+                                                        listen: false,
+                                                      ).upDate2(
+                                                          'There has been an error and you are unable to clock in.Check your internet connection.');
+                                                      isLoading = false;
+                                                    });
+                                                  }
+                                                }
+                                              },
+                                        child: Card(
+                                          elevation: 6,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(95.0)),
+                                          child: Container(
+                                            width: 190,
+                                            height: 190,
+                                            decoration: BoxDecoration(
+                                              color: _buttonColor,
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: Center(
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Image.asset(
+                                                    'assets/images/tap.png',
+                                                    height: 50,
+                                                    width: 50,
+                                                    color: Colors.white,
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 15,
+                                                  ),
+                                                  Text(
+                                                    buttonLabel,
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 30,
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 30),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.location_pin,
+                                              size: 18,
+                                              color: Color.fromARGB(
+                                                  255, 0, 173, 238),
+                                            ),
+                                            SizedBox(
+                                              width: 5,
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 25),
+                                              child: SizedBox(
+                                                  width: 230,
+                                                  child: Text(
+                                                    'Location : ${location!.latitude} , ${location.longitude}',
+                                                    style: TextStyle(
+                                                        color: Colors.grey,
+                                                        overflow: TextOverflow
+                                                            .ellipsis),
+                                                  )),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 25),
-                                    child: SizedBox(
-                                        width: 230,
-                                        child: Text(
-                                          'Location : ${location!.latitude} , ${location.longitude}',
-                                          style: TextStyle(
-                                              color: Colors.grey,
-                                              overflow: TextOverflow.ellipsis),
-                                        )),
-                                  )
-                                ],
+                                ),
                               ),
                             ),
                             const SizedBox(

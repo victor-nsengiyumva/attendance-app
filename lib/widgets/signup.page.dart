@@ -335,7 +335,7 @@ class _SignupPageState extends State<SignupPage> {
                                         }
                                       },
                                       child: const Padding(
-                                        padding: EdgeInsets.all(12),
+                                        padding: EdgeInsets.all(17),
                                         child: Text(
                                           'Submit',
                                           style: TextStyle(
