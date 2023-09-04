@@ -54,6 +54,9 @@ class _ClockinState extends State<Clockin> {
   /// this variable activates the circular progress bar depending on the state of the page
   bool isLoading = false;
 
+  // variable controls state for refresh button
+  bool refresh = false;
+
   /// The getTime function gets the current time and updates the provider that feeds the UI of the
   /// clockin page
   getTime() {
@@ -94,7 +97,7 @@ class _ClockinState extends State<Clockin> {
             ' This device is not recognised as your registered device. Please use the device you used for creating an account.');
       });
     } else {
-      if (distance > 200) {
+      if (distance > 1000) {
         setState(() {
           isDisabled = true;
           _buttonColor = Colors.red;
@@ -107,6 +110,10 @@ class _ClockinState extends State<Clockin> {
         });
       }
     }
+
+    setState(() {
+      refresh = false;
+    });
   }
 
   /// this function calculates the period of the day ie. whether its morning or afternoon and updates the greeting variable
@@ -336,9 +343,10 @@ class _ClockinState extends State<Clockin> {
                                 Expanded(child: SizedBox()),
                                 Padding(
                                   padding: const EdgeInsets.only(right: 5),
-                                  child: IconButton(
-                                      onPressed: () {
+                                  child: InkWell(
+                                      onTap: () {
                                         setState(() {
+                                          refresh = true;
                                           TimeOfDay timeNow = TimeOfDay.now();
                                           Provider.of<TimeProvider>(context,
                                                   listen: false)
@@ -347,7 +355,31 @@ class _ClockinState extends State<Clockin> {
                                           checkLocation();
                                         });
                                       },
-                                      icon: Icon(Icons.refresh)),
+                                      child: Container(
+                                          height: 46,
+                                          width: 46,
+                                          decoration: BoxDecoration(
+                                              color: const Color.fromARGB(
+                                                  255, 234, 246, 255),
+                                              borderRadius:
+                                                  BorderRadius.circular(7)),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(10),
+                                            child: refresh
+                                                ? Center(
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      backgroundColor:
+                                                          Color.fromARGB(255,
+                                                              228, 227, 227),
+                                                      color: Color.fromARGB(
+                                                          255, 0, 173, 238),
+                                                    ),
+                                                  )
+                                                : Image.asset(
+                                                    "assets/images/refresh.png",
+                                                  ),
+                                          ))),
                                 )
                               ],
                             ),
@@ -404,14 +436,14 @@ class _ClockinState extends State<Clockin> {
                                                   setState(() {
                                                     isLoading = true;
                                                   });
-                                
+
                                                   var result = await checkIn(
                                                       userCredential.id,
                                                       currentTime
                                                           .format(context),
                                                       formattedDate.toString(),
                                                       timeandout);
-                                
+
                                                   if (result == true) {
                                                     setState(() {
                                                       error = true;
@@ -447,7 +479,7 @@ class _ClockinState extends State<Clockin> {
                                                           .format(context),
                                                       formattedDate.toString(),
                                                       timeandout);
-                                
+
                                                   if (result == true) {
                                                     Navigator
                                                         .pushAndRemoveUntil(
