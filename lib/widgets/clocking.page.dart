@@ -364,7 +364,7 @@ class _ClockinState extends State<Clockin> {
                                               borderRadius:
                                                   BorderRadius.circular(7)),
                                           child: Padding(
-                                            padding: const EdgeInsets.all(10),
+                                            padding: const EdgeInsets.all(12),
                                             child: refresh
                                                 ? Center(
                                                     child:

@@ -23,8 +23,8 @@ getDateLogs(BuildContext context) {
   }
 
   for (String date in dateList) {
-    String checkin = "";
-    String checkout = "";
+    String checkin = "- -";
+    String checkout = "- -";
 
     for (var item in checkinsList) {
       if (item["dateToday"] == date) {

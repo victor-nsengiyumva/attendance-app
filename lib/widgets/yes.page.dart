@@ -1,4 +1,5 @@
 import 'package:attendance/painter/billboard.dart';
+import 'package:attendance/widgets/attendanceHistory.dart';
 import 'package:attendance/widgets/login.page.dart';
 import 'package:attendance/widgets/profile.dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -277,7 +278,7 @@ class _DoneCheckinState extends State<DoneCheckin> {
             InkWell(
               onTap: () {
                 Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => const Test()));
+                              MaterialPageRoute(builder: (context) => const History()));
               },
               child: Padding (
                 padding:EdgeInsets.only(right:7),
