@@ -40,26 +40,28 @@ class _HistoryState extends State<History> {
         .getdateLogsList;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromARGB(255, 228, 227, 227),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(
           "Attendance",
           style: TextStyle(
-              color: Colors.black, fontSize: 21, fontWeight: FontWeight.bold),
+              color: Colors.white, fontSize: 21, fontWeight: FontWeight.bold),
         ),
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromARGB(255, 0, 173, 238),
       ),
       body: SingleChildScrollView(
         child: SafeArea(
             child: Column(
           children: [
+            SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
               child: Container(
                 height: 60,
                 decoration: BoxDecoration(
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
                     border: Border(
                       bottom:
@@ -118,6 +120,7 @@ class _HistoryState extends State<History> {
               padding: const EdgeInsets.only(left: 15, right: 15),
               child: Container(
                 decoration: BoxDecoration(
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
                     border: Border(
                       bottom:
@@ -135,68 +138,65 @@ class _HistoryState extends State<History> {
                     children: [
                       Row(
                         children: [
-                          Center(
-                              child: Padding(
-                            padding: const EdgeInsets.only(right: 20),
+                          Expanded(
                             child: Text(
                               "Date",
                               style: TextStyle(
                                   fontSize: 17, fontWeight: FontWeight.bold),
                             ),
-                          )),
-                          SizedBox(
-                            width: 30,
                           ),
                           Expanded(
-                              child: Center(
-                                  child: Text(
-                            "Check In",
-                            style: TextStyle(
-                                fontSize: 17, fontWeight: FontWeight.bold),
-                          ))),
-                          Expanded(
-                              child: Center(
-                                  child: Text(
-                            "Check Out",
-                            style: TextStyle(
-                                fontSize: 17, fontWeight: FontWeight.bold),
-                          ))),
-                        ],
-                      ),
-                      
-                      ...dateList.map((e) => Column(
-                        children: [
-                          Divider(
-                            thickness: 1.1,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10,top:10),
-                            child: Row(
-                              children: [
-                                Center(child: DateWidget(date: e.date)),
-                                SizedBox(
-                                  width: 40,
-                                ),
-                                Expanded(
-                                    child: Center(
-                                        child: Text(
-                                  e.checkinTime,
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                  ),
-                                ))),
-                                Expanded(
-                                    child: Center(
-                                        child: Text(e.checkoutTime,
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                            )))),
-                              ],
+                            child: Text(
+                              "Check In",
+                              style: TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.bold),
                             ),
                           ),
-                          
+                          Expanded(
+                            child: Center(
+                              child: Text(
+                                "Check Out",
+                                style: TextStyle(
+                                    fontSize: 17, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
                         ],
-                      ))
+                      ),
+                      SizedBox(height: 5),
+                      ...dateList.map((e) => Column(
+                            children: [
+                              Divider(
+                                thickness: 1.1,
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(bottom: 10, top: 10),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                        child: Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: DateWidget(date: e.date))),
+                                    Expanded(
+                                        child: Text(
+                                      e.checkinTime,
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                      ),
+                                    )),
+                                    Expanded(
+                                        child: Center(
+                                          child: Text(e.checkoutTime,
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                              )),
+                                        )),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ))
                     ],
                   ),
                 ),
