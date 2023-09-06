@@ -1,3 +1,4 @@
+import 'package:attendance/widgets/attendanceHistory.dart';
 import 'package:attendance/widgets/avatar.dart';
 import 'package:attendance/widgets/login.page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -68,7 +69,7 @@ class _ProfileDialogState extends State<ProfileDialog> {
                       InkWell(
                         onTap: () {
                           Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => const Test()));
+                              MaterialPageRoute(builder: (context) => History()));
                         },
                         child: Container(
                           decoration: BoxDecoration(
