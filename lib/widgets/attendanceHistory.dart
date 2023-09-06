@@ -163,33 +163,40 @@ class _HistoryState extends State<History> {
                           ))),
                         ],
                       ),
-                      SizedBox(height: 10,),
-                      Divider(
-                        thickness: 1.2,
-                      ),
-                      SizedBox(height: 10,),
-                      ...dateList.map((e) => Padding(
-                            padding: const EdgeInsets.only( bottom: 10),
-                            child: Column(
+                      
+                      ...dateList.map((e) => Column(
+                        children: [
+                          Divider(
+                            thickness: 1.1,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 10,top:10),
+                            child: Row(
                               children: [
-                                Row(
-                                  children: [
-                                    Center(child: DateWidget(date :e.date)),
-                                    SizedBox(
-                                      width: 40,
-                                    ),
-                                    Expanded(
-                                        child: Center(child: Text(e.checkinTime,style: TextStyle(fontSize: 15,),))),
-                                    Expanded(
-                                        child: Center(child: Text(e.checkoutTime,style: TextStyle(fontSize: 15,)))),
-                                  ],
+                                Center(child: DateWidget(date: e.date)),
+                                SizedBox(
+                                  width: 40,
                                 ),
-                                SizedBox(height: 10,),
-                                Divider(thickness: 1.1,)
+                                Expanded(
+                                    child: Center(
+                                        child: Text(
+                                  e.checkinTime,
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                  ),
+                                ))),
+                                Expanded(
+                                    child: Center(
+                                        child: Text(e.checkoutTime,
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                            )))),
                               ],
                             ),
-                          ))
-                      // Expanded(child: ListView.builder(itemBuilder: )),
+                          ),
+                          
+                        ],
+                      ))
                     ],
                   ),
                 ),
