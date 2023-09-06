@@ -40,7 +40,7 @@ class _HistoryState extends State<History> {
         .getdateLogsList;
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 228, 227, 227),
+      backgroundColor: Color.fromARGB(255, 247, 243, 243),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(
@@ -58,23 +58,28 @@ class _HistoryState extends State<History> {
             SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
-              child: Container(
-                height: 60,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border(
-                      bottom:
-                          BorderSide(color: Color.fromARGB(255, 221, 221, 221)),
-                      top:
-                          BorderSide(color: Color.fromARGB(255, 221, 221, 221)),
-                      left:
-                          BorderSide(color: Color.fromARGB(255, 221, 221, 221)),
-                      right:
-                          BorderSide(color: Color.fromARGB(255, 221, 221, 221)),
-                    )),
+              child: Card(
+                clipBehavior: Clip.antiAlias,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                elevation: 8,
+                // height: 60,
+                // decoration: BoxDecoration(
+                //     color: Colors.white,
+                //     borderRadius: BorderRadius.circular(10),
+                //     border: Border(
+                //       bottom:
+                //           BorderSide(color: Color.fromARGB(255, 221, 221, 221)),
+                //       top:
+                //           BorderSide(color: Color.fromARGB(255, 221, 221, 221)),
+                //       left:
+                //           BorderSide(color: Color.fromARGB(255, 221, 221, 221)),
+                //       right:
+                //           BorderSide(color: Color.fromARGB(255, 221, 221, 221)),
+                //     )),
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 25, right: 25),
+                  padding: const EdgeInsets.only(left: 25, right: 25,top: 20,bottom: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -118,22 +123,27 @@ class _HistoryState extends State<History> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 15, right: 15),
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border(
-                      bottom:
-                          BorderSide(color: Color.fromARGB(255, 221, 221, 221)),
-                      top:
-                          BorderSide(color: Color.fromARGB(255, 221, 221, 221)),
-                      left:
-                          BorderSide(color: Color.fromARGB(255, 221, 221, 221)),
-                      right:
-                          BorderSide(color: Color.fromARGB(255, 221, 221, 221)),
-                    )),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                elevation: 8,
+                color: Colors.white,
+                // decoration: BoxDecoration(
+                //     color: Colors.white,
+                //     borderRadius: BorderRadius.circular(10),
+                //     border: Border(
+                //       bottom:
+                //           BorderSide(color: Color.fromARGB(255, 221, 221, 221)),
+                //       top:
+                //           BorderSide(color: Color.fromARGB(255, 221, 221, 221)),
+                //       left:
+                //           BorderSide(color: Color.fromARGB(255, 221, 221, 221)),
+                //       right:
+                //           BorderSide(color: Color.fromARGB(255, 221, 221, 221)),
+                //     )),
                 child: Padding(
-                  padding: const EdgeInsets.all(15),
+                  padding: const EdgeInsets.all(20),
                   child: Column(
                     children: [
                       Row(
