@@ -134,16 +134,16 @@ class _YesState extends State<Yes> {
                                             BorderRadius.circular(10.0),
                                       ),
                                       contentPadding:
-                                          EdgeInsets.only(top: 20, bottom: 20),
+                                          EdgeInsets.only( bottom: 10),
                                       backgroundColor:
                                           Color.fromARGB(255, 255, 255, 255),
                                       title: Center(
                                           child: Padding(
-                                        padding: const EdgeInsets.only(top: 10),
+                                        padding: const EdgeInsets.only(top: 0),
                                         child: Text('Profile Settings'),
                                       )),
                                       content: SizedBox(
-                                          height: 450, child: ProfileDialog()),
+                                          height: 360, child: ProfileDialog()),
                                     );
                                   });
                             },
