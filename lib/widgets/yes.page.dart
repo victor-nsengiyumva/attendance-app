@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../backend.api/checkRegistered.dart';
 import '../main.dart';
+import '../providers/dateLogsProvider.dart';
 import '../providers/error.clockpageProvider.dart';
 import '../providers/timeInAndOut.provider.dart';
 import '../providers/user.provider.dart';
@@ -45,6 +46,8 @@ class _YesState extends State<Yes> {
                     Provider.of<TimeInAndOutProvider>(context, listen: false)
                         .clear();
                     Provider.of<ErrorProvider>(context, listen: false)
+                        .clear();
+                    Provider.of<DateLogsModelProvider>(context, listen: false)
                         .clear();
                     Navigator.pushAndRemoveUntil(
                         context,

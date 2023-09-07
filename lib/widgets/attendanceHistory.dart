@@ -22,7 +22,13 @@ class _HistoryState extends State<History> {
   @override
   void initState() {
     super.initState();
-    loadData();
+    var dateList = Provider.of<DateLogsModelProvider>(context, listen: false)
+        .getdateLogsList;
+    if (dateList.isEmpty) {
+      loadData();
+    } else {
+      isLoaded = false;
+    }
   }
 
   loadData() async {
@@ -32,8 +38,12 @@ class _HistoryState extends State<History> {
     await userCheckins(userID, checkinsAndoutsProvider);
     await userCheckouts(userID, checkinsAndoutsProvider);
     getDateLogs(context);
+    setState(() {
+      isLoaded = false;
+    });
   }
 
+  bool isLoaded = true;
   @override
   Widget build(BuildContext context) {
     var dateList = Provider.of<DateLogsModelProvider>(context, listen: false)
@@ -52,168 +62,155 @@ class _HistoryState extends State<History> {
         backgroundColor: Color.fromARGB(255, 0, 173, 238),
       ),
       body: SingleChildScrollView(
-        child: SafeArea(
-            child: Column(
-          children: [
-            SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
-              child: Card(
-                clipBehavior: Clip.antiAlias,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)
+        child: isLoaded
+            ? Center(
+                child: CircularProgressIndicator(
+                  backgroundColor: Color.fromARGB(255, 228, 227, 227),
+                  color: Color.fromARGB(255, 0, 173, 238),
                 ),
-                elevation: 8,
-                // height: 60,
-                // decoration: BoxDecoration(
-                //     color: Colors.white,
-                //     borderRadius: BorderRadius.circular(10),
-                //     border: Border(
-                //       bottom:
-                //           BorderSide(color: Color.fromARGB(255, 221, 221, 221)),
-                //       top:
-                //           BorderSide(color: Color.fromARGB(255, 221, 221, 221)),
-                //       left:
-                //           BorderSide(color: Color.fromARGB(255, 221, 221, 221)),
-                //       right:
-                //           BorderSide(color: Color.fromARGB(255, 221, 221, 221)),
-                //     )),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 25, right: 25,top: 20,bottom: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Icon(
-                        Icons.arrow_back_ios,
-                        color: Color.fromARGB(255, 150, 150, 150),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 15),
+              )
+            : SafeArea(
+                child: Column(
+                children: [
+                  SizedBox(height: 10),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(top: 10, left: 15, right: 15),
+                    child: Card(
+                      clipBehavior: Clip.antiAlias,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      elevation: 8,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 25, right: 25, top: 20, bottom: 20),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Icon(
-                              Icons.calendar_month,
-                              color: const Color.fromARGB(255, 0, 173, 238),
+                              Icons.arrow_back_ios,
+                              color: Color.fromARGB(255, 150, 150, 150),
                             ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "August 2023",
-                              style: TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.bold,
-                                color: const Color.fromARGB(255, 0, 173, 238),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 15),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.calendar_month,
+                                    color:
+                                        const Color.fromARGB(255, 0, 173, 238),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    "August 2023",
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold,
+                                      color: const Color.fromARGB(
+                                          255, 0, 173, 238),
+                                    ),
+                                  ),
+                                ],
                               ),
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              color: Color.fromARGB(255, 150, 150, 150),
                             ),
                           ],
                         ),
                       ),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        color: Color.fromARGB(255, 150, 150, 150),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15),
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)
-                ),
-                elevation: 8,
-                color: Colors.white,
-                // decoration: BoxDecoration(
-                //     color: Colors.white,
-                //     borderRadius: BorderRadius.circular(10),
-                //     border: Border(
-                //       bottom:
-                //           BorderSide(color: Color.fromARGB(255, 221, 221, 221)),
-                //       top:
-                //           BorderSide(color: Color.fromARGB(255, 221, 221, 221)),
-                //       left:
-                //           BorderSide(color: Color.fromARGB(255, 221, 221, 221)),
-                //       right:
-                //           BorderSide(color: Color.fromARGB(255, 221, 221, 221)),
-                //     )),
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              "Date",
-                              style: TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Expanded(
-                            child: Text(
-                              "Check In",
-                              style: TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Expanded(
-                            child: Center(
-                              child: Text(
-                                "Check Out",
-                                style: TextStyle(
-                                    fontSize: 17, fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 5),
-                      ...dateList.map((e) => Column(
-                            children: [
-                              Divider(
-                                thickness: 1.1,
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(bottom: 10, top: 10),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                        child: Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: DateWidget(date: e.date))),
-                                    Expanded(
-                                        child: Text(
-                                      e.checkinTime,
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                      ),
-                                    )),
-                                    Expanded(
-                                        child: Center(
-                                          child: Text(e.checkoutTime,
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                              )),
-                                        )),
-                                  ],
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      elevation: 8,
+                      color: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    "Date",
+                                    style: TextStyle(
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ))
-                    ],
-                  ),
-                ),
-              ),
-            )
-          ],
-        )),
+                                Expanded(
+                                  child: Text(
+                                    "Check In",
+                                    style: TextStyle(
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Center(
+                                    child: Text(
+                                      "Check Out",
+                                      style: TextStyle(
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 5),
+                            ...dateList.map((e) => Column(
+                                  children: [
+                                    Divider(
+                                      thickness: 1.1,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          bottom: 10, top: 10),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                              child: Align(
+                                                  alignment:
+                                                      Alignment.centerLeft,
+                                                  child: DateWidget(
+                                                      date: e.date))),
+                                          Expanded(
+                                              child: Text(
+                                            e.checkinTime,
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                            ),
+                                          )),
+                                          Expanded(
+                                              child: Center(
+                                            child: Text(e.checkoutTime,
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                )),
+                                          )),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ))
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              )),
       ),
     );
   }
