@@ -51,16 +51,16 @@ class _HistoryState extends State<History> {
 
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 247, 243, 243),
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text(
-          "Attendance",
-          style: TextStyle(
-              color: Colors.white, fontSize: 21, fontWeight: FontWeight.bold),
-        ),
-        elevation: 0,
-        backgroundColor: Color.fromARGB(255, 0, 173, 238),
-      ),
+      // appBar: AppBar(
+      //   automaticallyImplyLeading: false,
+      //   title: Text(
+      //     "Attendance",
+      //     style: TextStyle(
+      //         color: Colors.white, fontSize: 21, fontWeight: FontWeight.bold),
+      //   ),
+      //   elevation: 0,
+      //   backgroundColor: Color.fromARGB(255, 0, 173, 238),
+      // ),
       body: SingleChildScrollView(
         child: isLoaded
             ? Center(
@@ -72,6 +72,40 @@ class _HistoryState extends State<History> {
             : SafeArea(
                 child: Column(
                 children: [
+                  Container(
+                    color: const Color.fromARGB(255, 0, 173, 238),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 5, top: 5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.only(left: 15),
+                            child: Text(
+                              'ATTENDANCE',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Image.asset(
+                              'assets/images/logo_new.png',
+                              height: 80,
+                              width: 150,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: 10,
+                    width: double.maxFinite,
+                    color: const Color(0xFFD7DF23),
+                  ),
                   SizedBox(height: 10),
                   Padding(
                     padding:

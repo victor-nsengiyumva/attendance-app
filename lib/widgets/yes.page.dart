@@ -29,6 +29,8 @@ class _YesState extends State<Yes> {
         Provider.of<UserProvider>(context, listen: true).getUser!;
     return SafeArea(
       child: Scaffold(
+              backgroundColor: Color.fromARGB(255, 247, 243, 243),
+
           bottomNavigationBar: Padding(
             padding: const EdgeInsets.only(left: 25, right: 25, bottom: 30),
             child: SizedBox(
