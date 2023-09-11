@@ -5,7 +5,7 @@ import '../providers/timeInAndOut.provider.dart';
 import '../providers/userCheckinsandCheckouts.provider.dart';
 
 userCheckins(userID, CheckinsAndoutsProvider checkinsAndoutsProvider) async {
-  String url = 'http://192.168.43.145:3000/attendance/userCheckins';
+  String url = 'https://attendance-app-backend.up.railway.app/attendance/userCheckins';
 
   // you can listen to this server remotely by using this IPv4 address of the device and the port to listen on
   Map<dynamic, dynamic> data = {"userID": userID};

@@ -5,7 +5,7 @@ import '../providers/timeInAndOut.provider.dart';
 
 Future<dynamic> checkOut(int userID, String checkOutTime, String dateToday,
     TimeInAndOutProvider timeInAndOutProvider) async {
-  String url = 'http://192.168.43.145:3000/attendance/checkOut';
+  String url = 'https://attendance-app-backend.up.railway.app/attendance/checkOut';
 
   Map<String, dynamic> data = {
     "userID": userID,

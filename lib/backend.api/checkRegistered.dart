@@ -6,7 +6,7 @@ import '../providers/user.provider.dart';
 
 Future<bool> checkRegisteredIn(
     userID, dateToday, TimeInAndOutProvider timeinandoutprovider) async {
-  String url = 'http://192.168.43.145:3000/attendance/checkClockIn';
+  String url = 'https://attendance-app-backend.up.railway.app/attendance/checkClockIn';
 
   // you can listen to this server remotely by using this IPv4 address of the device and the port to listen on
   Map<dynamic, dynamic> data = {"userID": userID, "dateToday": dateToday};
