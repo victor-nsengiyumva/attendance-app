@@ -137,11 +137,10 @@ class _YesState extends State<Yes> {
                                           EdgeInsets.only( bottom: 10),
                                       backgroundColor:
                                           Color.fromARGB(255, 255, 255, 255),
-                                      title: Center(
-                                          child: Padding(
+                                      title: Padding(
                                         padding: const EdgeInsets.only(top: 0),
                                         child: Text('Profile Settings'),
-                                      )),
+                                      ),
                                       content: SizedBox(
                                           height: 360, child: ProfileDialog()),
                                     );

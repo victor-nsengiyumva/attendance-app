@@ -28,8 +28,8 @@ class _ProfileDialogState extends State<ProfileDialog> {
     return Center(
         child: Column(
           children: [
-            SizedBox(height: 10,),
-            Divider(thickness: 1.3,),
+            SizedBox(height: 20,),
+            // Divider(thickness: 1.3,),
                     SizedBox(height: 10,),
             Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20,),

@@ -43,7 +43,7 @@ Future<bool> checkRegisteredIn(
 
 Future<bool> checkRegisteredOut(
     userID, dateToday, TimeInAndOutProvider timeinandoutprovider) async {
-  String url = 'http://192.168.43.145:3000/attendance/checkClockOut';
+  String url = 'https://attendance-app-backend.up.railway.app/attendance/checkClockOut';
 
   // you can listen to this server remotely by using this IPv4 address of the device and the port to listen on
   Map<dynamic, dynamic> data = {"userID": userID, "dateToday": dateToday};
