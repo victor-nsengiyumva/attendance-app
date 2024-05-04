@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import '../providers/timeInAndOut.provider.dart';
-import '../providers/user.provider.dart';
 
 Future<bool> checkRegisteredIn(
     userID, dateToday, TimeInAndOutProvider timeinandoutprovider) async {

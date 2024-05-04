@@ -23,7 +23,6 @@ Future<dynamic> loginPF(String pf) async {
     },
   );
   if (response.statusCode == 200) {
-    String value = response.body;
     print(response.body);
     return response.body;
   } else {

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:attendance/widgets/clocking.page.dart';
-import 'package:attendance/widgets/yes.page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sms_otp_auto_verify/sms_otp_auto_verify.dart';

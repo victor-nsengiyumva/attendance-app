@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import '../providers/timeInAndOut.provider.dart';
 import '../providers/userCheckinsandCheckouts.provider.dart';
 
 userCheckouts(userID, CheckinsAndoutsProvider checkinsAndoutsProvider) async {

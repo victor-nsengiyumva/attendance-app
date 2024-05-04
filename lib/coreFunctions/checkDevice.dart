@@ -1,7 +1,5 @@
-import 'package:attendance/providers/user.provider.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 
 Future<bool> checkDevice(currentUserDeviceID) async {
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
