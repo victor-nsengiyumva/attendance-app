@@ -27,15 +27,12 @@ Future<dynamic> checkOut(int userID, String checkOutTime, String dateToday,
 
     // make sure the await tag is included incase the statusCode shows underline error
     if (response.statusCode == 200) {
-      print(
-          "the response has gone through and there is no problem at the flutter side");
+
       var data = jsonDecode(response.body);
       String timeOut = data['checkOutTime'];
       timeInAndOutProvider.storeTimeOut(timeOut);
-      print(response.body);
       return true;
     } else {
-      print("the checkin is fucked at the server side");
       return false;
     }
   } catch (e) {

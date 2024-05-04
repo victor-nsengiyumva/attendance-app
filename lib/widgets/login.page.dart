@@ -25,6 +25,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   final TextEditingController _emailField = TextEditingController();
+  // ignore: unused_field
   final TextEditingController _passwordField = TextEditingController();
   String errorText = '';
   bool loading = false;

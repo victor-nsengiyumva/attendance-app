@@ -28,10 +28,9 @@ Future<dynamic> signup(String PF, String email, String mobile_number,
 
   if (response.statusCode == 200) {
     response.body;
-    print(response.body);
+
     return response.body;
   } else {
-    print('status error ----------');
 
     return false;
   }

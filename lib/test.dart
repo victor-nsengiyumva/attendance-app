@@ -4,8 +4,7 @@ import 'package:attendance/providers/dateLogsProvider.dart';
 import 'package:attendance/providers/user.provider.dart';
 import 'package:attendance/providers/userCheckinsandCheckouts.provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+
 import 'package:provider/provider.dart';
 
 import 'backend.api/userCheckouts.dart';

@@ -44,17 +44,14 @@ class _OTPInputAutoState extends State<OTPInputAuto> {
 
   /// get signature code
   _getSignatureCode() async {
-    print("attempting to get the app signature");
     String? signature = await SmsVerification.getAppSignature();
     print("signature $signature");
   }
 
   /// listen sms
   _startListeningSms() {
-    print('i have started listing to the sms message');
 
     SmsVerification.startListeningSms().then((message) {
-              print('this is promising');
 
       setState(() {
         _otpCode = SmsVerification.getCode(message, intRegex);
@@ -65,7 +62,6 @@ class _OTPInputAutoState extends State<OTPInputAuto> {
   }
 
   _onSubmitOtp() {
-    print('auto retrieval has jam');
     setState(() {
       _isLoadingButton = !_isLoadingButton;
       _verifyOtpCode(_otpCode);
@@ -80,17 +76,14 @@ class _OTPInputAutoState extends State<OTPInputAuto> {
     setState(() {
       _otpCode = otpCode;
       if (otpCode.length == _otpCodeLength && isAutofill) {
-        print('here the code was autofilled');
         _enableButton = false;
         _isLoadingButton = true;
         _verifyOtpCode(otpCode);
       } else if (otpCode.length == _otpCodeLength && !isAutofill) {
-        print('here the code wasnt autofilled');
 
         _enableButton = true;
         _isLoadingButton = false;
       } else {
-        print('no idea what happened here');
         _enableButton = false;
       }
     });
@@ -114,9 +107,7 @@ class _OTPInputAutoState extends State<OTPInputAuto> {
           await auth.signInWithCredential(credential);
 
       if (userCredential.user == null) {
-        print('there was an error');
       } else {
-        print('yessssssssssssssssssssssssssssssssssssssss');
         Navigator.push(context, MaterialPageRoute(builder: (context) => const Clockin()));
       }
     });

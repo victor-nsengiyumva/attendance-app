@@ -112,7 +112,6 @@ class _LocationState extends State<Location> {
         setState(() {});
         if (permission == LocationPermission.denied) {
           _dialogCallback2();
-          print('ok you need to provide permission for the location');
           // Permissions are denied, next time you could try
           // requesting permissions again (this is also where
           // Android's shouldShowRequestPermissionRationale
@@ -124,7 +123,6 @@ class _LocationState extends State<Location> {
       }
 
       if (permission == LocationPermission.deniedForever) {
-        print('ok you need to provide permission for the location');
         _dialogCallback2();
 
         // Permissions are denied forever, handle appropriately.
@@ -143,7 +141,6 @@ class _LocationState extends State<Location> {
     print("${trueLocation.accuracy} ${trueLocation.altitude} ${trueLocation.latitude} ${trueLocation.longitude} ${trueLocation.speed} ${trueLocation.timestamp} ${trueLocation.heading} wooork");
       // return trueLocation;
     } catch (error) {
-      print(error);
     }
   }
 

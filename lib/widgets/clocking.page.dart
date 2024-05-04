@@ -77,7 +77,6 @@ class _ClockinState extends State<Clockin> {
     var userLatitude = double.parse(currentUser.location['latitude']);
     double distance = Geolocator.distanceBetween(
         position!.latitude, position.longitude, userLatitude, userLongitude);
-    print("$distance yessssssssssssssssssssssssssssssssssssss");
 
     /// The checkdevice function checks the database whether you are using the same device that you used to register with
     /// and grants clockin/out if you are using the device you used for registration.

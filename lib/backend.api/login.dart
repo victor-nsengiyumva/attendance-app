@@ -12,7 +12,6 @@ Future<dynamic> loginPF(String pf) async {
   };
 
   String jsonData = jsonEncode(data);
-  print(jsonData);
 
   final response = await http.post(
     Uri.parse(url),
@@ -23,10 +22,8 @@ Future<dynamic> loginPF(String pf) async {
     },
   );
   if (response.statusCode == 200) {
-    print(response.body);
     return response.body;
   } else {
-    print('status error ----------');
 
     return false;
   }

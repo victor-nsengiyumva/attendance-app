@@ -21,8 +21,6 @@ Future<bool> checkRegisteredIn(
     },
   );
   if (response.statusCode == 200) {
-    print('yeah this is working');
-    print(response.body);
     if (response.body != 'false') {
       data = jsonDecode(response.body);
       var time = data['checkInTime'];
@@ -33,8 +31,7 @@ Future<bool> checkRegisteredIn(
       return false;
     }
   } else {
-    print(response.body);
-    print('status error ----------------');
+  
 
     return false;
   }
@@ -58,8 +55,7 @@ Future<bool> checkRegisteredOut(
     },
   );
   if (response.statusCode == 200) {
-    print('yeah this is working');
-    print(response.body);
+  
 
     if (response.body != 'false') {
       data = jsonDecode(response.body);
@@ -71,8 +67,7 @@ Future<bool> checkRegisteredOut(
       return false;
     }
   } else {
-    print('status error ---------------');
-    print(response.body);
+  
     return false;
   }
 }

@@ -22,9 +22,7 @@ userCheckins(userID, CheckinsAndoutsProvider checkinsAndoutsProvider) async {
   if (response.statusCode == 200) {
     var data2 = jsonDecode(response.body);
 
-    print(data2);
     checkinsAndoutsProvider.addCheckins(data2);
   } else {
-    print("the request didnt go through");
   }
 }

@@ -13,17 +13,14 @@ phoneLogin(String number, BuildContext context) async {
     phoneNumber: number,
     verificationCompleted: (PhoneAuthCredential credential) async {
       await auth.signInWithCredential(credential);
-      print('auto login happened');
     },
     verificationFailed: (FirebaseAuthException e) {
       if (e.code == 'invalid-phone-number') {
-        print('The provided phone number is not valid.');
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => const LoginPage()));
       }
     },
     codeSent: (String verificationId, int? resendToken) async {
-      print('Entering here');
       // Update the UI - wait for the user to enter the SMS code
 
       Navigator.push(
@@ -37,7 +34,6 @@ phoneLogin(String number, BuildContext context) async {
     codeAutoRetrievalTimeout: (String verificationId) {
       // Navigator.push(
       //     context, MaterialPageRoute(builder: (context) => PhoneLoginPage()));
-      print('60 seconds have elapsed');
     },
   );
 }

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:intl/intl.dart';
 
 class DateWidget extends StatefulWidget {
-  String date;
-  DateWidget({super.key, required this.date});
+ final String date;
+ const DateWidget({super.key, required this.date});
 
   @override
   State<DateWidget> createState() => _DateWidgetState();

@@ -5,12 +5,8 @@ import 'package:attendance/providers/timeInAndOut.provider.dart';
 import 'package:attendance/providers/timeNow.provider.dart';
 import 'package:attendance/providers/user.provider.dart';
 import 'package:attendance/providers/userCheckinsandCheckouts.provider.dart';
-import 'package:attendance/widgets/clocking.page.dart';
 import 'package:attendance/widgets/location.dart';
-import 'package:attendance/widgets/login.page.dart';
-import 'package:attendance/widgets/signup.page.dart';
-import 'package:attendance/widgets/test.deviceinfo.dart';
-import 'package:attendance/widgets/yes.page.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

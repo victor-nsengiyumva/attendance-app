@@ -1,19 +1,17 @@
 import 'package:attendance/painter/billboard.dart';
 import 'package:attendance/widgets/attendanceHistory.dart';
-import 'package:attendance/widgets/login.page.dart';
 import 'package:attendance/widgets/profile.dialog.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import '../backend.api/checkRegistered.dart';
+
 import '../main.dart';
 import '../providers/dateLogsProvider.dart';
 import '../providers/error.clockpageProvider.dart';
 import '../providers/timeInAndOut.provider.dart';
 import '../providers/user.provider.dart';
-import '../test.dart';
 
 class Yes extends StatefulWidget {
   const Yes({super.key});
