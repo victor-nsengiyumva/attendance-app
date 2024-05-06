@@ -94,16 +94,17 @@ class _LoginPageState extends State<LoginPage> {
                             children: [
                               const Padding(
                                 padding: EdgeInsets.only(
-                                    top: 60, right: 20, left: 20, bottom: 30),
+                                    top: 40, right: 20, left: 20, bottom: 20),
                                 child: Text(
-                                  "APP-NAME",
+                                  "EMP-ACCESS",
                                   style: TextStyle(
+                                      color: Color.fromARGB(255, 0, 173, 238),
                                       fontWeight: FontWeight.w900,
                                       fontSize: 24),
                                 ),
                               ),
                               const Padding(
-                                padding: EdgeInsets.all(20),
+                                padding: EdgeInsets.all(10),
                                 child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
@@ -114,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                                     )),
                               ),
                               const Padding(
-                                padding: EdgeInsets.all(20),
+                                padding: EdgeInsets.all(10),
                                 child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
@@ -218,7 +219,7 @@ class _LoginPageState extends State<LoginPage> {
                                               DateFormat('d-MM-yyyy')
                                                   .format(currentDate);
 
-                                          /// here we are checking whether the user checked in and out 
+                                          /// here we are checking whether the user checked in and out
                                           /// where the time of in and out are then stored to show the user on the
                                           /// yes/home page
                                           bool result =
@@ -226,7 +227,7 @@ class _LoginPageState extends State<LoginPage> {
                                                   userID.id,
                                                   formattedDate,
                                                   timeinandout);
-                                              await checkRegisteredIn(userID.id,
+                                          await checkRegisteredIn(userID.id,
                                               formattedDate, timeinandout);
 
                                           /// if the user has already clocked out then take them to the home/yes page
@@ -253,10 +254,11 @@ class _LoginPageState extends State<LoginPage> {
                                         }
                                       },
                                       child: const Padding(
-                                        padding: EdgeInsets.all(17),
+                                        padding: EdgeInsets.all(13),
                                         child: Text(
                                           'Submit',
                                           style: TextStyle(
+                                              color: Colors.white,
                                               fontWeight: FontWeight.bold,
                                               fontSize: 17),
                                         ),

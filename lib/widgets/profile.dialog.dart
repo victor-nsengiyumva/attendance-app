@@ -65,8 +65,10 @@ class _ProfileDialogState extends State<ProfileDialog> {
                     children: [
                       InkWell(
                         onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => History()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => History()));
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -159,11 +161,13 @@ class _ProfileDialogState extends State<ProfileDialog> {
                                   (Route<dynamic> route) => false);
                             },
                             child: const Padding(
-                              padding: EdgeInsets.all(17),
+                              padding: EdgeInsets.all(13),
                               child: Text(
                                 'SignOut',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 17),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 17,
+                                    color: Colors.white),
                               ),
                             )),
                       ),

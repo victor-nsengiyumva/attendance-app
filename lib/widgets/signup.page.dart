@@ -116,16 +116,17 @@ class _SignupPageState extends State<SignupPage> {
                             children: [
                               const Padding(
                                 padding: EdgeInsets.only(
-                                    top: 40, right: 20, left: 20, bottom: 30),
+                                    top: 20, right: 20, left: 20, bottom: 20),
                                 child: Text(
-                                  "APP-NAME",
+                                  "EMP-ACCESS",
                                   style: TextStyle(
+                                      color: Color.fromARGB(255, 0, 173, 238),
                                       fontWeight: FontWeight.w900,
                                       fontSize: 24),
                                 ),
                               ),
                               const Padding(
-                                padding: EdgeInsets.all(20),
+                                padding: EdgeInsets.all(10),
                                 child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
@@ -308,7 +309,8 @@ class _SignupPageState extends State<SignupPage> {
                                           });
                                         } else {
                                           var response = await signup(
-                                              _PF.text.trim(), // this removes any leading or trailing white spaces to ease login with pf
+                                              _PF.text
+                                                  .trim(), // this removes any leading or trailing white spaces to ease login with pf
                                               _email.text,
                                               _phone_number.text,
                                               _selectedVal,
@@ -335,10 +337,11 @@ class _SignupPageState extends State<SignupPage> {
                                         }
                                       },
                                       child: const Padding(
-                                        padding: EdgeInsets.all(17),
+                                        padding: EdgeInsets.all(13),
                                         child: Text(
                                           'Submit',
                                           style: TextStyle(
+                                              color: Colors.white,
                                               fontWeight: FontWeight.bold,
                                               fontSize: 17),
                                         ),

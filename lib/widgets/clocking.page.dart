@@ -105,7 +105,7 @@ class _ClockinState extends State<Clockin> {
             context,
             listen: false,
           ).upDate(
-              'Your current location is beyond persmissible distance from your designated branch. Please be within allowable range to Clock in or out.');
+              'Your current location is beyond persmissible distance from your designated branch. Please be within range to Clock in or out.');
         });
       }
     }
@@ -226,7 +226,7 @@ class _ClockinState extends State<Clockin> {
       child: Scaffold(
         backgroundColor: Color.fromARGB(255, 235, 235, 235),
         bottomNavigationBar: Padding(
-          padding: const EdgeInsets.only(left: 25, right: 25, bottom: 30),
+          padding: const EdgeInsets.only(left: 25, right: 25, bottom: 20),
           child: SizedBox(
             width: double.maxFinite,
             child: ElevatedButton(
@@ -243,10 +243,13 @@ class _ClockinState extends State<Clockin> {
                       MaterialPageRoute(builder: (context) => const Yes()));
                 },
                 child: const Padding(
-                  padding: EdgeInsets.all(17),
+                  padding: EdgeInsets.all(13),
                   child: Text(
                     'Continue',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 17,
+                        color: Colors.white),
                   ),
                 )),
           ),
@@ -270,7 +273,7 @@ class _ClockinState extends State<Clockin> {
                           const Padding(
                             padding: EdgeInsets.only(left: 15),
                             child: Text(
-                              'APP-NAME',
+                              "EMP-ACCESS",
                               style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -601,7 +604,7 @@ class _ClockinState extends State<Clockin> {
                                                 255, 0, 173, 238),
                                           )),
                                       child: Padding(
-                                        padding: const EdgeInsets.all(17),
+                                        padding: const EdgeInsets.all(10),
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,

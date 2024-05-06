@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-
 import '../main.dart';
 import '../providers/dateLogsProvider.dart';
 import '../providers/error.clockpageProvider.dart';
@@ -43,8 +42,7 @@ class _YesState extends State<Yes> {
                   onPressed: () {
                     Provider.of<TimeInAndOutProvider>(context, listen: false)
                         .clear();
-                    Provider.of<ErrorProvider>(context, listen: false)
-                        .clear();
+                    Provider.of<ErrorProvider>(context, listen: false).clear();
                     Provider.of<DateLogsModelProvider>(context, listen: false)
                         .clear();
                     Navigator.pushAndRemoveUntil(
@@ -54,11 +52,13 @@ class _YesState extends State<Yes> {
                         (Route<dynamic> route) => false);
                   },
                   child: const Padding(
-                    padding: EdgeInsets.all(17),
+                    padding: EdgeInsets.all(13),
                     child: Text(
                       'Done',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17,
+                          color: Colors.white),
                     ),
                   )),
             ),
@@ -97,7 +97,7 @@ class _YesState extends State<Yes> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                userCredential.PF,
+                                "REF - ${userCredential.PF}",
                                 style: TextStyle(
                                     fontSize: 24, fontWeight: FontWeight.w700),
                               ),
@@ -113,7 +113,7 @@ class _YesState extends State<Yes> {
                                 height: 20,
                               ),
                               Text(
-                                'August 2023',
+                                'May 2024',
                                 style:
                                     TextStyle(fontSize: 17, color: Colors.grey),
                               ),
@@ -203,7 +203,7 @@ class _YesState extends State<Yes> {
                                     height: 10,
                                   ),
                                   Text(
-                                    '21',
+                                    '11',
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 20),
@@ -260,8 +260,7 @@ class DoneCheckin extends StatefulWidget {
 class _DoneCheckinState extends State<DoneCheckin> {
   @override
   Widget build(BuildContext context) {
-    var timeinandout =
-        Provider.of<TimeInAndOutProvider>(context, listen: true);
+    var timeinandout = Provider.of<TimeInAndOutProvider>(context, listen: true);
 
     return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
       Padding(
@@ -277,15 +276,20 @@ class _DoneCheckinState extends State<DoneCheckin> {
               ),
             ),
             InkWell(
-              onTap: () {
-                Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => const History()));
-              },
-              child: Padding (
-                padding:EdgeInsets.only(right:7),
-                child: Text("Logs",style: TextStyle(color:const Color.fromARGB(
-                          255, 0, 173, 238), fontWeight: FontWeight.bold,fontSize: 15),),
-              )),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const History()));
+                },
+                child: Padding(
+                  padding: EdgeInsets.only(right: 7),
+                  child: Text(
+                    "Logs",
+                    style: TextStyle(
+                        color: const Color.fromARGB(255, 0, 173, 238),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15),
+                  ),
+                )),
           ],
         ),
       ),
