@@ -1,16 +1,20 @@
-# attendance
+# Attendance App
 
-A new Flutter project.
+![Static Badge](https://img.shields.io/badge/Made%20with%20-%20Flutter%20-blue?style=for-the-badge)
 
-## Getting Started
+A mobile application used by employees to log the time they come into work and the time they leave and accepting clock in and clock out only when at location of designated employment premises. The app calculates overtime so that employees get compensation
 
-This project is a starting point for a Flutter application.
+## :sparkles: App Features
+- Authentication
+- Get user location in real time
+- clock in to work
+- clock out from work
+- view attendance logs overtime
+- calculate overtime
 
-A few resources to get you started if this is your first Flutter project:
+## Back-End
+The backend to this mobile application is an express application hosted on railway available here [Attendance App Backend](https://github.com/victor-nsengiyumva/attendance-app-backend)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🚀 Technologies
+- Flutter 3.19.3
+- Dart 3.3.1
